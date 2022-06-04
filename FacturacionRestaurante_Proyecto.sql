@@ -184,6 +184,7 @@ CREATE TABLE Gnrl.tblEmpleados(
 	Emp_Estado				BIT DEFAULT '1',
 	CONSTRAINT FK_tblEmpleados_tblUsuarios_Usuario_Creacion FOREIGN KEY (Emp_UsuarioCreacion) REFERENCES Acce.tblUsuarios (Usua_Id),
 	CONSTRAINT FK_tblEmpleados_tblUsuarios_Usuario_Modifica FOREIGN KEY (Emp_UsuarioModifica) REFERENCES Acce.[tblUsuarios] (Usua_Id),
+	CONSTRAINT CK_Emp_Sexo CHECK (Emp_Sexo IN ('F','M')),
 	CONSTRAINT FK_tblEmpleados_tblRoles_Rol_Id FOREIGN KEY (Rol_Id) REFERENCES Gnrl.tblRoles(Rol_Id)
 )
 GO
@@ -300,6 +301,7 @@ CREATE TABLE Vent.tblVentas(
 	CONSTRAINT FK_tblVentas_tblUsuarios_Usuario_Creacion FOREIGN KEY (Vent_UsuarioCreacion) REFERENCES Acce.tblUsuarios (Usua_Id),
 	CONSTRAINT FK_tblVentas_tblUsuarios_Usuario_Modifica FOREIGN KEY (Vent_UsuarioModifica) REFERENCES Acce.[tblUsuarios] (Usua_Id),
 	CONSTRAINT FK_tblVentas_tblClientes_Clie_Id FOREIGN KEY (Clie_Id) REFERENCES Gnrl.tblClientes (Clie_Id),
+	CONSTRAINT CK_Vent_Servicio CHECK (Vent_Servicio IN ('L','A','D')),
 	CONSTRAINT FK_tblVentas_tblEmpleados_Emp_Id FOREIGN KEY (Emp_Id) REFERENCES Gnrl.tblEmpleados (Emp_Id)
 )
 
