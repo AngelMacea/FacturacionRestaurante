@@ -173,7 +173,7 @@ CREATE TABLE Gnrl.tblEmpleados(
 	Emp_Nombres			NVARCHAR(50),
 	Emp_Apellidos		NVARCHAR(50),
 	Emp_Sexo			CHAR (1),
-	Emp_Edad			NVARCHAR(3),
+	Emp_Edad			INT,
 	EsCi_Id				INT,
 	Emp_Correo			NVARCHAR(50),
 	Rol_Id			INT,
