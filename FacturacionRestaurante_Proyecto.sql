@@ -126,18 +126,6 @@ CREATE TABLE Gnrl.tblClientes(
 	CONSTRAINT FK_tblClientes_tblUsuarios_Usuario_Modifica FOREIGN KEY (Clie_UsuarioModifica) REFERENCES Acce.[tblUsuarios] (Usua_Id),
 )
 
-CREATE TABLE Gnrl.tblTipoPagos(
-	TiPago_Id INT PRIMARY KEY IDENTITY(1,1),
-	TiPago_Descripcion NVARCHAR(50),
-	TiPago_UsuarioCreacion	INT,
-	TiPago_FechaCreacion		DATETIME DEFAULT CURRENT_TIMESTAMP,
-	TiPago_UsuarioModifica	INT DEFAULT NULL,
-	TiPago_FechaModifica		DATETIME DEFAULT NULL,
-	TiPago_Estado				BIT DEFAULT '1',
-	CONSTRAINT FK_tblTipoPagos_tblUsuarios_Usuario_Creacion FOREIGN KEY (TiPago_UsuarioCreacion) REFERENCES Acce.tblUsuarios (Usua_Id),
-	CONSTRAINT FK_tblTipoPagos_tblUsuarios_Usuario_Modifica FOREIGN KEY (TiPago_UsuarioModifica) REFERENCES Acce.[tblUsuarios] (Usua_Id),
-
-)
 
 CREATE TABLE Gnrl.tblComunidades(
 	Comu_Id				INT PRIMARY KEY IDENTITY(1,1),
