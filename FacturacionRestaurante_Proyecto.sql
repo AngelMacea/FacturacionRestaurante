@@ -1,8 +1,7 @@
 CREATE DATABASE FacturacionRestaurante
-
-
-use FacturacionRestaurante
-go
+GO
+USE FacturacionRestaurante
+GO
 
 /*
 TABLAS:
@@ -44,15 +43,9 @@ tblVentas: Vent_Id,Clie_Id, Vent_Fecha, Emp_Id,Vent_NoOrden, Vent_IVA, Vent_Desc
 tblVentaDetalles:VentDe_Id, Menu_Id, VentDe_Cantidad
 tblDetalleDeliveries:VentDel_Id, Vent_Id, Emp_Id, Com_Id
 
-
-
-
-
-
-
 */
 CREATE SCHEMA Acce
-
+GO
 CREATE TABLE Acce.tblUsuarios(
 	Usua_Id				INT PRIMARY KEY IDENTITY (1,1),
 	Emp_Id				INT, 
@@ -64,17 +57,17 @@ CREATE TABLE Acce.tblUsuarios(
 	Usua_FechaModifica		DATETIME DEFAULT NULL,
 	Usua_Estado				BIT DEFAULT '1',
 );
-
+GO
 ALTER TABLE [ACCE].[tblUsuarios]
 ADD CONSTRAINT FK_tblUsuarios_tblUsuarios_Usuario_Creacion FOREIGN KEY (Usua_UsuarioCreacion) REFERENCES Acce.tblUsuarios(Usua_Id)
 ALTER TABLE [ACCE].[tblUsuarios]
 ADD CONSTRAINT FK_tblUsuarios_tblUsuarios_Usuario_Modifica FOREIGN KEY (Usua_UsuarioModifica) REFERENCES Acce.tblUsuarios(Usua_Id)
 ALTER TABLE [ACCE].[tblUsuarios]
-ADD CONSTRAINT FK_tblUsuarios_tblEmpleados_Emp_Id FOREIGN KEY (Emp_Id) REFERENCES GERL.tblEmpleados (Emp_Id)
-
+ADD CONSTRAINT FK_tblUsuarios_tblEmpleados_Emp_Id FOREIGN KEY (Emp_Id) REFERENCES GNRL.tblEmpleados (Emp_Id)
+GO
 
 CREATE SCHEMA Gnrl
-
+GO
 
 CREATE TABLE Gnrl.tblPaises(
 	Pais_Id				INT PRIMARY KEY IDENTITY(1,1),
@@ -205,10 +198,10 @@ CREATE TABLE Gnrl.tblEmpleados(
 	CONSTRAINT FK_tblEmpleados_tblUsuarios_Usuario_Modifica FOREIGN KEY (Emp_UsuarioModifica) REFERENCES Acce.[tblUsuarios] (Usua_Id),
 	CONSTRAINT FK_tblEmpleados_tblRoles_Rol_Id FOREIGN KEY (Rol_Id) REFERENCES Gnrl.tblRoles(Rol_Id)
 )
-
+GO
 
 CREATE SCHEMA Inv
-
+GO
 CREATE TABLE Inv.tblAlmacenes(
 	Almc_Id				 INT PRIMARY KEY  IDENTITY (1,1),
 	Almc_Descripcion	 NVARCHAR(50),
@@ -298,9 +291,9 @@ CREATE TABLE Inv.tblCompraDetalles(
 	CONSTRAINT FK_tblCompraDetalles_tblUsuarios_Usuario_Creacion FOREIGN KEY (CompDe_UsuarioCreacion) REFERENCES Acce.tblUsuarios (Usua_Id),
 	CONSTRAINT FK_tblCompraDetalles_tblUsuarios_Usuario_Modifica FOREIGN KEY (CompDe_UsuarioModifica) REFERENCES Acce.[tblUsuarios] (Usua_Id),
 )
-
+GO
 CREATE SCHEMA Vent
-
+GO
 CREATE TABLE Vent.tblVentas(
 	Vent_Id INT PRIMARY KEY IDENTITY(1,1),
 	Clie_Id	INT,
