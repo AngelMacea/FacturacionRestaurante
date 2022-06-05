@@ -209,7 +209,7 @@ CREATE TABLE Inv.tblIngredientes(
 	Ingr_Stock			INT,
 	Prov_Id				INT,
 	Ingr_FechaCaducidad DATE,
-	Ingr_Estatus		CHAR(1),
+	Ingr_Estatus		CHAR(1) DEFAULT 'B',--B Bueno, V Vencido
 	Almc_Id				INT,
 	Ingr_UsuarioCreacion	 INT,
 	Ingr_FechaCreacion		 DATETIME DEFAULT CURRENT_TIMESTAMP,

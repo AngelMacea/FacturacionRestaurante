@@ -418,3 +418,362 @@ BEGIN
         Almc_FechaModifica = CURRENT_TIMESTAMP
 END
 GO
+
+--Tabla Ingredientes
+
+CREATE PROCEDURE Inv.tblIngredientes_Insert
+    @Ingr_Descripcion   INT,
+    @Ingr_Stock         INT,
+    @Prov_Id            INT,
+    @Ingr_FechaCaducidad DATE,
+    @Ingr_Estatus       CHAR(1),
+    @Almc_Id            INT,
+    @Ingr_UsuarioCreacion INT
+AS 
+BEGIN
+    INSERT INTO Inv.tblIngredientes (Ingr_Descripcion, Ingr_Stock, Prov_Id, Ingr_FechaCaducidad, Ingr_Estatus, Ingr_Almc_Id, Ingr_UsuarioCreacion, Ingr_FechaCreacion)
+    VALUES (@Ingr_Descripcion, @Ingr_Stock, @Prov_Id, @Ingr_FechaCaducidad, @Ingr_Estatus, @Ingr_Almc_Id, @Ingr_UsuarioCreacion, CURRENT_TIMESTAMP)
+END
+GO
+CREATE PROCEDURE Inv.tblIngredientes_Update
+    @Ingr_Id            INT,
+    @Ingr_Descripcion   INT,
+    @Ingr_Stock         INT,
+    @Prov_Id            INT,
+    @Ingr_FechaCaducidad DATE,
+    @Ingr_Estatus       CHAR(1),
+    @Almc_Id            INT,
+    @Ingr_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Inv.tblIngredientes
+    SET Ingr_Descripcion = @Ingr_Descripcion,
+        Ingr_Stock = @Ingr_Stock,
+        Prov_Id = @Prov_Id,
+        Ingr_FechaCaducidad = @Ingr_FechaCaducidad,
+        Ingr_Estatus = @Ingr_Estatus,
+        Almc_Id = @Almc_Id,
+        Ingr_UsuarioModifica = @Ingr_UsuarioModifica,
+        Ingr_FechaModifica = CURRENT_TIMESTAMP
+    WHERE Ingr_Id = @Ingr_Id
+END
+GO
+CREATE PROCEDURE Inv.tblIngredientes_Delete
+    @Ingr_Id    INT,
+    @Ingr_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Inv.tblIngredientes
+    SET Ingr_Estado = 0,
+        Ingr_UsuarioModifica = @Ingr_UsuarioModifica,
+        Ingr_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
+
+--Tabla Menus
+
+CREATE PROCEDURE Gnrl.tblMenus_Insert
+    @Menu_Descripcion   NVARCHAR(50),
+    @Menu_Precio        MONEY,
+    @Menu_UsuarioCreacion INT
+AS 
+BEGIN
+    INSERT INTO Gnrl.tblMenus (Menu_Descripcion, Menu_Precio, Menu_UsuarioCreacion, Menu_FechaCreacion)
+    VALUES (@Menu_Descripcion, @Menu_Precio, @Menu_UsuarioCreacion, CURRENT_TIMESTAMP)
+END
+GO
+CREATE PROCEDURE Gnrl.tblMenus_Update
+    @Menu_Id            INT,
+    @Menu_Descripcion   NVARCHAR(50),
+    @Menu_Precio        MONEY,
+    @Menu_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Gnrl.tblMenus
+    SET Menu_Descripcion = @Menu_Descripcion,
+        Menu_Precio = @Menu_Precio,
+        Menu_UsuarioModifica = @Menu_UsuarioModifica,
+        Menu_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
+CREATE PROCEDURE Gnrl.tblMenus_Delete
+    @Menu_Id    INT,
+    @Menu_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Gnrl.tblMenus
+    SET Menu_Estado = 0,
+        Menu_UsuarioModifica = @Menu_UsuarioModifica,
+        Menu_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
+
+--Tabla Menu Detalles
+
+CREATE PROCEDURE Gnrl.tblMenuDetalles_Insert
+    @Menu_Id		INT,
+	@Ingr_Id		INT,
+	@MenuDe_Cantidad INT,
+	@MenuDe_UsuarioCreacion	INT
+AS 
+BEGIN
+    INSERT INTO Gnrl.tblMenuDetalles (Menu_Id, Ingr_Id, MenuDe_Cantidad, MenuDe_UsuarioCreacion, MenuDe_FechaCreacion)
+    VALUES (@Menu_Id, @Ingr_Id, @MenuDe_Cantidad, @MenuDe_UsuarioCreacion, CURRENT_TIMESTAMP)
+END
+GO
+CREATE PROCEDURE Gnrl.tblMenuDetalles_Update
+    @MenuDe_Id        INT,
+    @Menu_Id		INT,
+	@Ingr_Id		INT,
+	@MenuDe_Cantidad INT,
+    @MenuDe_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Gnrl.tblMenuDetalles
+    SET Menu_Id = @Menu_Id,
+        Ingr_Id = @Ingr_Id,
+        MenuDe_Cantidad = @MenuDe_Cantidad,
+        MenuDe_UsuarioModifica = @MenuDe_UsuarioModifica,
+        MenuDe_FechaModifica = CURRENT_TIMESTAMP
+    WHERE MenuDe_Id = @MenuDe_Id  
+END
+GO
+CREATE PROCEDURE Gnrl.tblMenuDetalles_Delete
+    @MenuDe_Id        INT,
+    @MenuDe_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Gnrl.tblMenuDetalles
+    SET MenuDe_Estado = 0,
+        MenuDe_UsuarioModifica = @MenuDe_UsuarioModifica,
+        MenuDe_FechaModifica = CURRENT_TIMESTAMP
+END
+GO 
+
+--Tabla Compras
+
+CREATE PROCEDURE Gnrl.tblCompras_Insert
+    @Comp_Fecha     DATE,
+	@Comp_NoOrden   NVARCHAR(6),
+	@Comp_IVA		INT,
+	@Comp_UsuarioCreacion	 INT
+AS 
+BEGIN
+    INSERT INTO Gnrl.tblCompras (Comp_Fecha, Comp_NoOrden, Comp_IVA, Comp_UsuarioCreacion, Comp_FechaCreacion)
+    VALUES (@Comp_Fecha, @Comp_NoOrden, @Comp_IVA, @Comp_UsuarioCreacion, CURRENT_TIMESTAMP)
+END
+GO
+CREATE PROCEDURE Gnrl.tblCompras_Update
+    @Comp_Id        INT,
+    @Comp_Fecha     DATE,
+	@Comp_NoOrden   NVARCHAR(6),
+	@Comp_IVA		INT,
+    @Comp_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Gnrl.tblCompras
+    SET Comp_Fecha = Comp_Fecha,
+        Comp_NoOrden = Comp_NoOrden,
+        Comp_IVA = Comp_IVA,
+        Comp_UsuarioModifica = Comp_UsuarioModifica,
+        Comp_FechaModifica = CURRENT_TIMESTAMP
+    WHERE Comp_Id = @Comp_Id
+END
+GO
+CREATE PROCEDURE Gnrl.tblCompras_Delete
+    @Comp_Id        INT,
+    @Comp_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Gnrl.tblCompras
+    SET Comp_Estado = 0,
+        Comp_UsuarioModifica = @Comp_UsuarioModifica,
+        Comp_FechaModifica = CURRENT_TIMESTAMP
+    WHERE Comp_Id = @Comp_Id  
+END
+GO
+
+--Tabla Compras Detalles
+
+CREATE PROCEDURE Gnrl.tblCompraDetalles_Insert
+    @Comp_Id		INT,
+    @Ingr_Id		INT,
+	@CompDe_PrecioCompra MONEY,
+	@CompDe_Cantidad INT,
+	@CompDe_UsuarioCreacion	 INT
+AS 
+BEGIN
+    INSERT INTO Gnrl.tblCompraDetalles (Comp_Id, Ingr_Id, CompDe_PrecioCompra, CompDe_Cantidad, CompDe_UsuarioCreacion, CompDe_FechaCreacion)
+    VALUES (@Comp_Id, @Ingr_Id, @CompDe_PrecioCompra, @CompDe_Cantidad, @CompDe_UsuarioCreacion, CURRENT_TIMESTAMP)
+END
+GO
+CREATE PROCEDURE Gnrl.tblCompraDetalles_Update
+    @CompDe_Id      INT,
+	@Comp_Id		INT,
+	@Ingr_Id		INT,
+	@CompDe_PrecioCompra MONEY,
+	@CompDe_Cantidad INT,
+    @CompDe_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Gnrl.tblCompraDetalles
+    SET Comp_Id = @Comp_Id,
+        Ingr_Id = @Ingr_Id,
+        CompDe_PrecioCompra = @CompDe_PrecioCompra,
+        CompDe_Cantidad = @CompDe_Cantidad,
+        CompDe_UsuarioModifica = @CompDe_UsuarioModifica,
+        CompDe_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
+CREATE PROCEDURE Gnrl.tblCompraDetalles_Delete
+    @CompDe_Id      INT,
+    @CompDe_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Gnrl.tblCompraDetalles
+    SET CompDe_Estado = 0,
+        CompDe_UsuarioModifica = @CompDe_UsuarioModifica,
+        CompDe_FechaModifica = CURRENT_TIMESTAMP
+    WHERE CompDe_Id = @CompDe_Id
+END
+GO 
+
+--Tabla Ventas
+
+CREATE PROCEDURE Vent.tblVentas_Insert
+    @Clie_Id	    INT,
+	@Vent_Fecha     DATETIME,
+	@Emp_Id         INT,
+	@Vent_NoOrden   NVARCHAR(6),
+	@Vent_IVA       INT,
+	@Vent_Descuento MONEY,
+	@Vent_Servicio  CHAR(1),
+	@Vent_Observaciones NVARCHAR(50),
+	@Vent_UsuarioCreacion	 INT
+AS 
+BEGIN
+    INSERT INTO Vent.tblVentas 
+    (Clie_Id,Vent_Fecha, Emp_Id, Vent_NoOrden, Vent_IVA, Vent_Descuento, Vent_Servicio, Vent_Observaciones, Vent_UsuarioCreacion ,Vent_FechaCreacion)
+    VALUES (@Clie_Id, @Vent_Fecha, @Emp_Id, @Vent_NoOrden, @Vent_IVA, @Vent_Descuento, @Vent_Servicio, @Vent_Observaciones, @Vent_UsuarioCreacion, CURRENT_TIMESTAMP)
+END
+GO 
+CREATE PROCEDURE Vent.tblVentas_Update
+    @Vent_Id        INT,
+    @Clie_Id	    INT,
+	@Vent_Fecha     DATETIME,
+	@Emp_Id         INT,
+	@Vent_NoOrden   NVARCHAR(6),
+	@Vent_IVA       INT,
+	@Vent_Descuento MONEY,
+	@Vent_Servicio  CHAR(1),
+	@Vent_Observaciones NVARCHAR(50),
+    @Vent_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Vent.tblVentas
+    SET Clie_Id = @Clie_Id,
+        Vent_Fecha = @Vent_Fecha,
+        Emp_Id = @Emp_Id,
+        Vent_NoOrden = @Vent_NoOrden,
+        Vent_IVA = @Vent_IVA,
+        Vent_Descuento = @Vent_Descuento,
+        Vent_Servicio = @Vent_Servicio,
+        Vent_Observaciones = @Vent_Observaciones,
+        Vent_UsuarioModifica = @Vent_UsuarioModifica,
+        Vent_FechaModifica = CURRENT_TIMESTAMP
+    WHERE Vent_Id = @Vent_Id
+END
+GO
+CREATE PROCEDURE Vent.tblVentas_Delete
+    @Vent_Id    INT,
+    @Vent_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Vent.tblVentas
+    SET Vent_Estado = 0,
+        Vent_UsuarioModifica = @Vent_UsuarioModifica,
+        Vent_FechaModifica = CURRENT_TIMESTAMP
+    WHERE Vent_Id = @Vent_Id
+END
+GO
+
+--Tabla Venta Detalles
+
+CREATE PROCEDURE Vent.tblVentaDetalles_Insert
+    @Menu_Id		    INT,
+	@VentDe_Cantidad INT,
+	@VentDe_UsuarioCreacion	 INT
+AS 
+BEGIN
+    INSERT INTO Vent.tblVentaDetalles 
+    (Menu_Id, VentDe_Cantidad, VentDe_UsuarioCreacion, VentDe_FechaCreacion)
+    VALUES (@Menu_Id, @VentDe_Cantidad, @VentDe_UsuarioCreacion, CURRENT_TIMESTAMP)
+END
+GO
+CREATE PROCEDURE Vent.tblVentaDetalles_Update
+    @VentDe_Id      INT,
+    @Menu_Id	    INT,
+	@VentDe_Cantidad INT,
+    @VentDe_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Vent.tblVentaDetalles
+    SET Menu_Id = @Menu_Id,
+        VentDe_Cantidad = @VentDe_Cantidad,
+        VentDe_UsuarioModifica = @VentDe_UsuarioModifica,
+        VentDe_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
+CREATE PROCEDURE Vent.tblVentaDetalles_Delete
+    @VentDe_Id      INT,
+    @VentDe_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Vent.tblVentaDetalles
+    SET VentDe_Estado = 0,
+        VentDe_UsuarioModifica = @VentDe_UsuarioModifica,
+        VentDe_FechaModifica = CURRENT_TIMESTAMP
+    WHERE VentDe_Id = @VentDe_Id
+END
+GO
+
+--Tabla Domicilio Detalles
+
+CREATE PROCEDURE Vent.tblDomicilioDetalles_Insert
+    @Vent_Id    INT,
+	@Emp_Id     INT,
+	@Comu_Id    INT,
+	@VentDol_UsuarioCreacion	 INT
+AS 
+BEGIN
+    INSERT INTO Vent.tblDomicilioDetalles (Vent_Id, Emp_Id, Comu_Id, VentDol_UsuarioCreacion, VentDol_FechaCreacion)
+    VALUES (@Vent_Id, @Emp_Id, @Comu_Id, @VentDol_UsuarioCreacion, CURRENT_TIMESTAMP)
+END
+GO
+CREATE PROCEDURE Vent.tblDomicilioDetalles_Update
+    @VentDol_Id INT,
+    @Vent_Id    INT,
+	@Emp_Id     INT,
+	@Comu_Id    INT,
+    @VentDol_UsuarioModifica INT
+AS
+BEGIN
+    UPDATE Vent.tblDomicilioDetalles
+    SET Vent_Id = Vent_Id,
+        Emp_Id = @Emp_Id,
+        Comu_Id = @Comu_Id,
+        VentDol_UsuarioModifica = @VentDol_UsuarioModifica,
+        VentDol_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
+CREATE PROCEDURE Vent.tblDomicilioDetalles_Delete
+    @VentDol_Id     INT,
+    @VentDol_UsuarioModifica INT
+AS 
+BEGIN
+    UPDATE Vent.tblDomicilioDetalles
+    SET VentDol_Estado = 0,
+        VentDol_UsuarioModifica = @VentDol_UsuarioModifica,
+        VentDol_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
