@@ -1,7 +1,7 @@
 USE FacturacionRestaurante
 GO
 --Tabla Usuarios
-CREATE PROCEDURE Acce.tblUsuarios_Insert
+CREATE PROCEDURE Acce.UDP_tblUsuarios_Insert
     @Emp_Id         INT,
     @Usua_Usuario   NVARCHAR(50),
     @Usua_Pass      NVARCHAR(50),
@@ -12,7 +12,7 @@ BEGIN
     VALUES (@Emp_Id, @Usua_Usuario, @Usua_Pass, @Usua_UsuarioCreacion)
 END
 GO
-CREATE PROCEDURE Acce.tblUsuarios_Update
+CREATE PROCEDURE Acce.UDP_tblUsuarios_Update
     @Usua_Id        INT,
     @Emp_Id         INT,
     @Usua_Usuario   NVARCHAR(50),
@@ -29,7 +29,7 @@ BEGIN
     WHERE Usua_Id = @Usua_Id
 END
 GO
-CREATE PROCEDURE Acce.tblUsuarios_Delete
+CREATE PROCEDURE Acce.UDP_tblUsuarios_Delete
     @Usua_Id    INT,
     @Usua_UsuarioModifica INT
 AS
@@ -44,7 +44,7 @@ GO
 
 --Tabla Paises
 
-CREATE PROCEDURE Gnrl.tblPaises_Insert
+CREATE PROCEDURE Gnrl.UDP_tblPaises_Insert
     @Pais_Descripcion   NVARCHAR(50),
     @Pais_UsuarioCreacion   INT   
 AS
@@ -53,7 +53,7 @@ BEGIN
     VALUES(@Pais_Descripcion, @Pais_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblPaises_Update
+CREATE PROCEDURE Gnrl.UDP_tblPaises_Update
     @Pais_Id    INT,
     @Pais_Descripcion NVARCHAR(50),
     @Pais_UsuarioModifica INT
@@ -66,7 +66,7 @@ BEGIN
     WHERE  Pais_Id = @Pais_Id
 END
 GO
-CREATE PROCEDURE Gnrl.tblPaises_Delete
+CREATE PROCEDURE Gnrl.UDP_tblPaises_Delete
     @Pais_Id    INT,
     @Pais_UsuarioModifica INT
 AS
@@ -81,7 +81,7 @@ GO
 
 --Tabla Ciudades
 
-CREATE PROCEDURE Gnrl.tblCiudades_Insert
+CREATE PROCEDURE Gnrl.UDP_tblCiudades_Insert
     @Ciud_Descripcion   NVARCHAR(50),
     @Pais_Id            INT,
     @Ciud_UsuarioCreacion INT
@@ -91,7 +91,7 @@ BEGIN
     VALUES (@Ciud_Descripcion, @Pais_Id, @Ciud_UsuarioCreacion)
 END
 GO
-CREATE PROCEDURE Gnrl.tblCiudades_Upgrade
+CREATE PROCEDURE Gnrl.UDP_tblCiudades_Upgrade
     @Ciud_Id    INT,
     @Ciud_Descripcion NVARCHAR(50),
     @Pais_Id    INT,
@@ -105,7 +105,7 @@ BEGIN
         Ciud_FechaModifica = CURRENT_TIMESTAMP
 END
 GO
-CREATE PROCEDURE Gnrl.tblCiudades_Delete
+CREATE PROCEDURE Gnrl.UDP_tblCiudades_Delete
     @Ciud_Id    INT,
     @Ciud_UsuarioModifica INT
 AS 
@@ -120,7 +120,7 @@ GO
 
 --Tabla Proveedores
 
-CREATE PROCEDURE Gnrl.tblProveedores_Insert
+CREATE PROCEDURE Gnrl.UDP_tblProveedores_Insert
     @Prov_Descripcion   NVARCHAR(50),
     @Prov_Tel           NVARCHAR(20),
     @Prov_Ciudad        INT,
@@ -131,7 +131,7 @@ BEGIN
     VALUES (@Prov_Descripcion, @Prov_Tel, @Prov_Ciudad, @Prov_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblProveedores_Update
+CREATE PROCEDURE Gnrl.UDP_tblProveedores_Update
     @Prov_Id    INT,
     @Prov_Descripcion NVARCHAR(50),
     @Prov_Tel   NVARCHAR(50),
@@ -148,7 +148,7 @@ BEGIN
     WHERE Prov_Id = @Prov_Id
 END
 GO
-CREATE PROCEDURE Gnrl.tblProveedores_Delete
+CREATE PROCEDURE Gnrl.UDP_tblProveedores_Delete
     @Prov_Id    INT,
     @Prov_UsuarioModifica INT
 
@@ -163,7 +163,7 @@ END
 GO
 
 --Tabla Clientes 
-CREATE PROCEDURE Gnrl.tblClientes_Insert
+CREATE PROCEDURE Gnrl.UDP_tblClientes_Insert
     @Clie_Identidad     NVARCHAR(15),
     @Clie_Nombres       NVARCHAR(50),
     @Clie_Apellidos     NVARCHAR(50),
@@ -172,11 +172,11 @@ CREATE PROCEDURE Gnrl.tblClientes_Insert
     @Clie_UsuarioCreacion INT
 AS
 BEGIN
-    INSERT INTO Gnrl.tblClientes (Clie_Identidad, Clie_Nombres, Clie_Apellidos,Clie_Sexo, Clie_Tel, Clie_UsuarioCreacion, Clie_FechaCreacion)
+    INSERT INTO Gnrl.tblClientes (Clie_Identificacion, Clie_Nombres, Clie_Apellidos,Clie_Sexo, Clie_Tel, Clie_UsuarioCreacion, Clie_FechaCreacion)
     VALUES (@Clie_Identidad, @Clie_Nombres, @Clie_Apellidos, @Clie_Sexo, @Clie_Tel, @Clie_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblClientes_Update
+CREATE PROCEDURE Gnrl.UDP_tblClientes_Update
     @Clie_Id    INT,
     @Clie_Identidad NVARCHAR(15),
     @Clie_Nombres   NVARCHAR(50),
@@ -187,7 +187,7 @@ CREATE PROCEDURE Gnrl.tblClientes_Update
 AS 
 BEGIN
     UPDATE Gnrl.tblClientes
-    SET Clie_Identidad = @Clie_Identidad,
+    SET Clie_Identificacion = @Clie_Identidad,
         Clie_Nombres = @Clie_Nombres, 
         Clie_Apellidos = @Clie_Apellidos, 
         Clie_Sexo = @Clie_Sexo,
@@ -197,7 +197,7 @@ BEGIN
     WHERE Clie_Id = @Clie_Id
 END
 GO  
-CREATE PROCEDURE Gnrl.tblClientes_Delete
+CREATE PROCEDURE Gnrl.UDP_tblClientes_Delete
     @Clie_Id    INT,
     @Clie_UsuarioModifica INT
 AS
@@ -210,7 +210,7 @@ BEGIN
 END
 GO
 --Tabla Comunidades
-CREATE PROCEDURE Gnrl.tblComunidades_Insert
+CREATE PROCEDURE Gnrl.UDP_tblComunidades_Insert
     @Comu_Descripcion   NVARCHAR(50),
     @Ciud_Id            INT,
     @Comu_TarifaEnvio   MONEY,
@@ -221,7 +221,7 @@ BEGIN
     VALUES  (@Comu_Descripcion, @Ciud_Id, @Comu_TarifaEnvio, @Comu_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblComunidades_Update
+CREATE PROCEDURE Gnrl.UDP_tblComunidades_Update
     @Comu_Id    INT,
     @Comu_Descripcion   NVARCHAR(50),
     @Ciud_Id            INT,
@@ -238,14 +238,14 @@ BEGIN
     WHERE Comu_Id = @Comu_Id
 END
 GO
-CREATE PROCEDURE Gnrl.tblComunidades_Delete
+CREATE PROCEDURE Gnrl.UDP_tblComunidades_Delete
     @Comu_Id    INT,
     @Comu_UsuarioModifica INT
 AS 
 BEGIN
     UPDATE Gnrl.tblComunidades
     SET Comu_Estado = 0,
-        Comu_UsuarioModifica = @Comu_UsuarioModificam,
+        Comu_UsuarioModifica = @Comu_UsuarioModifica,
         Comu_FechaModifica = CURRENT_TIMESTAMP
     WHERE Comu_Id = @Comu_Id
 END
@@ -253,7 +253,7 @@ GO
 
 --Tabla Estados Civiles
 
-CREATE PROCEDURE Gnrl.tblEstadoCiviles_Insert
+CREATE PROCEDURE Gnrl.UDP_tblEstadoCiviles_Insert
     @EsCi_Descrip   VARCHAR(50),
     @EsCi_UsuarioCreacion INT
 AS
@@ -262,7 +262,7 @@ BEGIN
     VALUES (@EsCi_Descrip,@EsCi_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblEstadoCiviles_Update
+CREATE PROCEDURE Gnrl.UDP_tblEstadoCiviles_Update
     @EsCi_Id    INT,
     @EsCi_Descrip VARCHAR(50),
     @EsCi_UsuarioModifica INT
@@ -275,7 +275,7 @@ BEGIN
     WHERE EsCi_Id = @EsCi_Id
 END
 GO 
-CREATE PROCEDURE Gnrl.tblEstadoCiviles_Delete
+CREATE PROCEDURE Gnrl.UDP_tblEstadoCiviles_Delete
     @EsCi_Id    INT,
     @EsCi_UsuarioModifica NVARCHAR(50)
 AS 
@@ -290,7 +290,7 @@ GO
 
 --Tabla Roles
 
-CREATE PROCEDURE Gnrl.tblRoles_Insert
+CREATE PROCEDURE Gnrl.UDP_tblRoles_Insert
     @Rol_Descripcion NVARCHAR(50),
     @Rol_UsuarioCreacion INT
 AS 
@@ -299,7 +299,7 @@ BEGIN
     VALUES (@Rol_Descripcion, @Rol_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblRoles_Update
+CREATE PROCEDURE Gnrl.UDP_tblRoles_Update
     @Rol_Id     INT,
     @Rol_Descripcion NVARCHAR(50),
     @Rol_UsuarioModifica INT
@@ -312,7 +312,7 @@ BEGIN
     WHERE Rol_Id = @Rol_Id
 END
 GO
-CREATE PROCEDURE Gnrl.tblRoles_Delete
+CREATE PROCEDURE Gnrl.UDP_tblRoles_Delete
     @Rol_Id     INT,
     @Rol_UsuarioModifica INT
 AS 
@@ -320,14 +320,14 @@ BEGIN
     UPDATE tblRoles
     SET Rol_Estado = 0,
         Rol_UsuarioModifica = @Rol_UsuarioModifica,
-        Rol_FechaModifica = @Rol_FechaModifica
+        Rol_FechaModifica = CURRENT_TIMESTAMP
     WHERE Rol_Id = @Rol_Id
 END
 GO
 
 --Tabla Empleados
 
-CREATE PROCEDURE Gnrl.tblEmpleados_Insert
+CREATE PROCEDURE Gnrl.UDP_tblEmpleados_Insert
     @Emp_Identidad  VARCHAR(13),
     @Emp_Nombres    NVARCHAR(50),
     @Emp_Apellidos  NVARCHAR(50),
@@ -343,7 +343,7 @@ BEGIN
     VALUES(@Emp_Identidad ,@Emp_Nombres, @Emp_Apellidos, @Emp_Sexo, @Emp_Edad, @EsCi_Id, @Emp_Correo, @Rol_Id, @Emp_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblEmpleados_Update
+CREATE PROCEDURE Gnrl.UDP_tblEmpleados_Update
     @Emp_Id         INT,
     @Emp_Identidad  VARCHAR(13),
     @Emp_Nombres    NVARCHAR(50),
@@ -353,7 +353,8 @@ CREATE PROCEDURE Gnrl.tblEmpleados_Update
     @EsCi_Id        INT,
     @Emp_Correo     NVARCHAR(50),
     @Rol_Id         INT,
-    @Emp_UsuarioModifica INT
+    @Emp_UsuarioModifica INT,
+    @Emp_FechaModifica DATE
 AS 
 BEGIN
     UPDATE Gnrl.tblEmpleados
@@ -370,7 +371,7 @@ BEGIN
     WHERE Emp_Id = @Emp_Id
 END
 GO
-CREATE PROCEDURE Gnrl.tblEmpleados_Delete
+CREATE PROCEDURE Gnrl.UDP_tblEmpleados_Delete
     @Emp_Id     INT,
     @Emp_UsuarioModifica INT
 AS
@@ -384,7 +385,7 @@ GO
 
 --Tabla Almacenes
 
-CREATE PROCEDURE Inv.tblAlmacenes_Insert
+CREATE PROCEDURE Inv.UDP_tblAlmacenes_Insert
     @Almc_Descripcion   NVARCHAR(50),
     @Almc_UsuarioCreacion INT
 AS 
@@ -393,7 +394,7 @@ BEGIN
     VALUES (@Almc_Descripcion, @Almc_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Inv.tblAlmacenes_Update
+CREATE PROCEDURE Inv.UDP_tblAlmacenes_Update
     @Almc_Id    INT,
     @Almc_Descripcion NVARCHAR(50),
     @Almc_UsuarioModifica INT
@@ -406,14 +407,13 @@ BEGIN
     WHERE Almc_Id = @Almc_Id
 END
 GO 
-CREATE PROCEDURE Inv.tblAlmacenes_Delete
+CREATE PROCEDURE Inv.UDP_tblAlmacenes_Delete
     @Almc_Id    INT,
     @Almc_UsuarioModifica INT
 AS
 BEGIN
     UPDATE Inv.tblAlmacenes
     SET Almc_Estado = 0,
-        Almc_Descripcion = @Almc_Descripcion,
         Almc_UsuarioModifica = @Almc_UsuarioModifica,
         Almc_FechaModifica = CURRENT_TIMESTAMP
 END
@@ -421,7 +421,7 @@ GO
 
 --Tabla Ingredientes
 
-CREATE PROCEDURE Inv.tblIngredientes_Insert
+CREATE PROCEDURE Inv.UDP_tblIngredientes_Insert
     @Ingr_Descripcion   INT,
     @Ingr_Stock         INT,
     @Prov_Id            INT,
@@ -431,11 +431,11 @@ CREATE PROCEDURE Inv.tblIngredientes_Insert
     @Ingr_UsuarioCreacion INT
 AS 
 BEGIN
-    INSERT INTO Inv.tblIngredientes (Ingr_Descripcion, Ingr_Stock, Prov_Id, Ingr_FechaCaducidad, Ingr_Estatus, Ingr_Almc_Id, Ingr_UsuarioCreacion, Ingr_FechaCreacion)
-    VALUES (@Ingr_Descripcion, @Ingr_Stock, @Prov_Id, @Ingr_FechaCaducidad, @Ingr_Estatus, @Ingr_Almc_Id, @Ingr_UsuarioCreacion, CURRENT_TIMESTAMP)
+    INSERT INTO Inv.tblIngredientes (Ingr_Descripcion, Ingr_Stock, Prov_Id, Ingr_FechaCaducidad, Ingr_Estatus, Almc_Id, Ingr_UsuarioCreacion, Ingr_FechaCreacion)
+    VALUES (@Ingr_Descripcion, @Ingr_Stock, @Prov_Id, @Ingr_FechaCaducidad, @Ingr_Estatus, @Almc_Id, @Ingr_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Inv.tblIngredientes_Update
+CREATE PROCEDURE Inv.UDP_tblIngredientes_Update
     @Ingr_Id            INT,
     @Ingr_Descripcion   INT,
     @Ingr_Stock         INT,
@@ -458,7 +458,7 @@ BEGIN
     WHERE Ingr_Id = @Ingr_Id
 END
 GO
-CREATE PROCEDURE Inv.tblIngredientes_Delete
+CREATE PROCEDURE Inv.UDP_tblIngredientes_Delete
     @Ingr_Id    INT,
     @Ingr_UsuarioModifica INT
 AS 
@@ -472,7 +472,7 @@ GO
 
 --Tabla Menus
 
-CREATE PROCEDURE Gnrl.tblMenus_Insert
+CREATE PROCEDURE Gnrl.UDP_tblMenus_Insert
     @Menu_Descripcion   NVARCHAR(50),
     @Menu_Precio        MONEY,
     @Menu_UsuarioCreacion INT
@@ -482,7 +482,7 @@ BEGIN
     VALUES (@Menu_Descripcion, @Menu_Precio, @Menu_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblMenus_Update
+CREATE PROCEDURE Gnrl.UDP_tblMenus_Update
     @Menu_Id            INT,
     @Menu_Descripcion   NVARCHAR(50),
     @Menu_Precio        MONEY,
@@ -496,7 +496,7 @@ BEGIN
         Menu_FechaModifica = CURRENT_TIMESTAMP
 END
 GO
-CREATE PROCEDURE Gnrl.tblMenus_Delete
+CREATE PROCEDURE Gnrl.UDP_tblMenus_Delete
     @Menu_Id    INT,
     @Menu_UsuarioModifica INT
 AS 
@@ -510,7 +510,7 @@ GO
 
 --Tabla Menu Detalles
 
-CREATE PROCEDURE Gnrl.tblMenuDetalles_Insert
+CREATE PROCEDURE Gnrl.UDP_tblMenuDetalles_Insert
     @Menu_Id		INT,
 	@Ingr_Id		INT,
 	@MenuDe_Cantidad INT,
@@ -538,7 +538,7 @@ BEGIN
     WHERE MenuDe_Id = @MenuDe_Id  
 END
 GO
-CREATE PROCEDURE Gnrl.tblMenuDetalles_Delete
+CREATE PROCEDURE Gnrl.UDP_tblMenuDetalles_Delete
     @MenuDe_Id        INT,
     @MenuDe_UsuarioModifica INT
 AS 
@@ -552,18 +552,18 @@ GO
 
 --Tabla Compras
 
-CREATE PROCEDURE Gnrl.tblCompras_Insert
+CREATE PROCEDURE Inv.UDP_tblCompras_Insert
     @Comp_Fecha     DATE,
 	@Comp_NoOrden   NVARCHAR(6),
 	@Comp_IVA		INT,
 	@Comp_UsuarioCreacion	 INT
 AS 
 BEGIN
-    INSERT INTO Gnrl.tblCompras (Comp_Fecha, Comp_NoOrden, Comp_IVA, Comp_UsuarioCreacion, Comp_FechaCreacion)
+    INSERT INTO Inv.tblCompras (Comp_Fecha, Comp_NoOrden, Comp_IVA, Comp_UsuarioCreacion, Comp_FechaCreacion)
     VALUES (@Comp_Fecha, @Comp_NoOrden, @Comp_IVA, @Comp_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblCompras_Update
+CREATE PROCEDURE Inv.UDP_tblCompras_Update
     @Comp_Id        INT,
     @Comp_Fecha     DATE,
 	@Comp_NoOrden   NVARCHAR(6),
@@ -571,7 +571,7 @@ CREATE PROCEDURE Gnrl.tblCompras_Update
     @Comp_UsuarioModifica INT
 AS 
 BEGIN
-    UPDATE Gnrl.tblCompras
+    UPDATE Inv.tblCompras
     SET Comp_Fecha = Comp_Fecha,
         Comp_NoOrden = Comp_NoOrden,
         Comp_IVA = Comp_IVA,
@@ -580,12 +580,12 @@ BEGIN
     WHERE Comp_Id = @Comp_Id
 END
 GO
-CREATE PROCEDURE Gnrl.tblCompras_Delete
+CREATE PROCEDURE Inv.UDP_tblCompras_Delete
     @Comp_Id        INT,
     @Comp_UsuarioModifica INT
 AS 
 BEGIN
-    UPDATE Gnrl.tblCompras
+    UPDATE Inv.tblCompras
     SET Comp_Estado = 0,
         Comp_UsuarioModifica = @Comp_UsuarioModifica,
         Comp_FechaModifica = CURRENT_TIMESTAMP
@@ -595,7 +595,7 @@ GO
 
 --Tabla Compras Detalles
 
-CREATE PROCEDURE Gnrl.tblCompraDetalles_Insert
+CREATE PROCEDURE Inv.UDP_tblCompraDetalles_Insert
     @Comp_Id		INT,
     @Ingr_Id		INT,
 	@CompDe_PrecioCompra MONEY,
@@ -603,11 +603,11 @@ CREATE PROCEDURE Gnrl.tblCompraDetalles_Insert
 	@CompDe_UsuarioCreacion	 INT
 AS 
 BEGIN
-    INSERT INTO Gnrl.tblCompraDetalles (Comp_Id, Ingr_Id, CompDe_PrecioCompra, CompDe_Cantidad, CompDe_UsuarioCreacion, CompDe_FechaCreacion)
+    INSERT INTO Inv.tblCompraDetalles (Comp_Id, Ingr_Id, CompDe_PrecioCompra, CompDe_Cantidad, CompDe_UsuarioCreacion, CompDe_FechaCreacion)
     VALUES (@Comp_Id, @Ingr_Id, @CompDe_PrecioCompra, @CompDe_Cantidad, @CompDe_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Gnrl.tblCompraDetalles_Update
+CREATE PROCEDURE Inv.UDP_tblCompraDetalles_Update
     @CompDe_Id      INT,
 	@Comp_Id		INT,
 	@Ingr_Id		INT,
@@ -616,7 +616,7 @@ CREATE PROCEDURE Gnrl.tblCompraDetalles_Update
     @CompDe_UsuarioModifica INT
 AS 
 BEGIN
-    UPDATE Gnrl.tblCompraDetalles
+    UPDATE Inv.tblCompraDetalles
     SET Comp_Id = @Comp_Id,
         Ingr_Id = @Ingr_Id,
         CompDe_PrecioCompra = @CompDe_PrecioCompra,
@@ -625,12 +625,12 @@ BEGIN
         CompDe_FechaModifica = CURRENT_TIMESTAMP
 END
 GO
-CREATE PROCEDURE Gnrl.tblCompraDetalles_Delete
+CREATE PROCEDURE Inv.UDP_tblCompraDetalles_Delete
     @CompDe_Id      INT,
     @CompDe_UsuarioModifica INT
 AS 
 BEGIN
-    UPDATE Gnrl.tblCompraDetalles
+    UPDATE Inv.tblCompraDetalles
     SET CompDe_Estado = 0,
         CompDe_UsuarioModifica = @CompDe_UsuarioModifica,
         CompDe_FechaModifica = CURRENT_TIMESTAMP
@@ -640,7 +640,7 @@ GO
 
 --Tabla Ventas
 
-CREATE PROCEDURE Vent.tblVentas_Insert
+CREATE PROCEDURE Vent.UDP_tblVentas_Insert
     @Clie_Id	    INT,
 	@Vent_Fecha     DATETIME,
 	@Emp_Id         INT,
@@ -657,7 +657,7 @@ BEGIN
     VALUES (@Clie_Id, @Vent_Fecha, @Emp_Id, @Vent_NoOrden, @Vent_IVA, @Vent_Descuento, @Vent_Servicio, @Vent_Observaciones, @Vent_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO 
-CREATE PROCEDURE Vent.tblVentas_Update
+CREATE PROCEDURE Vent.UDP_tblVentas_Update
     @Vent_Id        INT,
     @Clie_Id	    INT,
 	@Vent_Fecha     DATETIME,
@@ -684,7 +684,7 @@ BEGIN
     WHERE Vent_Id = @Vent_Id
 END
 GO
-CREATE PROCEDURE Vent.tblVentas_Delete
+CREATE PROCEDURE Vent.UDP_tblVentas_Delete
     @Vent_Id    INT,
     @Vent_UsuarioModifica INT
 AS 
@@ -698,8 +698,8 @@ END
 GO
 
 --Tabla Venta Detalles
-
-CREATE PROCEDURE Vent.tblVentaDetalles_Insert
+--EN EL VENTAS DETALLES INSERT HAY QUE HACER LA VALIDACION DE QUE SI LOS INGREDIENTES ESTAN EN 0, NO DEJE HACER LA COMPRA
+CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Insert
     @Menu_Id		    INT,
 	@VentDe_Cantidad INT,
 	@VentDe_UsuarioCreacion	 INT
@@ -710,7 +710,7 @@ BEGIN
     VALUES (@Menu_Id, @VentDe_Cantidad, @VentDe_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Vent.tblVentaDetalles_Update
+CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Update
     @VentDe_Id      INT,
     @Menu_Id	    INT,
 	@VentDe_Cantidad INT,
@@ -724,7 +724,7 @@ BEGIN
         VentDe_FechaModifica = CURRENT_TIMESTAMP
 END
 GO
-CREATE PROCEDURE Vent.tblVentaDetalles_Delete
+CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Delete
     @VentDe_Id      INT,
     @VentDe_UsuarioModifica INT
 AS 
@@ -739,7 +739,7 @@ GO
 
 --Tabla Domicilio Detalles
 
-CREATE PROCEDURE Vent.tblDomicilioDetalles_Insert
+CREATE PROCEDURE Vent.UDP_tblDomicilioDetalles_Insert
     @Vent_Id    INT,
 	@Emp_Id     INT,
 	@Comu_Id    INT,
@@ -750,7 +750,7 @@ BEGIN
     VALUES (@Vent_Id, @Emp_Id, @Comu_Id, @VentDol_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
-CREATE PROCEDURE Vent.tblDomicilioDetalles_Update
+CREATE PROCEDURE Vent.UDP_tblDomicilioDetalles_Update
     @VentDol_Id INT,
     @Vent_Id    INT,
 	@Emp_Id     INT,
@@ -766,7 +766,7 @@ BEGIN
         VentDol_FechaModifica = CURRENT_TIMESTAMP
 END
 GO
-CREATE PROCEDURE Vent.tblDomicilioDetalles_Delete
+CREATE PROCEDURE Vent.UDP_tblDomicilioDetalles_Delete
     @VentDol_Id     INT,
     @VentDol_UsuarioModifica INT
 AS 
