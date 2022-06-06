@@ -37,7 +37,7 @@
 
 </head>
 <body>
-
+    <?php include 'layout-pantalla.php'; ?>
     <div class="container ">
 
     <div class="card mt-5">
@@ -50,9 +50,18 @@
                         <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
                     </form>
                 </div>
-
+                <table id="TablaE1" class="table  mt-5">
+                <thead>
+                <tr>
+                <th>ID</th>
+                <th>Empleado</th>
+                <th>Usuario</th>
+                <th>Contraseña</th>
+                <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
                 <?php
-                    include 'layout-pantalla.php';
                     include '../../Login/ConexionDB.php';
 
                     $con = new conexion();
@@ -61,44 +70,28 @@
                     $query = "EXEC Acce.UDP_tblUsuarios_Mostrar";
                     $result = sqlsrv_query($estadocon,$query);
 
-
                     if($row = sqlsrv_fetch_array($result)){
-
-                        print '<table id="TablaE1" class="table  mt-5">';
-                        print '<thead>';
-                        print   '<tr>';
-                        print       '<th>ID</th>';
-                        print       '<th>Empleado</th>';
-                        print       '<th>Usuario</th>';
-                        print       '<th>Contraseña</th>';
-                        print       '<th>Acciones</th>';
-                        print   '</tr>';
-                        print    '</thead>';
-
-                        do{
-                            if($row['Usua_Id'] != "")
-                            {
-                                print '<tbody>';
-                                print '<tr>';
-                                print   '<td>' .$row['Usua_Id'] .'</td>';
-                                print   '<td>' .$row['Nombre'] .'</td>';
-                                print   '<td>' .$row['Usua_Usuario'] .'</td>';
-                                print   '<td>' .$row['Usua_Pass'] .'</td>';
-                                print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
-                                print '</tr>';
-                                print '</tbody>';
-                            
-                            }
+                
+                        do
+                        {
+                                if($row['Usua_Id'] != ""){
+                
+                                    echo "<tr>";
+                                    echo "<td>". $row['Usua_Id'];
+                                    echo "<td>". $row['Nombre'];
+                                    echo "<td>". $row['Usua_Usuario'];
+                                    echo "<td>". $row['Usua_Pass'];
+                                    echo "<td><a href='#' title='Editar' alt='Editar'/></td>";
+                                    echo "</tr>";
+                                }
                         }
                         while($row = sqlsrv_fetch_array($result));
-                        {
-                            print '</table>';
-                        }
-                    
-                    }
+                
+                    } 
 
-                ?>
-            
+                    ?>
+                    </tbody>
+                </table>
         </div>
         </div>
 
@@ -123,9 +116,36 @@
         crossorigin="anonymous">
     </script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
+
     <script>
-        $(document).ready( function () {
-            $('#TablaE1').DataTable();
+        $(document).ready(function() {
+        $('#TablaE1').DataTable( {
+            "language": {
+                "decimal":        "",
+                "emptyTable":     "Sin datos para mostrar",
+                "info":           "Mostrando _START_ hasta _END_ de _TOTAL_ registros",
+                "infoEmpty":      "Sin registros",
+                "infoFiltered":   "(filtered from _MAX_ total entries)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "Mostrar _MENU_ registros",
+                "loadingRecords": "Cargando...",
+                "processing":     "",
+                "search":         "Buscar:",
+                "zeroRecords":    "No matching records found",
+                "paginate": {
+                    "first":      "Primero",
+                    "last":       "Ultimo",
+                    "next":       "Siguiente",
+                    "previous":   "Anterior"
+                },
+                "aria": {
+                    "sortAscending":  ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                
+                }
+                }
+            } );
         } );
     </script>
 </body>
