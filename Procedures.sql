@@ -517,8 +517,10 @@ CREATE PROCEDURE Gnrl.UDP_tblMenuDetalles_Insert
 	@MenuDe_UsuarioCreacion	INT
 AS 
 BEGIN
-    INSERT INTO Gnrl.tblMenuDetalles (Menu_Id, Ingr_Id, MenuDe_Cantidad, MenuDe_UsuarioCreacion, MenuDe_FechaCreacion)
-    VALUES (@Menu_Id, @Ingr_Id, @MenuDe_Cantidad, @MenuDe_UsuarioCreacion, CURRENT_TIMESTAMP)
+
+		INSERT INTO Gnrl.tblMenuDetalles (Menu_Id, Ingr_Id, MenuDe_Cantidad, MenuDe_UsuarioCreacion, MenuDe_FechaCreacion)
+		VALUES (@Menu_Id, @Ingr_Id, @MenuDe_Cantidad, @MenuDe_UsuarioCreacion, CURRENT_TIMESTAMP)
+    
 END
 GO
 CREATE PROCEDURE Gnrl.tblMenuDetalles_Update
@@ -603,9 +605,11 @@ CREATE PROCEDURE Inv.UDP_tblCompraDetalles_Insert
 	@CompDe_UsuarioCreacion	 INT
 AS 
 BEGIN
-    INSERT INTO Inv.tblCompraDetalles (Comp_Id, Ingr_Id, CompDe_PrecioCompra, CompDe_Cantidad, CompDe_UsuarioCreacion, CompDe_FechaCreacion)
-    VALUES (@Comp_Id, @Ingr_Id, @CompDe_PrecioCompra, @CompDe_Cantidad, @CompDe_UsuarioCreacion, CURRENT_TIMESTAMP)
-END
+
+		INSERT INTO Inv.tblCompraDetalles (Comp_Id, Ingr_Id, CompDe_PrecioCompra, CompDe_Cantidad, CompDe_UsuarioCreacion, CompDe_FechaCreacion)
+		VALUES (@Comp_Id, @Ingr_Id, @CompDe_PrecioCompra, @CompDe_Cantidad, @CompDe_UsuarioCreacion, CURRENT_TIMESTAMP)
+
+    END
 GO
 CREATE PROCEDURE Inv.UDP_tblCompraDetalles_Update
     @CompDe_Id      INT,
@@ -705,10 +709,57 @@ CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Insert
 	@VentDe_UsuarioCreacion	 INT
 AS 
 BEGIN
+
+	DECLARE @Validacion BIT
+	SET @Validacion = 1
+
+	DECLARE @Contador INT
+	SET @Contador = 0
+
+	DECLARE CantidadMenus_Cursor Cursor
+	FROM SELECT Menu_Id, VentDe_Cantidad
+	FROM Vent.tblVentaDetalles WHERE 
+
+	DECLARE ComprobacionIngrStock_Cursor CURSOR
+	FOR SELECT Menu_Id, Ingr_Id, MenuDe_Cantidad
+	FROM Gnrl.tblMenuDetalles WHERE Menu_Id = 1
+	
+	OPEN ComprobacionIngrStock_Cursor
+	DECLARE @Men_Id INT, @Ingr_Id INT, @MenuDe_Cantidad INT
+	FETCH NEXT FROM ComprobacionIngrStock_Cursor INTO @Men_Id, @Ingr_Id, @MenuDe_Cantidad
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		PRINT CAST(@Men_Id AS VARCHAR(5))+' - '+CAST(@Ingr_Id AS VARCHAR(5))+' - '+CAST(@MenuDe_Cantidad AS VARCHAR(5))
+
+		DECLARE CantidadIngr_Cursor CURSOR
+		FOR SELECT Ingr_Id, Ingr_Stock
+		FROM Inv.tblIngredientes WHERE Ingr_Id = @Ingr_Id AND Ingr_Estatus = 'B'
+
+		OPEN CantidadIngr_Cursor
+		DECLARE @Ing_Id INT, @Ingr_Stock INT
+		FETCH NEXT FROM CantidadIngr_Cursor INTO @Ingr_Id,@Ingr_Stock
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			PRINT '++'+CAST(@Ingr_Id AS VARCHAR(1))
+		FETCH NEXT FROM CantidadIngr_Cursor INTO @Ingr_Id,@Ingr_Stock
+		END
+		CLOSE CantidadIngr_Cursor
+		DEALLOCATE CantidadIngr_Cursor
+
+
+	FETCH NEXT FROM ComprobacionIngrStock_Cursor INTO @Men_Id, @Ingr_Id, @MenuDe_Cantidad
+	END
+	CLOSE ComprobacionIngrStock_Cursor
+	DEALLOCATE ComprobacionIngrStock_Cursor
+
     INSERT INTO Vent.tblVentaDetalles 
     (Menu_Id, VentDe_Cantidad, VentDe_UsuarioCreacion, VentDe_FechaCreacion)
     VALUES (@Menu_Id, @VentDe_Cantidad, @VentDe_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
+SELECT * FROM Gnrl.tblMenus
+SELECT * FROM Gnrl.tblMenuDetalles
+SELECT * FROM Vent.tblVentaDetalles
+SELECT * FROM Inv.tblIngredientes
 GO
 CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Update
     @VentDe_Id      INT,
