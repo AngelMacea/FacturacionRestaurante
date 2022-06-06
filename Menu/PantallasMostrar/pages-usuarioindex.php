@@ -117,36 +117,5 @@
     </script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
 
-    <script>
-        $(document).ready(function() {
-        $('#TablaE1').DataTable( {
-            "language": {
-                "decimal":        "",
-                "emptyTable":     "Sin datos para mostrar",
-                "info":           "Mostrando _START_ hasta _END_ de _TOTAL_ registros",
-                "infoEmpty":      "Sin registros",
-                "infoFiltered":   "(filtered from _MAX_ total entries)",
-                "infoPostFix":    "",
-                "thousands":      ",",
-                "lengthMenu":     "Mostrar _MENU_ registros",
-                "loadingRecords": "Cargando...",
-                "processing":     "",
-                "search":         "Buscar:",
-                "zeroRecords":    "No matching records found",
-                "paginate": {
-                    "first":      "Primero",
-                    "last":       "Ultimo",
-                    "next":       "Siguiente",
-                    "previous":   "Anterior"
-                },
-                "aria": {
-                    "sortAscending":  ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                
-                }
-                }
-            } );
-        } );
-    </script>
 </body>
 </html>
