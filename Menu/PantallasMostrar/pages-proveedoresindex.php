@@ -33,7 +33,7 @@
 </style>
 </head>
 <body>
-
+    <?php  include 'layout-pantalla.php'; ?>
     <div class="container">
 
     <div class="card mt-5">
@@ -46,9 +46,20 @@
                         <input type="button" class="btn btn-primary mb-5 mt-5" id="btnNuevo" value="Nuevo" />
                     </form>
                 </div>
-
+                <table id="TablaE1" class="table table-striped mt-5">
+                <thead>
+                <tr>
+                <th>ID</th>
+                <th>Proveedor</th>
+                <th>Telefono</th>
+                <th>Ciudad</th>
+                <th>Pais</th>
+                <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
                 <?php
-                 include 'layout-pantalla.php';
+                
                     include '../../Login/ConexionDB.php';
 
                     $con = new conexion();
@@ -60,43 +71,30 @@
 
                     if($row = sqlsrv_fetch_array($result)){
 
-                        print '<table id="TablaE1" class="table table-striped mt-5">';
-                        print '<thead>';
-                        print   '<tr>';
-                        print       '<th>ID</th>';
-                        print       '<th>Proveedor</th>';
-                        print       '<th>Telefono</th>';
-                        print       '<th>Ciudad</th>';
-                        print       '<th>Pais</th>';
-                        print       '<th>Acciones</th>';
-                        print   '</tr>';
-                        print    '</thead>';
+                        
 
                         do{
                             if($row['Prov_Id'] != "")
                             {
-                                print '<tbody>';
-                                print '<tr>';
+                                
+                                print   '<tr>';
                                 print   '<td>' .$row['Prov_Id'] .'</td>';
                                 print   '<td>' .$row['Prov_Descripcion'] .'</td>';
                                 print   '<td>' .$row['Prov_Tel'] .'</td>';
                                 print   '<td>' .$row['Ciud_Descripcion'] .'</td>';
                                 print   '<td>' .$row['Pais_Descripcion'] .'</td>';
                                 print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
-                                print '</tr>';
-                                print '</tbody>';
+                                print   '</tr>';
+                                
                             
                             }
-                        }
-                        while($row = sqlsrv_fetch_array($result));
-                        {
-                            print '</table>';
-                        }
+                        }while($row = sqlsrv_fetch_array($result));
                     
                     }
 
                 ?>
-            
+                </tbody>
+            </table>
         </div>
         </div>
 
@@ -118,10 +116,5 @@
         crossorigin="anonymous">
     </script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
-    <script>
-        $(document).ready( function () {
-            $('#TablaE1').DataTable();
-        } );
-    </script>
 </body>
 </html>
