@@ -56,14 +56,18 @@ CREATE TABLE Acce.tblUsuarios(
 	Usua_UsuarioModifica	INT DEFAULT NULL,
 	Usua_FechaModifica		DATETIME DEFAULT NULL,
 	Usua_Estado				BIT DEFAULT '1',
+	CONSTRAINT FK_tblUsuarios_tblUsuarios_Usuario_Creacion FOREIGN KEY (Usua_UsuarioCreacion) REFERENCES Acce.tblUsuarios(Usua_Id),
+	CONSTRAINT FK_tblUsuarios_tblUsuarios_Usuario_Modifica FOREIGN KEY (Usua_UsuarioModifica) REFERENCES Acce.tblUsuarios(Usua_Id)
 );
 GO
+/*
 ALTER TABLE [ACCE].[tblUsuarios]
 ADD CONSTRAINT FK_tblUsuarios_tblUsuarios_Usuario_Creacion FOREIGN KEY (Usua_UsuarioCreacion) REFERENCES Acce.tblUsuarios(Usua_Id)
 ALTER TABLE [ACCE].[tblUsuarios]
 ADD CONSTRAINT FK_tblUsuarios_tblUsuarios_Usuario_Modifica FOREIGN KEY (Usua_UsuarioModifica) REFERENCES Acce.tblUsuarios(Usua_Id)
 ALTER TABLE [ACCE].[tblUsuarios]
 ADD CONSTRAINT FK_tblUsuarios_tblEmpleados_Emp_Id FOREIGN KEY (Emp_Id) REFERENCES GNRL.tblEmpleados (Emp_Id)
+*/
 GO
 
 CREATE SCHEMA Gnrl
@@ -293,6 +297,7 @@ CREATE TABLE Vent.tblVentas(
 	Vent_Descuento MONEY,
 	Vent_Servicio  CHAR(1),
 	Vent_Observaciones NVARCHAR(50),
+
 	Vent_UsuarioCreacion	 INT,
 	Vent_FechaCreacion		 DATETIME DEFAULT CURRENT_TIMESTAMP,
 	Vent_UsuarioModifica	 INT DEFAULT NULL,
@@ -306,14 +311,17 @@ CREATE TABLE Vent.tblVentas(
 )
 
 CREATE TABLE Vent.tblVentaDetalles(
-	VentDe_Id INT PRIMARY KEY IDENTITY(1,1),
+	VentDe_Id	INT PRIMARY KEY IDENTITY(1,1),
+	Vent_Id		INT,
 	Menu_Id		INT,
 	VentDe_Cantidad INT,
+
 	VentDe_UsuarioCreacion	 INT,
 	VentDe_FechaCreacion		 DATETIME DEFAULT CURRENT_TIMESTAMP,
 	VentDe_UsuarioModifica	 INT DEFAULT NULL,
 	VentDe_FechaModifica		 DATETIME DEFAULT NULL,
 	VentDe_Estado				BIT DEFAULT '1',
+	CONSTRAINT FK_tblVentaDetalles_tblVentas_Vent_Id FOREIGN KEY (Vent_Id) REFERENCES Vent.tblVentas(Vent_Id),
 	CONSTRAINT FK_tblVentaDetalles_tblUsuarios_Usuario_Creacion FOREIGN KEY (VentDe_UsuarioCreacion) REFERENCES Acce.tblUsuarios (Usua_Id),
 	CONSTRAINT FK_tblVentaDetalles_tblUsuarios_Usuario_Modifica FOREIGN KEY (VentDe_UsuarioModifica) REFERENCES Acce.[tblUsuarios] (Usua_Id),
 	CONSTRAINT FK_tblVentaDetalles_tblMenus_Menu_Id FOREIGN KEY (Menu_Id) REFERENCES Gnrl.tblMenus(Menu_Id)
@@ -324,6 +332,7 @@ CREATE TABLE Vent.tblDomicilioDetalles(
 	Vent_Id INT,
 	Emp_Id INT,
 	Comu_Id INT,
+
 	VentDol_UsuarioCreacion	 INT,
 	VentDol_FechaCreacion		 DATETIME DEFAULT CURRENT_TIMESTAMP,
 	VentDol_UsuarioModifica	 INT DEFAULT NULL,
