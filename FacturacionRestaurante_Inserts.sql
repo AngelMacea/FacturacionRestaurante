@@ -125,6 +125,27 @@ VALUES	('Wan Tan frito',160,1,GETDATE()),
 		('Fideo Arroz Res',190,1,GETDATE()),
 		('Fideo Arroz Pollo',190,1,GETDATE())
 
+		INSERT INTO  [Inv].[tblIngredientes]([Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion])
+VALUES	('Harina',50,2,'20230605','B',2,1,GETDATE()),
+		('Huevo',20,3,'20220903','B',2,1,GETDATE()),
+		('Maicena',10,2,'20230405','B',2,1,GETDATE()),
+		('Sal',10,1,'20220706','B',2,1,GETDATE()),
+		('Carne Molida',40,1,'20220611','B',1,1,GETDATE()),
+		('Aceite Ajonjoli',30,2,'20230501','B',2,1,GETDATE()),
+		('Ajinomoto',20,2,'20230501','B',2,1,GETDATE()),
+		('Ajo',40,3,'20220623','B',2,1,GETDATE()),
+		('Jengibre',30,4,'20220930','B',2,1,GETDATE()),
+		('Chile',43,2,'20220720','B',2,1,GETDATE()),
+		('Pataste',10,6,'20220602','B',2,1,GETDATE()),
+		('Zanahoria',20,3,'20220903','B',2,1,GETDATE()),
+		('Brocoli',24,4,'20221010','B',2,1,GETDATE()),
+		('Salsa Soya',5,1,'20221122','B',2,1,GETDATE()),
+		('Culantro',6,6,'20220806','B',2,1,GETDATE()),
+		('Cebolla',6,5,'20220803','B',2,1,GETDATE()),
+		('Camaron',10,2,'20221020','B',1,1,GETDATE()),
+		('Arroz',10,3,'20221004','B',2,1,GETDATE()),
+		('Apio',09,2,'20220723','B',2,1,GETDATE())
+
 INSERT INTO [Gnrl].[tblMenuDetalles]([Menu_Id], [Ingr_Id], [MenuDe_Cantidad], [MenuDe_UsuarioCreacion], [MenuDe_FechaCreacion])
 VALUES	(1,1,2,1,GETDATE()),
 		(1,3,1,1,GETDATE()),
@@ -152,32 +173,13 @@ VALUES	(1,1,2,1,GETDATE()),
 		(5,8,1,1,GETDATE())
 
 
-		SELECT * FROM [Inv].[tblIngredientes]
+
 INSERT INTO [Inv].[tblAlmacenes]([Almc_Descripcion], [Almc_UsuarioCreacion], [Almc_FechaCreacion])
 VALUES	('Refrigerador',1,GETDATE()),
 		('Despensa',1,GETDATE())
 
 		
-INSERT INTO  [Inv].[tblIngredientes]([Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion])
-VALUES	('Harina',50,2,'20230605','B',2,1,GETDATE()),
-		('Huevo',20,3,'20220903','B',2,1,GETDATE()),
-		('Maicena',10,2,'20230405','B',2,1,GETDATE()),
-		('Sal',10,1,'20220706','B',2,1,GETDATE()),
-		('Carne Molida',40,1,'20220611','B',1,1,GETDATE()),
-		('Aceite Ajonjoli',30,2,'20230501','B',2,1,GETDATE()),
-		('Ajinomoto',20,2,'20230501','B',2,1,GETDATE()),
-		('Ajo',40,3,'20220623','B',2,1,GETDATE()),
-		('Jengibre',30,4,'20220930','B',2,1,GETDATE()),
-		('Chile',43,2,'20220720','B',2,1,GETDATE()),
-		('Pataste',10,6,'20220602','B',2,1,GETDATE()),
-		('Zanahoria',20,3,'20220903','B',2,1,GETDATE()),
-		('Brocoli',24,4,'20221010','B',2,1,GETDATE()),
-		('Salsa Soya',5,1,'20221122','B',2,1,GETDATE()),
-		('Culantro',6,6,'20220806','B',2,1,GETDATE()),
-		('Cebolla',6,5,'20220803','B',2,1,GETDATE()),
-		('Camaron',10,2,'20221020','B',1,1,GETDATE()),
-		('Arroz',10,3,'20221004','B',2,1,GETDATE()),
-		('Apio',09,2,'20220723','B',2,1,GETDATE())
+
 
 
 INSERT INTO [Inv].[tblCompras]([Comp_Fecha], [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion])
