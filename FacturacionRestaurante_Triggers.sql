@@ -1,6 +1,8 @@
 --==============================================================================
 --==============================================================================
 --TRIGGERS
+USE FacturacionRestaurante
+GO
 CREATE TABLE [Inv].[tblIngredientes_Historial](
 	Ingr_Id					INT,
 	Ingr_Descripcion		NVARCHAR(50),

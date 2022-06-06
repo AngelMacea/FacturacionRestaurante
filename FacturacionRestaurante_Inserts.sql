@@ -1,7 +1,8 @@
 --=============================================================================================================================================================
 --=============================================================================================================================================================
 --INSERTS
-
+USE FacturacionRestaurante
+GO
 INSERT INTO [Acce].[tblUsuarios]([Emp_Id], [Usua_Usuario], [Usua_Pass], [Usua_UsuarioCreacion], [Usua_FechaCreacion])
 VALUES	(1,'Luis5','Amat',1,GETDATE()),
 		(3,'MaríaHeras','Heras',1,GETDATE()),
@@ -125,6 +126,10 @@ VALUES	('Wan Tan frito',160,1,GETDATE()),
 		('Fideo Arroz Res',190,1,GETDATE()),
 		('Fideo Arroz Pollo',190,1,GETDATE())
 
+		INSERT INTO [Inv].[tblAlmacenes]([Almc_Descripcion], [Almc_UsuarioCreacion], [Almc_FechaCreacion])
+VALUES	('Refrigerador',1,GETDATE()),
+		('Despensa',1,GETDATE())
+
 		INSERT INTO  [Inv].[tblIngredientes]([Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion])
 VALUES	('Harina',50,2,'20230605','B',2,1,GETDATE()),
 		('Huevo',20,3,'20220903','B',2,1,GETDATE()),
@@ -174,9 +179,6 @@ VALUES	(1,1,2,1,GETDATE()),
 
 
 
-INSERT INTO [Inv].[tblAlmacenes]([Almc_Descripcion], [Almc_UsuarioCreacion], [Almc_FechaCreacion])
-VALUES	('Refrigerador',1,GETDATE()),
-		('Despensa',1,GETDATE())
 
 		
 
