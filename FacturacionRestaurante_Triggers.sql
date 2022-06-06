@@ -1,7 +1,6 @@
 --==============================================================================
 --==============================================================================
 --TRIGGERS
-select * from inv.tblIngredientes
 CREATE TABLE [Inv].[tblIngredientes_Historial](
 	Ingr_Id					INT,
 	Ingr_Descripcion		NVARCHAR(50),
@@ -10,6 +9,7 @@ CREATE TABLE [Inv].[tblIngredientes_Historial](
 	Ingr_FechaCaducidad		DATE,
 	Ingr_Estatus			CHAR(1),
 	Almc_Id					INT,
+
 	Ingr_UsuarioCreacion	 INT,
 	Ingr_FechaCreacion		 DATETIME DEFAULT CURRENT_TIMESTAMP,
 	Ingr_UsuarioModifica	 INT DEFAULT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE [Inv].[tblIngredientes_Historial](
 	Ingr_FechaModifica		 DATETIME DEFAULT NULL,
 	Ingr_Estado				BIT DEFAULT '1',
 )
-
+GO
 CREATE TRIGGER Inv.TR_tblIngredientes_Insert
 ON [Inv].[tblIngredientes]
 AFTER INSERT
@@ -27,7 +27,7 @@ BEGIN
 	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'I', [Ingr_FechaModifica], [Ingr_Estado]
 	FROM inserted
 END
-
+GO
 
 CREATE TRIGGER Inv.TR_tblIngredientes_Delete
 ON [Inv].[tblIngredientes]
@@ -38,7 +38,7 @@ BEGIN
 	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'D', GETDATE(), [Ingr_Estado]
 	FROM deleted
 END
-
+GO
 
 CREATE TRIGGER Inv.TR_tblIngredientes_Update
 ON [Inv].[tblIngredientes]
@@ -49,7 +49,7 @@ BEGIN
 	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'U', GETDATE(), [Ingr_Estado]
 	FROM inserted
 END
-
+GO
 
 --COMPRAS
 
@@ -65,7 +65,7 @@ CREATE TABLE Inv.tblCompras_Historial(
 	Comp_FechaModifica		 DATETIME DEFAULT NULL,
 	Comp_Estado				BIT DEFAULT '1',
 );
-
+GO
 	CREATE TRIGGER Inv.TR_tblCompras_Insert
 	ON [Inv].[tblCompras]
 	AFTER INSERT
@@ -75,7 +75,7 @@ CREATE TABLE Inv.tblCompras_Historial(
 		SELECT [Comp_Id], [Comp_Fecha], [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'I', [Comp_FechaModifica], [Comp_Estado]
 		FROM inserted
 	END
-
+GO
 	CREATE TRIGGER Inv.TR_tblCompras_Delete
 	ON [Inv].[tblCompras]
 	AFTER DELETE
@@ -85,7 +85,7 @@ CREATE TABLE Inv.tblCompras_Historial(
 		SELECT [Comp_Id], [Comp_Fecha], [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'D', GETDATE(), [Comp_Estado]
 		FROM deleted
 	END
-
+GO
 	CREATE TRIGGER Inv.TR_tblCompras_Update
 	ON [Inv].[tblCompras]
 	AFTER UPDATE
@@ -95,7 +95,7 @@ CREATE TABLE Inv.tblCompras_Historial(
 		SELECT [Comp_Id], [Comp_Fecha], [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'U', GETDATE(), [Comp_Estado]
 		FROM inserted
 	END
-
+GO
 
 --COMPRA DETALLES
 CREATE TABLE [Inv].[tblCompraDetalles_Historial](
@@ -111,7 +111,7 @@ CREATE TABLE [Inv].[tblCompraDetalles_Historial](
 	CompDe_FechaModifica		 DATETIME DEFAULT NULL,
 	CompDe_Estado				BIT DEFAULT '1'
 )
-
+GO
 	CREATE TRIGGER Inv.TR_tblCompraDetalles_Insert
 		ON [Inv].[tblCompraDetalles]
 		AFTER INSERT
@@ -134,7 +134,7 @@ CREATE TABLE [Inv].[tblCompraDetalles_Historial](
 		WHERE Ingr_Id	= @Ingr_Id
 
 	END
-
+GO
 	CREATE TRIGGER Inv.TR_tblCompraDetalles_Delete
 	ON [Inv].[tblCompraDetalles]
 	AFTER DELETE
@@ -144,7 +144,7 @@ CREATE TABLE [Inv].[tblCompraDetalles_Historial](
 		SELECT [CompDe_Id], [Comp_Id], [Ingr_Id], [CompDe_PrecioCompra], [CompDe_Cantidad], [CompDe_UsuarioCreacion], [CompDe_FechaCreacion], [CompDe_UsuarioModifica], 'D', GETDATE(), [CompDe_Estado]
 		FROM deleted
 	END
-
+GO
 	--DUDAS
 	CREATE TRIGGER Inv.TR_tblCompraDetalles_Update
 		ON [Inv].[tblCompraDetalles]
@@ -167,7 +167,7 @@ CREATE TABLE [Inv].[tblCompraDetalles_Historial](
 		SET Ingr_Stock = @Ingr_Stock
 		WHERE Ingr_Id	= @Ingr_Id
 	END
-
+GO
 
 --VENTAS
 
@@ -188,7 +188,7 @@ CREATE TABLE [Vent].[tblVentas_Historial](
 	Vent_FechaModifica		 DATETIME DEFAULT NULL,
 	Vent_Estado				BIT DEFAULT '1',
 )
-
+GO
 CREATE TRIGGER Vent.TR_tblVentas_Insert
 ON [Vent].[tblVentas]
 AFTER INSERT
@@ -198,7 +198,7 @@ BEGIN
 	SELECT [Vent_Id], [Clie_Id], [Vent_Fecha], [Emp_Id], [Vent_NoOrden], [Vent_IVA], [Vent_Descuento], [Vent_Servicio], [Vent_Observaciones], [Vent_UsuarioCreacion], [Vent_FechaCreacion], [Vent_UsuarioModifica],'I', [Vent_FechaModifica], [Vent_Estado]
 	FROM inserted
 END
-
+GO
 CREATE TRIGGER Vent.TR_tblVentas_Delete
 ON [Vent].[tblVentas]
 AFTER DELETE
@@ -208,7 +208,7 @@ BEGIN
 	SELECT [Vent_Id], [Clie_Id], [Vent_Fecha], [Emp_Id], [Vent_NoOrden], [Vent_IVA], [Vent_Descuento], [Vent_Servicio], [Vent_Observaciones], [Vent_UsuarioCreacion], [Vent_FechaCreacion], [Vent_UsuarioModifica],'D', GETDATE(), [Vent_Estado]
 	FROM deleted
 END
-
+GO
 CREATE TRIGGER Vent.TR_tblVentas_Update
 ON [Vent].[tblVentas]
 AFTER UPDATE
@@ -218,12 +218,13 @@ BEGIN
 	SELECT [Vent_Id], [Clie_Id], [Vent_Fecha], [Emp_Id], [Vent_NoOrden], [Vent_IVA], [Vent_Descuento], [Vent_Servicio], [Vent_Observaciones], [Vent_UsuarioCreacion], [Vent_FechaCreacion], [Vent_UsuarioModifica],'U', GETDATE(), [Vent_Estado]
 	FROM inserted
 END
-
+GO
 --VENTA DETALLES
 
 CREATE TABLE [Vent].[tblVentaDetalles_Historial]
 (
 	VentDe_Id INT,
+	Vent_Id	INT,
 	Menu_Id		INT,
 	VentDe_Cantidad INT,
 	VentDe_UsuarioCreacion	 INT,
@@ -233,7 +234,7 @@ CREATE TABLE [Vent].[tblVentaDetalles_Historial]
 	VentDe_FechaModifica		 DATETIME DEFAULT NULL,
 	VentDe_Estado				BIT DEFAULT '1',
 )
-
+GO
 CREATE TRIGGER Vent.TR_tblVentaDetalles_Insert
 ON [Vent].[tblVentaDetalles]
 AFTER INSERT
