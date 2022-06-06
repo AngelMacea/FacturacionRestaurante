@@ -42,6 +42,30 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE Acce.UDP_tblUsuarios_Validacion
+	@Usua_Usuario  NVARCHAR(50),
+	@Usua_Pass		NVARCHAR(50)
+AS
+BEGIN
+	SELECT * FROM Acce.tblUsuarios WHERE Usua_Usuario = @Usua_Usuario AND Usua_Pass = @Usua_Pass
+END
+
+EXEC Acce.UDP_tblUsuarios_Validacion 'Luis5','Amat'
+
+CREATE PROCEDURE Acce.UDP_tblUsuarios_Mostrar
+AS
+BEGIN
+	SELECT	Usuario.Usua_Id,
+			CONCAT(Empleado.Emp_Nombres,' ',Empleado.Emp_Apellidos) Nombre,
+			Usuario.Usua_Usuario,
+			Usuario.Usua_Pass
+	FROM Acce.tblUsuarios AS Usuario
+	INNER JOIN Gnrl.tblEmpleados AS Empleado ON Usuario.Emp_Id = Empleado.Emp_Id
+	WHERE Usua_Estado = 1
+END
+
+EXEC Acce.UDP_tblUsuarios_Mostrar
+
 --Tabla Paises
 
 CREATE PROCEDURE Gnrl.UDP_tblPaises_Insert
@@ -382,6 +406,25 @@ BEGIN
         Emp_FechaModifica = CURRENT_TIMESTAMP
 END
 GO
+
+CREATE PROCEDURE Gnrl.UDP_tblEmpleados_Mostrar
+AS
+BEGIN
+	SELECT Empleado.Emp_Id,
+			Empleado.Emp_Identidad,
+			CONCAT(Empleado.Emp_Nombres,' ',Empleado.Emp_Apellidos) Nombre,
+			CASE Empleado.Emp_Sexo
+			WHEN 'M' THEN 'Masculino'
+			WHEN 'F' THEN 'Femenino'
+			END Sexo,
+			Empleado.Emp_Edad,
+			EsCi.EsCi_Descrip,
+			Empleado.Emp_Correo,
+			Rol.Rol_Descripcion
+	FROM Gnrl.tblEmpleados AS Empleado
+	INNER JOIN Gnrl.tblEstadoCiviles AS EsCi ON EsCi.EsCi_Id = Empleado.EsCi_Id
+	INNER JOIN Gnrl.tblRoles AS Rol ON Rol.Rol_Id = Empleado.Rol_Id
+END
 
 --Tabla Almacenes
 
