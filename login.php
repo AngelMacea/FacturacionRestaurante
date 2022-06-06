@@ -8,7 +8,7 @@
     $usuario = $_POST['txtUsuario'];
     $pass = $_POST['txtPass'];
 
-    $query = "EXEC Acce.UDP_tblUsuarios_Mostrar '$usuario','$pass'";
+    $query = "EXEC Acce.UDP_tblUsuarios_Validacion '$usuario','$pass'";
     $result = sqlsrv_query($estadocon, $query);
 
     if(sqlsrv_has_rows($result) != 1){
