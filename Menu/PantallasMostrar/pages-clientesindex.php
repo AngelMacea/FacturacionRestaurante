@@ -26,14 +26,14 @@
 <link href="../../assets/css/style.css" rel="stylesheet">
 <style>
      .container{
-        margin-top:5%;
+        margin: top 6px;%;
         width: auto;
         margin-left: 19%;
     }
 </style>
 </head>
 <body>
-
+    <?php include 'layout-pantalla.php'; ?>
     <div class="container">
 
     <div class="card mt-5">
@@ -46,9 +46,20 @@
                         <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
                     </form>
                 </div>
-
+                <table id="TablaE1" class="table table-striped mt-5">
+                <thead>
+                <tr>
+                <th>ID</th>
+                <th>Identificacion</th>
+                <th>Nombre</th>
+                <th>Sexo</th>
+                <th>Telefono</th>
+                <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
                 <?php
-                include 'layout-pantalla.php';
+                
                     include '../../Login/ConexionDB.php';
 
                     $con = new conexion();
@@ -60,22 +71,12 @@
 
                     if($row = sqlsrv_fetch_array($result)){
 
-                        print '<table id="TablaE1" class="table table-striped mt-5">';
-                        print '<thead>';
-                        print   '<tr>';
-                        print       '<th>ID</th>';
-                        print       '<th>Identificacion</th>';
-                        print       '<th>Nombre</th>';
-                        print       '<th>Sexo</th>';
-                        print       '<th>Telefono</th>';
-                        print       '<th>Acciones</th>';
-                        print   '</tr>';
-                        print    '</thead>';
+                        
 
                         do{
                             if($row['Clie_Id'] != "")
                             {
-                                print '<tbody>';
+                                
                                 print '<tr>';
                                 print   '<td>' .$row['Clie_Id'] .'</td>';
                                 print   '<td>' .$row['Clie_Identificacion'] .'</td>';
@@ -84,19 +85,17 @@
                                 print   '<td>' .$row['Clie_Tel'] .'</td>';
                                 print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
                                 print '</tr>';
-                                print '</tbody>';
+                                
                             
                             }
                         }
                         while($row = sqlsrv_fetch_array($result));
-                        {
-                            print '</table>';
-                        }
                     
                     }
 
                 ?>
-            
+                </tbody>
+            </table>
         </div>
         </div>
 
@@ -118,10 +117,5 @@
         crossorigin="anonymous">
     </script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
-    <script>
-        $(document).ready( function () {
-            $('#TablaE1').DataTable();
-        } );
-    </script>
 </body>
 </html>
