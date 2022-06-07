@@ -88,9 +88,6 @@
                     </form>
         </div>
                 <div>
-                    <form method="POST" action="">
-                        <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
-                    </form>
                 </div>
                 <table id="TablaE1" class="table table-striped  mt-5">
                 <thead>

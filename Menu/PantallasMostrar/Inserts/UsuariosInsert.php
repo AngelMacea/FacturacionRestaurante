@@ -29,7 +29,7 @@
         PRINT '<script>';
         PRINT 'alert("Se agrego con exito al usuario")';
         PRINT '</script>';
-        header('location: PantallasMostrar/pages-usuarioindex.php');
+        header('location: ../pages-usuarioindex.php');
     }
     else
     {
