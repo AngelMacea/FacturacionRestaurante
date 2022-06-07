@@ -33,7 +33,7 @@
 </head>
 
 <body class="bg-color">
-  <?phpsession_start();?>
+  <?php session_start(); ?>
     <div class="container">
 
           <div class="row justify-content-center">
