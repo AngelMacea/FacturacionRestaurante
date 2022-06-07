@@ -108,11 +108,11 @@
   </script> 
 
   <?php
-      if($_SESSION['Validacion'] == ""){
+      if(!isset($_SESSION['Validacion'])){
         $_SESSION['Validacion'] = false;
       }
-      if($_SESSION['Validacion']){
-        print "<script>izzitoast('Error', 'El usuario no existe').show();</script>";
+      else if($_SESSION['Validacion']){
+        print "<script>izzitoast('Error', 'El usuario o la contraseña son incorrectos').show();</script>";
         $_SESSION['Validacion'] = false;
       }
       
