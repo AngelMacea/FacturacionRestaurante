@@ -141,6 +141,41 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
               <i class="bi bi-circle"></i><span>Clientes</span>
             </a>
           </li>
+                    <li>
+            <a href="pages-paisesindex.php">
+              <i class="bi bi-circle"></i><span>Paises</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-ciudadesindex.php">
+              <i class="bi bi-circle"></i><span>Ciudades</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-comunidadesindex.php">
+              <i class="bi bi-circle"></i><span>Comunidades</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-estadoscivilesindex.php">
+              <i class="bi bi-circle"></i><span>Estado Civiles</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-rolesindex.php">
+              <i class="bi bi-circle"></i><span>Roles</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-menusindex.php">
+              <i class="bi bi-circle"></i><span>Menus</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-menudetallesindex.php">
+              <i class="bi bi-circle"></i><span>Menu Detalles</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Components Nav -->
 
