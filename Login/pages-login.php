@@ -108,6 +108,9 @@
   </script> 
 
   <?php
+      if($_SESSION['Validacion'] == ""){
+        $_SESSION['Validacion'] = false;
+      }
       if($_SESSION['Validacion']){
         print "<script>izzitoast('Error', 'El usuario no existe').show();</script>";
         $_SESSION['Validacion'] = false;
