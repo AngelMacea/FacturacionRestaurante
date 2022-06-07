@@ -120,11 +120,6 @@
                 </thead>
                 <tbody>
                 <?php
-                    include '../../Login/ConexionDB.php';
-
-                    $con = new conexion();
-                    $estadocon = $con->getCon();
-                    
                     $query = "EXEC Acce.UDP_tblUsuarios_Mostrar";
                     $result = sqlsrv_query($estadocon,$query);
 
