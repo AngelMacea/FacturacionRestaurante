@@ -544,6 +544,14 @@ BEGIN
         Almc_FechaModifica = CURRENT_TIMESTAMP
 END
 GO
+CREATE PROCEDURE Inv.UDP_tblAlmacenes_Mostrar	
+AS
+BEGIN
+	SELECT Almc_Id, Almc_Descripcion
+	FROM Inv.tblAlmacenes
+	WHERE Almc_Estado = 1
+END
+GO
 
 --Tabla Ingredientes
 
@@ -593,6 +601,22 @@ BEGIN
     SET Ingr_Estado = 0,
         Ingr_UsuarioModifica = @Ingr_UsuarioModifica,
         Ingr_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
+CREATE PROCEDURE Inv.UDP_tblIngredientes_Mostrar
+AS
+BEGIN
+	SELECT INGR.Ingr_Id, INGR.Ingr_Descripcion, INGR.Ingr_Stock, PROV.Prov_Descripcion, CAST(INGR.Ingr_FechaCaducidad AS varchar(20)) AS Ingr_FechaCaducidad, 
+			CASE
+				WHEN INGR.Ingr_Estatus = 'B' THEN 'BUENO'
+				WHEN INGR.Ingr_Estatus = 'V' THEN 'VENCIDO'
+			END AS [Ingr_Estatus],
+			ALMC.Almc_Descripcion
+			
+	FROM Inv.tblIngredientes AS INGR
+	INNER JOIN Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = INGR.Prov_Id
+	INNER JOIN Inv.tblAlmacenes AS ALMC ON ALMC.Almc_Id = INGR.Almc_Id
+	WHERE Ingr_Estado = 1
 END
 GO
 
@@ -746,6 +770,17 @@ BEGIN
     WHERE Comp_Id = @Comp_Id  
 END
 GO
+CREATE PROCEDURE Inv.UDP_tblCompras_Mostrar
+AS
+BEGIN
+	SELECT COMP.Comp_Id, COMP.Comp_Fecha, COMP.Comp_NoOrden, COMP.Comp_IVA, SUM(CODE.CompDe_PrecioCompra) AS [Comp_SubTotal]
+	FROM Inv.tblCompras AS COMP
+	INNER JOIN Inv.tblCompraDetalles AS CODE ON CODE.Comp_Id = COMP.Comp_Id
+	WHERE COMP.Comp_Estado = 1
+	GROUP BY COMP.Comp_Id, COMP.Comp_Fecha, COMP.Comp_NoOrden, COMP.Comp_IVA
+
+END
+GO
 
 --Tabla Compras Detalles
 
@@ -793,6 +828,16 @@ BEGIN
     WHERE CompDe_Id = @CompDe_Id
 END
 GO 
+CREATE PROCEDURE Inv.UDP_tblCompraDetalles_Mostrar
+AS
+BEGIN
+	SELECT CODE.CompDe_Id,COMP.Comp_NoOrden, INGR.Ingr_Descripcion, CODE.CompDe_PrecioCompra, CODE.CompDe_Cantidad
+	FROM Inv.tblCompraDetalles AS CODE
+	INNER JOIN Inv.tblCompras AS COMP ON COMP.Comp_Id = CODE.Comp_Id
+	INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
+	WHERE CODE.CompDe_Estado = 1
+END
+GO
 
 
 --Tabla Ventas
@@ -851,6 +896,29 @@ BEGIN
         Vent_UsuarioModifica = @Vent_UsuarioModifica,
         Vent_FechaModifica = CURRENT_TIMESTAMP
     WHERE Vent_Id = @Vent_Id
+END
+GO
+CREATE PROCEDURE Vent.UDP_tblVentas_Mostrar
+AS
+BEGIN
+	SELECT	VENT.Vent_Id, CONCAT_WS(' ', CLIE.Clie_Nombres, CLIE.Clie_Apellidos) AS [Vent_Cliente],
+			CAST(VENT.Vent_Fecha AS VARCHAR(20)) AS [Vent_Fecha], CONCAT_WS(' ', EMPL.Emp_Nombres,EMPL.Emp_Apellidos) AS [Vent_Empleado],
+			VENT.Vent_NoOrden, VENT.Vent_IVA, VENT.Vent_Descuento, ((VentDe_Cantidad*(MENU.Menu_Precio))-Vent.Vent_Descuento) AS [Vent_SubTotal],
+			((VentDe_Cantidad*(MENU.Menu_Precio))-Vent.Vent_Descuento)*(VENT.Vent_IVA/100)+ ((VentDe_Cantidad*(MENU.Menu_Precio))-Vent.Vent_Descuento) AS [Vent_Total],
+			CASE  
+				WHEN VENT.Vent_Servicio = 'L' THEN 'Local'
+				WHEN VENT.Vent_Servicio = 'D' THEN 'Delivery'
+				WHEN VENT.Vent_Servicio = 'A' THEN 'Autoservicio'
+			END AS [Vent_Servicio],
+			VENT.Vent_Observaciones
+
+	FROM Vent.tblVentas AS VENT
+	INNER JOIN Gnrl.tblClientes AS CLIE ON CLIE.Clie_Id = VENT.Clie_Id
+	INNER JOIN Gnrl.tblEmpleados AS EMPL ON EMPL.Emp_Id = VENT.Emp_Id
+	INNER JOIN Vent.tblVentaDetalles AS VEDE ON VEDE.Vent_Id = VENT.Vent_Id
+	INNER JOIN Gnrl.tblMenus AS MENU ON MENU.Menu_Id = VEDE.Menu_Id
+
+	WHERE Vent.Vent_Estado = 1
 END
 GO
 
