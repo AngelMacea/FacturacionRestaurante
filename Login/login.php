@@ -23,6 +23,7 @@
     else{
         session_start();
         $row = sqlsrv_fetch_array($result);
+        $_SESSION['Usua_Id'] = $row['Usua_Id'];
         PRINT '<script>';
         PRINT 'window.location= "../Menu/PantallasMostrar/blank.php" ';
         PRINT '</script>';
