@@ -6,7 +6,7 @@
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
-    $Emp_Id = $_POST['txtEmp_Id'];
+    $Emp_Id = $_POST['ddlEmpleados'];
     $Usua_Pass = $_POST['txtPass'];
     $Usua_Usuario = $_POST['txtUsuario'];
     $Usua_UsuarioCrea = $_SESSION['Usua_Id'];
