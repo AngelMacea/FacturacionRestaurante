@@ -12,9 +12,7 @@
     $result = sqlsrv_query($estadocon, $query);
 
     if(sqlsrv_has_rows($result) != 1){
-        PRINT '<script>';
-        PRINT 'alert("El usuarioo contraseña son incorrectos")';
-        PRINT '</script>';
+        $_SESSION['Validacion'] = true;
 
         PRINT '<script>';
         PRINT 'window.location= "pages-login.php" ';
