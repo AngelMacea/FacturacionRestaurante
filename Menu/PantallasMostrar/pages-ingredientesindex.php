@@ -80,6 +80,7 @@
                             {
                                 
                                 print   '<tr>';
+                                print   '<td>' .$row['Ingr_Id'] .'</td>';
                                 print   '<td>' .$row['Ingr_Descripcion'] .'</td>';
                                 print   '<td>' .$row['Ingr_Stock'] .'</td>';
                                 print   '<td>' .$row['Prov_Descripcion'] .'</td>';
