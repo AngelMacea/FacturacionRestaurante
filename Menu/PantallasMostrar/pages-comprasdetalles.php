@@ -26,7 +26,7 @@
 <link href="../../assets/css/style.css" rel="stylesheet">
 <style>
      .container{
-        margin: top 6px;
+        margin-top:5%;
         width: auto;
         margin-left: 19%;
     }
