@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Components / Accordion - NiceAdmin Bootstrap Template</title>
+  <title>TheChinese</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -185,8 +185,23 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
+            <a href="pages-almacenesindex.php">
               <i class="bi bi-circle"></i><span>Almacenes</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-comprasindex.php">
+              <i class="bi bi-circle"></i><span>Compras</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-comprasdetalles.php">
+              <i class="bi bi-circle"></i><span>Compras Detalles</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages-ingredientesindex.php">
+              <i class="bi bi-circle"></i><span>Ingredientes</span>
             </a>
           </li>
         </ul>
@@ -194,12 +209,12 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Ventas</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="pages-ventasindex.php">
+              <i class="bi bi-circle"></i><span>Ventas</span>
             </a>
           </li>
           <li>
