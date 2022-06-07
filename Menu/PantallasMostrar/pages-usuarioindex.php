@@ -27,6 +27,7 @@
 
   <!-- Template Main CSS File -->
   <link href="../../assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/iziToast-master/dist/css/iziToast.min.css">
 <style>
     .container{
         margin-top:5%;
@@ -172,7 +173,27 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous">
     </script>
+    <script src="../../assets/iziToast-master/dist/js/iziToast.min.js" type="text/javascript"></script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
+     <script src="../../assets/js/alertas.js"></script>
+        <?php
+            if(!isset($_SESSION['ValidacionTrue'])){
+            $_SESSION['ValidacionTrue'] = false;
+             }
+             else if($_SESSION['ValidacionTrue']){
+              print "<script>izzitoastSucces('Realizado', 'El campo se ha enviado exitosamente').show();</script>";
+               $_SESSION['ValidacionTrue'] = false;
+             }
+
+             if(!isset($_SESSION['ValidacionFalse'])){
+                $_SESSION['ValidacionFalse'] = false;
+              }
+             else  if($_SESSION['ValidacionFalse']){
+                print "<script>izzitoastError('Error', 'El campo no se ha enviado').show();</script>";
+                $_SESSION['ValidacionFalse'] = false;
+             }       
+         ?>
+   
 
 </body>
 </html>
