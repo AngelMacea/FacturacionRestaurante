@@ -11,6 +11,8 @@
 
   <!-- Favicons -->
   <link href="https://chineserestaurantcrossings.com/wp-content/uploads/2018/02/cropped-OP2-1-32x32.png" rel="icon">
+    <link rel="stylesheet" href="../assets/iziToast-master/dist/css/iziToast.min.css">
+   <link href="../assets/css/login-style.css" rel="stylesheet">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -118,7 +120,10 @@ background-attachment: fixed;
     </div>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous">
+  </script>
   <!-- Vendor JS Files -->
   <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -131,6 +136,24 @@ background-attachment: fixed;
 
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
+        <script src="../assets/iziToast-master/dist/js/iziToast.min.js" type="text/javascript"></script>
+  <script>
+  function izzitoast(titulo, mensaje){
+    iziToast.error({
+        title: titulo,
+        message: mensaje,
+    });
+  }
+  </script> 
+
+  <?php
+      if($_SESSION['Validacion']){
+        print "<script>izzitoast('Error', 'El usuario no existe').show();</script>";
+        $_SESSION['Validacion'] = false;
+      }
+      
+  ?>
+
 
 </body>
 
