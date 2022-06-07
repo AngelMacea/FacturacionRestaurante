@@ -103,7 +103,7 @@
                         </div>
                         </div>
                         
-                        <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="btnInsertar" />
+                        <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Agregar" />
                     </form>
         </div>
                 <div>
