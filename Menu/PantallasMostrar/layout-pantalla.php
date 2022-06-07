@@ -51,6 +51,17 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
 </head>
 
 <body>
+    <?php session_start(); 
+  if($_SESSION["Usuario"] == ""){
+    echo "<script>window.location.assign('../../Login/pages-login.php');</script>";
+  }
+
+   if(isset($_GET['logout'])){
+    session_destroy();
+    echo "<script>window.location.assign('../../Login/pages-login.php');</script>";
+  }
+  
+  ?>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -82,22 +93,21 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo isset($_SESSION["Usuario"]) ? $_SESSION["Usuario"] : ""; ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6><?php echo isset($_SESSION["Usuario"]) ? $_SESSION["Usuario"] : ""; ?></h6>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="?logout=1">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>Salir</span>
               </a>
             </li>
 
