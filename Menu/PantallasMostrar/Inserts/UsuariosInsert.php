@@ -26,16 +26,14 @@
     PRINT $result;
     if(sqlsrv_execute($result))
     {
-        PRINT '<script>';
-        PRINT 'alert("Se agrego con exito al usuario")';
-        PRINT '</script>';
+        $_SESSION['ValidacionTrue'] = true;
         header('location: ../pages-usuarioindex.php');
     }
     else
     {
-        PRINT '<script>';
-        PRINT 'alert("Error")';
-        PRINT '</script>';
+        $_SESSION['ValidacionFalse'] = true;
+        header('location: ../pages-usuarioindex.php');
     }
+
 
 ?>
