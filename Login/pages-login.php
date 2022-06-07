@@ -12,7 +12,7 @@
   <!-- Favicons -->
   <link href="https://chineserestaurantcrossings.com/wp-content/uploads/2018/02/cropped-OP2-1-32x32.png" rel="icon">
     <link rel="stylesheet" href="../assets/iziToast-master/dist/css/iziToast.min.css">
-   <link href="../assets/css/login-style.css" rel="stylesheet">
+  
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -29,50 +29,11 @@
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
-
-
-  <style>
-    .card {
-  margin-top:25%;
-  margin-bottom: 30px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-  padding-bottom:40px;
-}
-
-.card-body{
-            background: #1c92d2;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to top, #f2fcfe, #1c92d2);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to top, #f2fcfe, #1c92d2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-border-radius: 10px;
-box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-
-        }
-
-        .bg-color{
-          background: #2980B9;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to bottom, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to bottom, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-background-attachment: fixed;
-        }
-
-        .btn-primary{
-          color:#fff;
-          font-size:18px;
-          font-weight:600;
-          background-color:#C01B18;
-          border-color:#C01B18;
-        }
-        .form-padding{
-          padding:20px;
-        }
-
-  </style>
+   <link href="../assets/css/login-style.css" rel="stylesheet">
 </head>
 
 <body class="bg-color">
+  <?phpsession_start();?>
     <div class="container">
 
           <div class="row justify-content-center">
