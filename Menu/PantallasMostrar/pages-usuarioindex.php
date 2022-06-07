@@ -45,6 +45,48 @@
             Usuarios 
         </div>
         <div class="card-body">
+        <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertUsuario">Agregar Usuarios</button>
+
+        <div id="InsertUsuario" class="collapse">
+                    <form method="POST" action="Inserts/UsuariosInsert.php">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="txtEmp_Id">ID del Empleado</label>
+                                <input type="number" 
+                                class="form-control" 
+                                id="txtEmp_Id"
+                                name="txtEmp_Id"
+                                placeholder="ID del Empleado">
+                                
+                            </div>
+                            <div class="form-group">
+                                    <label for="txtNombre">Contraseña</label>
+                                    <input type="text" 
+                                    class="form-control" 
+                                    id="txtPass"
+                                    name="txtPass"
+                                    placeholder="Ingrese la contraseña">
+                                    
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                    <label for="exampleInputEmail1">Usuario</label>
+                                    <input type="text" 
+                                    class="form-control" 
+                                    id="txtUsuario"
+                                    name="txtUsuario"
+                                    placeholder="Ingrese el usuario">
+                                    
+                            </div>
+                            
+                        </div>
+                        </div>
+                        
+                        <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="btnInsertar" />
+                    </form>
+        </div>
                 <div>
                     <form method="POST" action="">
                         <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
