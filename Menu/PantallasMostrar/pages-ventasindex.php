@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes</title>
+    <title>Ventas</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css" />
     <link rel="stylesheet" 
         href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -26,7 +26,7 @@
 <link href="../../assets/css/style.css" rel="stylesheet">
 <style>
      .container{
-        margin: top 6px;
+        margin-top:5%;
         width: auto;
         margin-left: 19%;
     }
@@ -37,8 +37,8 @@
     <div class="container">
 
     <div class="card mt-5">
-        <div class="card-header fw-bold fs-5 ps-5 mb-5">
-            Clientes
+        <div class="card-header fw-bold fs-5 ps-5 mb-5 ">
+            Ventas
         </div>
         <div class="card-body">
                 <div>
