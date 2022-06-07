@@ -53,11 +53,29 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="txtEmp_Id">ID del Empleado</label>
-                                <input type="number" 
-                                class="form-control" 
-                                id="txtEmp_Id"
-                                name="txtEmp_Id"
-                                placeholder="ID del Empleado">
+                                <select class="form form-control" name="ddlEmpleados" id="ddlEmpleados">
+                                    <?php
+                                    include '../../Login/ConexionDB.php';
+
+                                    $con = new conexion();
+                                    $estadocon = $con->getCon();
+                                    
+                                    $query = "EXEC Gnrl.UDP_tblEmpleados_Mostrar";
+                                    $result = sqlsrv_query($estadocon,$query);
+                                    if($row = sqlsrv_fetch_array($result)){
+                
+                                        do
+                                        {
+                                                if($row['Emp_Id'] != ""){
+                                
+                                                    echo "<option value=".$row['Emp_Id'].">".$row['Nombre']."</option>";
+                                                }
+                                        }
+                                        while($row = sqlsrv_fetch_array($result));
+                                
+                                    } 
+                                    ?>
+                                </select>
                                 
                             </div>
                             <div class="form-group">
