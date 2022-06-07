@@ -102,6 +102,15 @@ BEGIN
     WHERE Pais_Id = @Pais_Id
 END
 GO
+CREATE PROCEDURE Gnrl.UDP_tblPaises_Mostrar
+AS
+BEGIN
+	SELECT Pais_Id,Pais_Descripcion FROM Gnrl.tblPaises
+	WHERE Pais_Estado = 1
+END
+
+EXEC Gnrl.UDP_tblPaises_Mostrar
+GO
 
 --Tabla Ciudades
 
@@ -140,6 +149,18 @@ BEGIN
         Ciud_FechaModifica = CURRENT_TIMESTAMP
     WHERE Ciud_Id = @Ciud_Id
 END
+GO
+
+CREATE PROCEDURE Gnrl.UDP_tblCiudades_Mostrar
+AS
+BEGIN
+	SELECT	Ciud.Ciud_Id,
+			Ciud_Descripcion,
+			Pais.Pais_Descripcion
+	FROM Gnrl.tblCiudades AS Ciud INNER JOIN Gnrl.tblPaises AS Pais ON Pais.Pais_Id = Ciud.Pais_Id
+	WHERE Ciud.Ciud_Estado = 1
+END
+EXEC Gnrl.UDP_tblCiudades_Mostrar
 GO
 
 --Tabla Proveedores
@@ -306,6 +327,18 @@ BEGIN
     WHERE Comu_Id = @Comu_Id
 END
 GO
+CREATE PROCEDURE Gnrl.UDP_tblComunidades_Mostrar
+AS
+BEGIN
+	SELECT	Comu_Id,
+			Comu_Descripcion,
+			Ciud.Ciud_Descripcion,
+			Comu_TarifaEnvio
+	FROM Gnrl.tblComunidades AS Comu
+	INNER JOIN Gnrl.tblCiudades AS Ciud ON Ciud.Ciud_Id = Comu.Ciud_Id
+	WHERE Comu_Estado = 1
+END
+EXEC Gnrl.UDP_tblComunidades_Mostrar
 
 --Tabla Estados Civiles
 
@@ -344,6 +377,16 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE Gnrl.UDP_tblEstadosCiviles_Mostrar
+AS
+BEGIN
+	SELECT EsCi_Id,EsCi_Descrip
+	FROM Gnrl.tblEstadoCiviles
+	WHERE EsCi_Estado = 1
+END
+
+EXEC Gnrl.UDP_tblEstadosCiviles_Mostrar
+
 --Tabla Roles
 
 CREATE PROCEDURE Gnrl.UDP_tblRoles_Insert
@@ -380,6 +423,13 @@ BEGIN
     WHERE Rol_Id = @Rol_Id
 END
 GO
+CREATE PROCEDURE Gnrl.UDP_tblRoles_Mostrar
+AS
+BEGIN
+	SELECT Rol_Id, Rol_Descripcion FROM Gnrl.tblRoles
+	WHERE Rol_Estado = 1
+END
+EXEC Gnrl.UDP_tblRoles_Mostrar
 
 --Tabla Empleados
 
@@ -584,6 +634,15 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE Gnrl.UDP_tblMenus_Mostrar
+AS
+BEGIN
+	SELECT Menu_Id, Menu_Descripcion, Menu_Precio FROM Gnrl.tblMenus
+	WHERE Menu_Estado = 1
+END
+
+EXEC  Gnrl.UDP_tblMenus_Mostrar
+
 select * from Gnrl.tblMenuDetalles
 
 
@@ -630,6 +689,20 @@ BEGIN
         MenuDe_FechaModifica = CURRENT_TIMESTAMP
 END
 GO 
+CREATE PROCEDURE Gnrl.UDP_tblMenuDetalles_Mostrar
+AS
+BEGIN
+	SELECT	MenuDe_Id,
+			Menu.Menu_Descripcion,
+			Ingr.Ingr_Descripcion,
+			MenuDe_Cantidad
+	FROM Gnrl.tblMenuDetalles AS MenuDe
+	INNER JOIN Gnrl.tblMenus AS Menu ON Menu.Menu_Id = MenuDe.Menu_Id
+	INNER JOIN Inv.tblIngredientes AS Ingr ON Ingr.Ingr_Id = MenuDe.Ingr_Id
+	WHERE MenuDe.MenuDe_Estado = 1
+END
+
+EXEC Gnrl.UDP_tblMenuDetalles_Mostrar
 
 --Tabla Compras
 
@@ -720,6 +793,7 @@ BEGIN
     WHERE CompDe_Id = @CompDe_Id
 END
 GO 
+
 
 --Tabla Ventas
 
