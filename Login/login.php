@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     include 'ConexionDB.php';
 
     $con = new conexion();
@@ -7,7 +7,7 @@
 
     $usuario = $_POST['txtUsuario'];
     $pass = $_POST['txtPass'];
-
+    $_SESSION["Usuario"]=$usuario;
     $query = "EXEC Acce.UDP_tblUsuarios_Validacion '$usuario','$pass'";
     $result = sqlsrv_query($estadocon, $query);
 
