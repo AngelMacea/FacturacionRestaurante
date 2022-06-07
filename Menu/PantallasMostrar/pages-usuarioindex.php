@@ -50,7 +50,7 @@
                         <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
                     </form>
                 </div>
-                <table id="TablaE1" class="table  mt-5">
+                <table id="TablaE1" class="table table-striped  mt-5">
                 <thead>
                 <tr>
                 <th>ID</th>
