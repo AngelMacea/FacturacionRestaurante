@@ -216,7 +216,6 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
           </li>
         </ul>
       </li><!-- End Forms Nav -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Ventas</span><i class="bi bi-chevron-down ms-auto"></i>
