@@ -6,7 +6,7 @@
     session_start();
     
 
-    $Pais_Descrip = $_POST['txtPais'];
+    $paisDescripcion = $_POST['txtPais'];
 
     
     if($Pais_Descrip== ""){
@@ -18,7 +18,7 @@
     else{
         $_SESSION['ValidacionError'] = false;
 
-    $queryInsert = "EXEC Gnrl.UDP_tblPaises_Insert '$Pais_Descrip','{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Gnrl.UDP_tblPaises_Insert '$paisDescripcion','{$_SESSION['Usua_Id']}'";
 
     $result = sqlsrv_prepare($estadocon, $queryInsert);
 

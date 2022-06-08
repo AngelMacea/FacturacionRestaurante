@@ -1,36 +1,40 @@
 <?php
-    
-
-    include '../../../assets/conexion/ConexionDB.php';
+   include '../../../assets/conexion/ConexionDB.php';
 
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
-    $Comp_Fecha= $_POST['txtComp_Fecha'];
-    $Comp_NoOrden = $_POST['txtComp_NoOrden'];
-    $Comp_IVA = $_POST['txtComp_IVA'];
-    $UsuarioCrea = $_SESSION['Usua_Id'];
-
-
     
+    $compraFecha= $_POST['txtComp_Fecha'];
+    $compraNoOrden = $_POST['txtComp_NoOrden'];
+    $compraIVA = $_POST['txtComp_IVA'];
+    $usuarioCrea = $_SESSION['Usua_Id'];
 
-    $queryInsert = "EXEC Inv.UDP_tblCompras_Insert '$Comp_Fecha', '$Comp_NoOrden', '$Comp_IVA', '{$_SESSION['Usua_Id']}'";
-    PRINT $queryInsert;
-    $result = sqlsrv_prepare($estadocon, $queryInsert);
-
-    PRINT $result;
-    if(sqlsrv_execute($result))
-    {
-        PRINT '<script>';
-        PRINT 'alert("Se agrego con exito al usuario")';
-        PRINT '</script>';
+    if($compraFecha== "" || $compraNoOrden == ""|| $compraIVA == ""){
+        $_SESSION['Titulo'] = "Error";
+        $_SESSION['Mensaje'] = "Rellene un campo";
+        $_SESSION['ValidacionError'] = true;
         header('location: ../pages-comprasindex.php');
     }
-    else
-    {
-        PRINT '<script>';
-        PRINT 'alert("Error")';
-        PRINT '</script>';
-    }
+    else{
+        $_SESSION['ValidacionError'] = false;
 
+            $queryInsert = "EXEC Inv.UDP_tblCompras_Insert '$compraFecha', '$compraNoOrden', '$compraIVA', '{$_SESSION['Usua_Id']}'";
+            PRINT $queryInsert;
+            $result = sqlsrv_prepare($estadocon, $queryInsert);
+
+            PRINT $result;
+            if(sqlsrv_execute($result))
+            {
+                $_SESSION['ValidacionSuccess'] = true;
+                header('location: ../pages-comprasindex.php');
+            }
+            else
+            {
+                $_SESSION['Titulo'] = "Error";
+                $_SESSION['Mensaje'] = "No se ha podido realizar la consulta";
+                $_SESSION['ValidacionError'] = true;
+                header('location: ../pages-comprasindex.php');
+            }
+        }
 ?>

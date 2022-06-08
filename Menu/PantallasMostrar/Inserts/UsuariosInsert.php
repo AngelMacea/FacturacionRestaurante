@@ -6,13 +6,13 @@
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
-    $Emp_Id = $_POST['ddlEmpleados'];
-    $Usua_Pass = $_POST['txtPass'];
-    $Usua_Usuario = $_POST['txtUsuario'];
-    $Usua_UsuarioCrea = $_SESSION['Usua_Id'];
+    $empleadoIdentificacion = $_POST['ddlEmpleados'];
+    $pass = $_POST['txtPass'];
+    $usuario = $_POST['txtUsuario'];
+    $usuarioCrea = $_SESSION['Usua_Id'];
 
     
-    if($Usua_Pass == "" ||$Usua_Usuario == "" ){
+    if( $pass == "" ||$usuario == "" ||$empleadoIdentificacion == ""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;
@@ -21,7 +21,7 @@
     else{
         $_SESSION['ValidacionError'] = false;
 
-    $queryInsert = "EXEC Acce.UDP_tblUsuarios_Insert '$Emp_Id', '$Usua_Usuario', '$Usua_Pass', '{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Acce.UDP_tblUsuarios_Insert '$empleadoIdentificacion', '$usuario', '$pass', '{$_SESSION['Usua_Id']}'";
     PRINT $queryInsert;
     $result = sqlsrv_prepare($estadocon, $queryInsert);
 

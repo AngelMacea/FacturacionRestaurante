@@ -22,15 +22,10 @@
 <link href="../../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
 <link href="../../assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-<!-- Template Main CSS File -->
-<link href="../../assets/css/style.css" rel="stylesheet">
-<style>
-     .container{
-        margin-top:5%;
-        width: auto;
-        margin-left: 19%;
-    }
-</style>
+ <!-- Template Main CSS File -->
+ <link href="../../assets/css/style.css" rel="stylesheet">
+  <link href="../../assets/css/pantallas.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/iziToast-master/dist/css/iziToast.min.css">
 </head>
 <body>
     <?php include 'layout-pantalla.php'; ?>
@@ -41,48 +36,8 @@
             Compras
         </div>
         <div class="card-body">
-            <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertCompra">Insertar nueva compra</button>
+        <button class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#ComprasModal">Nuevo</button>
 
-            <div id="InsertCompra" class="collapse">
-                    <form class="insertForm" method="POST" action="Inserts/ComprasInsert.php">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="txtEmp_Id">Fecha de la compra</label>
-                                    <input type="date"
-                                    class="form-control"
-                                    id="txtComp_Fecha"
-                                    name="txtComp_Fecha"
-                                    >
-                                    
-                                </div>
-                                <div class="form-group">
-                                        <label for="txtNombre"># de orden</label>
-                                        <input type="text" 
-                                        class="form-control" 
-                                        id="txtComp_NoOrden"
-                                        name="txtComp_NoOrden"
-                                        placeholder="Ingrese el # de orden">
-                                        
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                        <label for="txtComp_IVA">IVA %</label>
-                                        <input type="number" 
-                                        class="form-control" 
-                                        id="txtComp_IVA"
-                                        name="txtComp_IVA"
-                                        placeholder="Ingrese el % de IVA">
-                                        
-                                </div>
-                                
-                            </div>
-                            </div>
-                            
-                            <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
-                    </form>
-            </div>
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
@@ -133,7 +88,62 @@
         </div>
 
     </div>
-    <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
+
+
+     <!-- Modal -->
+<div class="modal fade" id="ComprasModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Insertar registro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="insertForm" method="POST" action="Inserts/ComprasInsert.php">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="txtEmp_Id">Fecha de la compra</label>
+                                    <input type="date"
+                                    class="form-control"
+                                    id="txtComp_Fecha"
+                                    name="txtComp_Fecha"
+                                    >
+                                    
+                                </div>
+                                <div class="form-group">
+                                        <label for="txtNombre"># de orden</label>
+                                        <input type="text" 
+                                        class="form-control" 
+                                        id="txtComp_NoOrden"
+                                        name="txtComp_NoOrden"
+                                        placeholder="Ingrese el # de orden">
+                                        
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                        <label for="txtComp_IVA">IVA %</label>
+                                        <input type="number" 
+                                        class="form-control" 
+                                        id="txtComp_IVA"
+                                        name="txtComp_IVA"
+                                        placeholder="Ingrese el % de IVA">
+                                        
+                                </div>
+                                
+                            </div>
+                            </div>
+                            
+                            <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
+                    </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/vendor/chart.js/chart.min.js"></script>
   <script src="../../assets/vendor/echarts/echarts.min.js"></script>
@@ -141,6 +151,9 @@
   <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="../../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous">
@@ -149,7 +162,10 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous">
     </script>
+    <script src="../../assets/iziToast-master/dist/js/iziToast.min.js" type="text/javascript"></script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
+     <script src="../../assets/js/alertas.js"></script>
+    <?php include('pages-validar.php');?>
 </body>
 </html>
 

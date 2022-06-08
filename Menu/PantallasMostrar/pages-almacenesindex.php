@@ -22,15 +22,10 @@
 <link href="../../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
 <link href="../../assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-<!-- Template Main CSS File -->
-<link href="../../assets/css/style.css" rel="stylesheet">
-<style>
-     .container{
-        margin-top:5%;
-        width: auto;
-        margin-left: 19%;
-    }
-</style>
+ <!-- Template Main CSS File -->
+ <link href="../../assets/css/style.css" rel="stylesheet">
+  <link href="../../assets/css/pantallas.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/iziToast-master/dist/css/iziToast.min.css">
 </head>
 <body>
     <?php include 'layout-pantalla.php'; ?>
@@ -41,30 +36,7 @@
             Almacenes
         </div>
         <div class="card-body">
-        <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertAlmacenes">Insertar nuevo Almacen</button>
-
-        <div id="InsertAlmacenes" class="collapse bg-info text-white  ">
-                    <form class="insertForm" method="POST" action="Inserts/AlmacenInsert.php">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="txtAlmc_Desc">Nombre del Almacen</label>
-                                <input type="text" 
-                                class="form-control" 
-                                id="txtAlmc_Desc"
-                                name="txtAlmc_Desc"
-                                placeholder="Asigne un nombre al almacen">
-                                
-                            </div>
-                        </div>
-                        <div class="col">
-                            
-                        </div>
-                        </div>
-                        
-                        <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" name="btnInsertar" value="Crear" />
-                    </form>
-        </div>
+        <button class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#AlmacenModal">Nuevo</button>
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
@@ -113,7 +85,45 @@
         </div>
 
     </div>
-    <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="AlmacenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Insertar registro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+                        <form class="insertForm" method="POST" action="Inserts/AlmacenInsert.php">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="txtAlmc">Nombre del Almacen</label>
+                                    
+                                    <input type="text" 
+                                    class="form-control" 
+                                    id="txtAlmc"
+                                    name="txtAlmc"
+                                    placeholder="Ingrese un almacen">
+                                    
+                                </div>
+                            </div>
+                            <div class="col">
+                                
+                            </div>
+                            </div>
+                            
+                            <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" name="btnInsertar" value="Agregar" />
+                        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/vendor/chart.js/chart.min.js"></script>
   <script src="../../assets/vendor/echarts/echarts.min.js"></script>
@@ -121,6 +131,9 @@
   <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="../../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous">
@@ -129,6 +142,9 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous">
     </script>
+    <script src="../../assets/iziToast-master/dist/js/iziToast.min.js" type="text/javascript"></script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
+     <script src="../../assets/js/alertas.js"></script>
+    <?php include('pages-validar.php');?>
 </body>
 </html>

@@ -1,37 +1,40 @@
 <?php
-    
-
-    include '../../../assets/conexion/ConexionDB.php';
+   include '../../../assets/conexion/ConexionDB.php';
 
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
-    $Ingr_Descripcion= $_POST['txtIngr_Descripcion'];
-    $Ingr_FechaCaducidad = $_POST['txtIngr_FechaCaducidad'];
-    $Prov_Id = $_POST['ddlProveedores'];
-    $Ingr_Stock = $_POST['txtIngr_Stock'];
-    $Almc_Id = $_POST['ddlAlmc_Id'];
-    $UsuarioCrea = $_SESSION['Usua_Id'];
+
+    $ingredienteDescripcion= $_POST['txtIngr_Descripcion'];
+    $ingredienteFechaCaducidad = $_POST['txtIngr_FechaCaducidad'];
+    $proveedorIdentificacion = $_POST['ddlProveedores'];
+    $ingredienteStock = $_POST['txtIngr_Stock'];
+    $almacenIdentificacion = $_POST['ddlAlmc_Id'];
 
     
-
-    $queryInsert = "EXEC Inv.UDP_tblIngredientes_Insert '$Ingr_Descripcion', '$Ingr_Stock', '$Prov_Id', '$Ingr_FechaCaducidad', 'B', '$Almc_Id','{$_SESSION['Usua_Id']}'";
-    PRINT $queryInsert;
+    if($ingredienteDescripcion== "" || $ingredienteFechaCaducidad =="" || $proveedorIdentificacion =="" || $ingredienteStock ==""|| $almacenIdentificacion ==""){
+        $_SESSION['Titulo'] = "Error";
+        $_SESSION['Mensaje'] = "Rellene un campo";
+        $_SESSION['ValidacionError'] = true;
+        header('location: ../pages-ingredientesindex.php');
+    }
+    else{
+        $_SESSION['ValidacionError'] = false;
+    $queryInsert = "EXEC Inv.UDP_tblIngredientes_Insert '$ingredienteDescripcion', '$ingredienteStock', '$proveedorIdentificacion', '$ingredienteFechaCaducidad', 'B', '$almacenIdentificacion','{$_SESSION['Usua_Id']}'";
     $result = sqlsrv_prepare($estadocon, $queryInsert);
-
-    PRINT $result;
+    
     if(sqlsrv_execute($result))
     {
-        PRINT '<script>';
-        PRINT 'alert("Se agrego con exito al usuario")';
-        PRINT '</script>';
+        $_SESSION['ValidacionSuccess'] = true;
         header('location: ../pages-ingredientesindex.php');
     }
     else
     {
-        PRINT '<script>';
-        PRINT 'alert("Error")';
-        PRINT '</script>';
+        $_SESSION['Titulo'] = "Error";
+        $_SESSION['Mensaje'] = "No se ha podido realizar la consulta";
+        $_SESSION['ValidacionError'] = true;
+        header('location: ../pages-ingredientesindex.php');
     }
+}
 
 ?>

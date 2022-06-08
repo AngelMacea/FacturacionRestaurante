@@ -99,6 +99,7 @@
                         <div class="form-group">
                         <label for="txtMenú_Id">Menú</label>
                                 <select class="form form-control flexselect" name="ddlMenus" id="ddlMenus">
+                                <option value="" selected disabled></option>
                                     <?php
                                     $query = "EXEC Gnrl.UDP_tblMenus_Mostrar";
                                     $result = sqlsrv_query($estadocon,$query);
@@ -122,6 +123,7 @@
                         <div class="form-group">
                         <label for="txtMenú_Id">Ingrediente</label>
                                 <select class="form form-control flexselect" name="ddlIngredientes" id="ddlIngredientes">
+                                <option value="" selected disabled></option>
                                     <?php
                                     $query = "EXEC Inv.UDP_tblIngredientes_Mostrar";
                                     $result = sqlsrv_query($estadocon,$query);

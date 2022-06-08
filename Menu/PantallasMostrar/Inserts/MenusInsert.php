@@ -5,11 +5,11 @@
     session_start();
     
 
-    $Menu_Descrip = $_POST['txtMenu'];
-    $Menu_Precio = $_POST['txtPrecio'];
+    $menuDescripcion = $_POST['txtMenu'];
+    $menuPrecio= $_POST['txtPrecio'];
 
     
-    if($Menu_Descrip == "" ||$Menu_Precio == ""){
+    if($menuDescripcion == "" ||$menuPrecio == ""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;
@@ -18,7 +18,7 @@
     else{
         $_SESSION['ValidacionError'] = false;
 
-    $queryInsert = "EXEC Gnrl.UDP_tblMenus_Insert '$Menu_Descrip','$Menu_Precio','{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Gnrl.UDP_tblMenus_Insert '$menuDescripcion','$menuPrecio','{$_SESSION['Usua_Id']}'";
 
     $result = sqlsrv_prepare($estadocon, $queryInsert);
 

@@ -1,31 +1,38 @@
 <?php
-    
-
-    include '../../../assets/conexion/ConexionDB.php';
+   include '../../../assets/conexion/ConexionDB.php';
 
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
-    $Almc_Desc = $_POST['txtAlmc_Desc'];
-    $Usua_UsuarioCrea = $_SESSION['Usua_Id'];
+    
 
+    $almacenDescripcion = $_POST['txtAlmc'];
 
-    $queryInsert = "EXEC Inv.UDP_tblAlmacenes_Insert '$Almc_Desc', '{$_SESSION['Usua_Id']}'";
-    PRINT $queryInsert;
-    $result = sqlsrv_prepare($estadocon, $queryInsert);
-
-    if(sqlsrv_execute($result))
-    {
-        PRINT '<script>';
-        PRINT 'alert("Se agrego con exito al usuario")';
-        PRINT '</script>';
+    
+    if($almacenDescripcion== ""){
+        $_SESSION['Titulo'] = "Error";
+        $_SESSION['Mensaje'] = "Rellene un campo";
+        $_SESSION['ValidacionError'] = true;
         header('location: ../pages-almacenesindex.php');
     }
-    else
-    {
-        PRINT '<script>';
-        PRINT 'alert("Error")';
-        PRINT '</script>';
+    else{
+        $_SESSION['ValidacionError'] = false;
+        
+        $queryInsert = "EXEC Inv.UDP_tblAlmacenes_Insert '$almacenDescripcion', '{$_SESSION['Usua_Id']}'";
+        $result = sqlsrv_prepare($estadocon, $queryInsert);
+
+        if(sqlsrv_execute($result))
+        {
+            $_SESSION['ValidacionSuccess'] = true;
+            header('location: ../pages-almacenesindex.php');
+        }
+        else
+        {
+            $_SESSION['Titulo'] = "Error";
+            $_SESSION['Mensaje'] = "No se ha podido realizar la consulta";
+            $_SESSION['ValidacionError'] = true;
+            header('location: ../pages-almacenesindex.php');
+        }
     }
 
 ?>

@@ -6,10 +6,10 @@
     session_start();
     
 
-    $Rol_Descrip = $_POST['txtRol'];
+    $rolDescripcion = $_POST['txtRol'];
 
     
-    if($Rol_Descrip== ""){
+    if($rolDescripcion== ""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;
@@ -18,7 +18,7 @@
     else{
         $_SESSION['ValidacionError'] = false;
 
-    $queryInsert = "EXEC Gnrl.UDP_tblRoles_Insert'$Rol_Descrip','{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Gnrl.UDP_tblRoles_Insert'$rolDescripcion','{$_SESSION['Usua_Id']}'";
 
     $result = sqlsrv_prepare($estadocon, $queryInsert);
 

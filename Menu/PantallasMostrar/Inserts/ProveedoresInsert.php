@@ -4,13 +4,13 @@
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
-    $Prov_Descripcion = $_POST['txtProveedor'];
-    $Prov_Telefono = $_POST['txttelefono'];
-    $Ciud_Id = $_POST['ddlCiudades'];
+    $proveedorDescripcion = $_POST['txtProveedor'];
+    $proveedorTelefono = $_POST['txttelefono'];
+    $ciudadIdentificacion = $_POST['ddlCiudades'];
 
 
     
-    if($Prov_Descripcion== "" || $Prov_Telefono ==""){
+    if($proveedorDescripcion== "" || $proveedorTelefono ==""|| $ciudadIdentificacion ==""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;
@@ -19,7 +19,7 @@
     else{
         $_SESSION['ValidacionError'] = false;
 
-    $queryInsert = "EXEC Gnrl.UDP_tblProveedores_Insert '$Prov_Descripcion',' $Prov_Telefono','$Ciud_Id','{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Gnrl.UDP_tblProveedores_Insert '$proveedorDescripcion',' $proveedorTelefono','$ciudadIdentificacion','{$_SESSION['Usua_Id']}'";
 
     $result = sqlsrv_prepare($estadocon, $queryInsert);
 

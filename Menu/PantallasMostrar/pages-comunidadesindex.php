@@ -122,6 +122,7 @@
                         <div class="form-group">
                         <label for="txtEmp_Id">Ciudad</label>
                                 <select class="form form-control flexselect" name="ddlCiudades" id="ddlCiudades">
+                                <option value="" selected disabled></option>
                                     <?php
                                     $query = "EXEC Gnrl.UDP_tblCiudades_Mostrar";
                                     $result = sqlsrv_query($estadocon,$query);

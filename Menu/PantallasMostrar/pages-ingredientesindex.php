@@ -23,14 +23,10 @@
 <link href="../../assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="../../assets/css/style.css" rel="stylesheet">
-<style>
-     .container{
-        margin-top:5%;
-        width: auto;
-        margin-left: 19%;
-    }
-</style>
+<link href="../../assets/css/pantallas.css" rel="stylesheet">
+  <link href="../../assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/iziToast-master/dist/css/iziToast.min.css">
+    <link rel="stylesheet" href="../../assets/flexselect/flexselect.css" type="text/css" media="screen" />
 </head>
 <body>
     <?php include 'layout-pantalla.php';
@@ -43,125 +39,8 @@
             Ingredientes
         </div>
         <div class="card-body">
-<button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertCompraDetalles">Nuevo</button>
+        <button class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#IngredientesModal">Nuevo</button>
 
-<div id="InsertCompraDetalles" class="collapse">
-        <form class="insertForm" method="POST" action="Inserts/IngredientesInsert.php">
-            <div class="row">
-                <div class="col">
-                        
-                        <div class="form-group">
-                            <label for="txtIngr_Descripcion">Ingrediente</label>
-                            <input type="text"
-                            class="form form-control"
-                            name="txtIngr_Descripcion" 
-                            id="txtIngr_Descripcion"
-                            placeholder="Ingrese el nombre del ingrediente"
-                            />
-                            
-                                
-                        </div>
-                        <div class="form-group">
-                            <label for="txtIngr_FechaCaducidad">Fecha de Caducidad</label>
-                            <input type="date"
-                            class="form form-control"
-                            min="<?= date("d/m/Y"); ?>"
-                            name="txtIngr_FechaCaducidad" 
-                            id="txtIngr_FechaCaducidad"
-                            placeholder="Ingrese la fecha de caducidad"
-                            />
-                            
-                            
-                                
-                        </div>
-                        <div class="form-group">
-                                <label for="ddlProveedores">Proveedores</label>
-                                <select class="form form-control" name="ddlProveedores" id="ddlProveedores">
-                                    <option value="" selected disabled>Eliga un proveedor</option>
-                                    <?php
-                                    date_default_timezone_set('America/Tegucigalpa');
-                                    include '../../assets/conexion/ConexionDB.php';
-
-                                    $con = new conexion();
-                                    $estadocon = $con->getCon();
-                                    
-
-                                    $query = "EXEC Gnrl.UDP_tblProveedores_Mostrar";
-                                    $result = sqlsrv_query($estadocon,$query);
-                                    if($row = sqlsrv_fetch_array($result)){
-                
-                                        do
-                                        {
-                                                if($row['Prov_Id'] != ""){
-                                
-                                                    echo "<option value=".$row['Prov_Id'].">".$row['Prov_Descripcion']."</option>";
-                                                }
-                                        }
-                                        while($row = sqlsrv_fetch_array($result));
-                                
-                                    } 
-                                    else
-                                    {
-                                        echo "<option value=''>Error</option>";
-                                    }
-                                    ?>
-                                </select>
-                                
-                        </div>
-                        
-                            
-                    
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="txtIngr_Stock">Cantidad</label>
-                        <input type="number"
-                        class="form form-control"
-                        name="txtIngr_Stock" 
-                        id="txtIngr_Stock"
-                        placeholder="Ingrese la cantidad de ingredientes"
-                        min="0" 
-                        max="10000" 
-                        step="1" />
-                            
-                    </div>
-                    <div class="form-group">
-                                <label for="ddlAlmc_Id">Almacen</label>
-                                <select class="form form-control" name="ddlAlmc_Id" id="ddlAlmc_Id" >
-                                        <option value="" selected disabled>Eliga un almacen</option>
-                                        <?php
-                                        
-                                        
-                                        $query = "EXEC Inv.UDP_tblAlmacenes_Mostrar";
-                                        $result = sqlsrv_query($estadocon,$query);
-                                        if($row = sqlsrv_fetch_array($result)){
-                    
-                                            do
-                                            {
-                                                    if($row['Almc_Id'] != ""){
-                                    
-                                                        echo "<option value=".$row['Almc_Id'].">".$row['Almc_Descripcion']."</option>";
-                                                    }
-                                            }
-                                            while($row = sqlsrv_fetch_array($result));
-                                    
-                                        } 
-                                        else
-                                        {
-                                            echo "<option value=''></option>";
-                                        }
-                                        ?>
-                                </select>
-                            
-                            </div>
-                    
-                    
-                </div>
-                </div>
-                
-                <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
-        </form>
-</div>
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
@@ -177,7 +56,12 @@
                 </thead>
                 <tbody>
                 <?php
-                    
+                    date_default_timezone_set('America/Tegucigalpa');
+                    include '../../assets/conexion/ConexionDB.php';
+
+                    $con = new conexion();
+                    $estadocon = $con->getCon();
+                                        
                     
                     $query = "EXEC Inv.UDP_tblIngredientes_Mostrar";
                     $result = sqlsrv_query($estadocon,$query);
@@ -215,15 +99,133 @@
         </div>
 
     </div>
-    <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../../assets/vendor/chart.js/chart.min.js"></script>
-  <script src="../../assets/vendor/echarts/echarts.min.js"></script>
-  <script src="../../assets/vendor/quill/quill.min.js"></script>
-  <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="../../assets/vendor/php-email-form/validate.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+
+    
+    <!-- Modal -->
+        <div class="modal fade" id="IngredientesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Insertar registro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="insertForm" method="POST" action="Inserts/IngredientesInsert.php">
+            <div class="row">
+                 <div class="col-12">
+                        <div class="form-group">
+                            <label for="txtIngr_Descripcion">Ingrediente</label>
+                            <input type="text"
+                            class="form form-control"
+                            name="txtIngr_Descripcion" 
+                            id="txtIngr_Descripcion"
+                            placeholder="Ingrese el ingrediente"
+                            />   
+                        </div>
+                    </div>
+                       
+                        <div class="col-6">
+                        <div class="form-group">
+                            <label for="txtIngr_FechaCaducidad">Fecha de Caducidad</label>
+                            <input type="date"
+                            class="form form-control"
+                            min="<?= date("d/m/Y"); ?>"
+                            name="txtIngr_FechaCaducidad" 
+                            id="txtIngr_FechaCaducidad"
+                            placeholder="Ingrese una fecha"/> 
+                        </div>
+                        </div>
+                            
+                    
+                
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="txtIngr_Stock">Cantidad</label>
+                        <input type="number"
+                        class="form form-control"
+                        name="txtIngr_Stock" 
+                        id="txtIngr_Stock"
+                        placeholder="Ingrese un valor"
+                        min="0" 
+                        max="10000" 
+                        step="1" />  
+                    </div>
+                </div>
+
+                <div class="col-6">
+                        <div class="form-group">
+                                <label for="ddlProveedores">Proveedor</label>
+                                <select class="form form-control flexselect" name="ddlProveedores" id="ddlProveedores">
+                                <option value="" selected disabled></option>
+                                    <?php
+                                
+                                    $query = "EXEC Gnrl.UDP_tblProveedores_Mostrar";
+                                    $result = sqlsrv_query($estadocon,$query);
+                                    if($row = sqlsrv_fetch_array($result)){
+                
+                                        do
+                                        {
+                                                if($row['Prov_Id'] != ""){
+                                
+                                                    echo "<option value=".$row['Prov_Id'].">".$row['Prov_Descripcion']."</option>";
+                                                }
+                                        }
+                                        while($row = sqlsrv_fetch_array($result));
+                                
+                                    } 
+                                    else
+                                    {
+                                        echo "<option value=''>Error</option>";
+                                    }
+                                    ?>
+                                </select>
+                        </div>
+                        </div>
+                    <div class="col-6">
+                    <div class="form-group">
+                                <label for="ddlAlmc_Id">Almacen</label>
+                                <select class="form form-control flexselect" name="ddlAlmc_Id" id="ddlAlmc_Id" >
+                                        <option value="" selected disabled></option>
+                                        <?php
+                                        
+                                        
+                                        $query = "EXEC Inv.UDP_tblAlmacenes_Mostrar";
+                                        $result = sqlsrv_query($estadocon,$query);
+                                        if($row = sqlsrv_fetch_array($result)){
+                    
+                                            do
+                                            {
+                                                    if($row['Almc_Id'] != ""){
+                                    
+                                                        echo "<option value=".$row['Almc_Id'].">".$row['Almc_Descripcion']."</option>";
+                                                    }
+                                            }
+                                            while($row = sqlsrv_fetch_array($result));
+                                    
+                                        } 
+                                        else
+                                        {
+                                            echo "<option value=''></option>";
+                                        }
+                                        ?>
+                                </select>
+                            
+                            </div>
+                            </div>
+                    
+                    
+                
+                </div>
+                
+                <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Agregar" />
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous">
     </script>
@@ -231,6 +233,26 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous">
     </script>
+<script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/vendor/chart.js/chart.min.js"></script>
+  <script src="../../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../../assets/vendor/quill/quill.min.js"></script>
+  <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../../assets/flexselect/liquidmetal.js" type="text/javascript"></script>
+<script src="../../assets/flexselect/jquery.flexselect.js" type="text/javascript"></script>
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
+<script>
+    jQuery(document).ready(function() {
+    $("select.flexselect").flexselect();
+  });
+</script>
+    <script src="../../assets/iziToast-master/dist/js/iziToast.min.js" type="text/javascript"></script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
+     <script src="../../assets/js/alertas.js"></script>
+    <?php include('pages-validar.php');?>
 </body>
 </html>

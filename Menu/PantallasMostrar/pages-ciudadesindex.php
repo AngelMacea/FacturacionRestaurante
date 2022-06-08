@@ -108,6 +108,7 @@
                         <div class="form-group">
                         <label for="txtEmp_Id">Pais</label>
                                 <select class="form form-control flexselect" name="ddlPaises" id="ddlPaises">
+                                    <option value="" selected disabled></option>
                                     <?php
                                     $query = "EXEC Gnrl.UDP_tblPaises_Mostrar";
                                     $result = sqlsrv_query($estadocon,$query);

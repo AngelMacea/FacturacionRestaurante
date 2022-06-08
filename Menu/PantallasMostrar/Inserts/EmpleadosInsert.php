@@ -5,16 +5,16 @@
     $estadocon = $con->getCon();
     session_start();
 
-    $Emp_Identificacion = $_POST['txtId'];
-    $Emp_Nombres = $_POST['txtNombre'];
-    $Emp_Apellidos = $_POST['txtApellido'];
-    $Emp_Edad = $_POST['txtEdad'];
-    $Emp_Sexo = $_POST['ddlSexo'];
-    $Emp_Correo = $_POST['txtEmail'];
-    $Emp_EsCi = $_POST['ddlEstadoCiviles'];
-    $Emp_Rol = $_POST['ddlRoles'];
+    $empleadoIdentificacion = $_POST['txtId'];
+    $empleadoNombres = $_POST['txtNombre'];
+    $empleadoApellidos = $_POST['txtApellido'];
+    $empleadoEdad = $_POST['txtEdad'];
+    $empleadoSexo = $_POST['ddlSexo'];
+    $empleadoCorreo = $_POST['txtEmail'];
+    $empleadoEsCi = $_POST['ddlEstadoCiviles'];
+    $empleadoRol = $_POST['ddlRoles'];
     
-    if( $Emp_Identificacion== "" || $Emp_Nombres =="" || $Emp_Apellidos =="" || $Emp_Edad ==""){
+    if( $empleadoIdentificacion== "" || $empleadoNombres =="" || $empleadoApellidos=="" || $empleadoEdad ==""|| $empleadoSexo ==""||$empleadoCorreo ==""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;
@@ -23,7 +23,7 @@
     else{
         $_SESSION['ValidacionError'] = false;
 
-    $queryInsert = "EXEC Gnrl.UDP_tblEmpleados_Insert '$Emp_Identificacion',' $Emp_Nombres ','$Emp_Apellidos','$Emp_Sexo','$Emp_Edad','$Emp_EsCi','$Emp_Correo','$Emp_Rol','{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Gnrl.UDP_tblEmpleados_Insert '$empleadoIdentificacion',' $empleadoNombres ','$empleadoApellidos','$empleadoSexo','$empleadoEdad','$empleadoEsCi','$empleadoCorreo','$empleadoRol','{$_SESSION['Usua_Id']}'";
     $result = sqlsrv_prepare($estadocon, $queryInsert);
 
     print $queryInsert;

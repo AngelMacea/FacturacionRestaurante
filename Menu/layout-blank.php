@@ -144,6 +144,8 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
         </ul>
       </li><!-- End Components Nav -->
 
+
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Ventas</span><i class="bi bi-chevron-down ms-auto"></i>

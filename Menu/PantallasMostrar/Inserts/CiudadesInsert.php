@@ -4,12 +4,12 @@
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
-    $Ciud_Descripcion = $_POST['txtCiudad'];
-    $Pais_Id = $_POST['ddlPaises'];
+    $ciudadDescripcion = $_POST['txtCiudad'];
+    $paisIdentificacion = $_POST['ddlPaises'];
 
 
     
-    if($Ciud_Descripcion== ""){
+    if($ciudadDescripcion== ""||$paisIdentificacion == ""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;
@@ -18,7 +18,7 @@
     else{
         $_SESSION['ValidacionError'] = false;
 
-    $queryInsert = "EXEC Gnrl.UDP_tblCiudades_Insert '$Ciud_Descripcion',' $Pais_Id','{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Gnrl.UDP_tblCiudades_Insert '$ciudadDescripcion',' $paisIdentificacion','{$_SESSION['Usua_Id']}'";
 
     $result = sqlsrv_prepare($estadocon, $queryInsert);
 

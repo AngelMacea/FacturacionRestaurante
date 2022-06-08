@@ -128,7 +128,8 @@
                         <div class="col-12">
                             <div class=" form-group">
                                 <label for="txtEmp_Id">Empleado</label>
-                                <select class="form form-control flexselect" name="ddlEmpleados" id="ddlEmpleados">
+                                <select class="form form-control flexselect"  name="ddlEmpleados" id="ddlEmpleados">
+                                <option value="" selected disabled></option>
                                     <?php
                                    
                                     

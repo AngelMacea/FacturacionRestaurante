@@ -565,7 +565,7 @@ BEGIN
 END
 GO
 CREATE PROCEDURE Inv.UDP_tblIngredientes_Insert
-    @Ingr_Descripcion   INT,
+    @Ingr_Descripcion   NVARCHAR(50),
     @Ingr_Stock         INT,
     @Prov_Id            INT,
     @Ingr_FechaCaducidad DATE,
@@ -578,6 +578,7 @@ BEGIN
     VALUES (@Ingr_Descripcion, @Ingr_Stock, @Prov_Id, @Ingr_FechaCaducidad, @Ingr_Estatus, @Almc_Id, @Ingr_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
+
 CREATE PROCEDURE Inv.UDP_tblIngredientes_Update
     @Ingr_Id            INT,
     @Ingr_Descripcion   INT,

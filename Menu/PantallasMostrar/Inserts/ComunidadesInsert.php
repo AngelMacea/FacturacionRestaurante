@@ -4,13 +4,13 @@
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
-    $Comu_Descripcion = $_POST['txtComunidades'];
-    $Comu_Tarifa = $_POST['txtTarifa'];
-    $Ciud_Id = $_POST['ddlCiudades'];
+    $comunidadDescripcion = $_POST['txtComunidades'];
+    $comunidadTarifa = $_POST['txtTarifa'];
+    $ciudadIdentificacion = $_POST['ddlCiudades'];
 
 
     
-    if($Comu_Descripcion== ""){
+    if($comunidadDescripcion== "" ||  $ciudadIdentificacion == "" || $comunidadTarifa== ""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;
@@ -19,7 +19,7 @@
     else{
         $_SESSION['ValidacionError'] = false;
 
-    $queryInsert = "EXEC Gnrl.UDP_tblComunidades_Insert '$Comu_Descripcion','$Ciud_Id','$Comu_Tarifa','{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Gnrl.UDP_tblComunidades_Insert '$comunidadDescripcion','$ciudadIdentificacion','$comunidadTarifa','{$_SESSION['Usua_Id']}'";
 
     $result = sqlsrv_prepare($estadocon, $queryInsert);
 
