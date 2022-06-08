@@ -33,7 +33,9 @@
 </style>
 </head>
 <body>
-    <?php include 'layout-pantalla.php'; ?>
+    <?php include 'layout-pantalla.php'; 
+    date_default_timezone_set('America/Tegucigalpa');
+    ?>
     <div class="container">
 
     <div class="card mt-5">
@@ -41,11 +43,160 @@
             Ventas
         </div>
         <div class="card-body">
-                <div>
-                    <form method="POST" action="">
-                        <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
-                    </form>
+        <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertVentas">Nuevo</button>
+
+<div id="InsertVentas" class="collapse">
+        <form class="insertForm" method="POST" action="Inserts/VentasInsert.php">
+            <div class="row">
+                <div class="col">
+                            <div class="form-group">
+                                <label for="ddlClientes">Cliente</label>
+                                <select class="form form-control" name="ddlClientes" id="ddlClientes">
+                                    <option value="" selected disabled>Eliga un cliente</option>
+                                    <?php
+                                    
+                                    include '../../Login/ConexionDB.php';
+
+                                    $con = new conexion();
+                                    $estadocon = $con->getCon();
+                                    
+
+                                    $query = "EXEC Gnrl.UDP_tblClientes_Mostrar";
+                                    $result = sqlsrv_query($estadocon,$query);
+                                    if($row = sqlsrv_fetch_array($result)){
+                
+                                        do
+                                        {
+                                                if($row['Clie_Id'] != ""){
+                                
+                                                    echo "<option value=".$row['Clie_Id'].">".$row['Nombre']."</option>";
+                                                }
+                                        }
+                                        while($row = sqlsrv_fetch_array($result));
+                                
+                                    } 
+                                    else
+                                    {
+                                        echo "<option value=''>Error</option>";
+                                    }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="ddlEmpleados">Empleado</label>
+                                <select class="form form-control" name="ddlEmpleados" id="ddlEmpleados">
+                                    <option value="" selected disabled>Eliga un empleado</option>
+                                    <?php
+                                    
+                                    $query = "EXEC Gnrl.UDP_tblEmpleados_Mostrar";
+                                    $result = sqlsrv_query($estadocon,$query);
+                                    if($row = sqlsrv_fetch_array($result)){
+                
+                                        do
+                                        {
+                                                if($row['Emp_Id'] != ""){
+                                
+                                                    echo "<option value=".$row['Emp_Id'].">".$row['Nombre']."</option>";
+                                                }
+                                        }
+                                        while($row = sqlsrv_fetch_array($result));
+                                
+                                    } 
+                                    else
+                                    {
+                                        echo "<option value=''>Error</option>";
+                                    }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                        <div class="form-group">
+                            <label for="txtVent_NoOrden"># de Orden</label>
+                            <input type="text"
+                            class="form form-control"
+                            name="txtVent_NoOrden" 
+                            id="txtVent_NoOrden"
+                            placeholder="Ingrese el # de orden"
+                            />
+                            
+                                
+                        </div>
+                        <div class="form-group">
+                            <label for="txtVent_IVA">IVA</label>
+                            <input type="number"
+                            class="form form-control"
+                            min="0"
+                            max="100"
+                            name="txtVent_IVA" 
+                            id="txtVent_IVA"
+                            placeholder="Ingrese el % de IVA"
+                            />
+                            
+                            
+                                
+                        </div>
+                        
+                            
+                    
                 </div>
+                <div class="col">
+                    <div class="form-group">
+                            <label for="txtVent_Fecha">Fecha de venta</label>
+                            <input type="date"
+                            class="form form-control"
+                            name="txtVent_Fecha" 
+                            id="txtVent_Fecha"
+                            placeholder="Ingrese la fecha de la venta"
+                            />
+                            
+                            
+                                
+                    </div>
+                   
+                            <div class="form-group">
+                                <label for="txtVent_Descuento">Descuento</label>
+                                <input type="number"
+                                class="form form-control"
+                                min="0"
+                                max="100"
+                                name="txtVent_Descuento" 
+                                id="txtVent_Descuento"
+                                placeholder="Ingrese el % de descuento"
+                                />
+                                
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="ddlVent_Servicio">Tipo de servicio</label>
+                                <select class="form form-control" name="ddlVent_Servicio" id="ddlVent_Servicio" >
+                                        <option value="" selected disabled>Eliga un tipo de servicio</option>
+                                        <option value="L">Local</option>
+                                        <option value="D">Delivery</option>
+                                        <option value="A">Autoservicio</option>
+                                </select>
+                                
+                                
+                            </div>
+                            
+                            
+                            
+                    
+                    
+                </div>
+                <div class="form-group">
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Observaciones/ Direccion </span>
+                                </div>
+                                <textarea class="form-control" name="txtVentObservaciones" id="txtVentObservaciones" style="max-height: 200px" aria-label="Observaciones"></textarea>
+                                </div> 
+                            </div>
+                </div>
+                
+                <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
+        </form>
+</div>
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
@@ -56,19 +207,14 @@
                 <th># de Orden</th>
                 <th>IVA</th>
                 <th>Descuento</th>
-                <th>SubTotal</th>
-                <th>Total</th>
                 <th>Servicio</th>
                 <th>Observacion</th>
+                <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
-                    date_default_timezone_set('America/Tegucigalpa');
-                    include '../../Login/ConexionDB.php';
-
-                    $con = new conexion();
-                    $estadocon = $con->getCon();
+                    
                     
                     $query = "EXEC Vent.UDP_tblVentas_Mostrar";
                     $result = sqlsrv_query($estadocon,$query);
@@ -90,8 +236,6 @@
                                 print   '<td>' .$row['Vent_NoOrden'] .'</td>';
                                 print   '<td>' .$row['Vent_IVA'] .'</td>';
                                 print   '<td>' .$row['Vent_Descuento'] .'</td>';
-                                print   '<td>' .$row['Vent_SubTotal'] .'</td>';
-                                print   '<td>' .$row['Vent_Total'] .'</td>';
                                 print   '<td>' .$row['Vent_Servicio'] .'</td>';
                                 print   '<td>' .$row['Vent_Observaciones'] .'</td>';
                                 print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
