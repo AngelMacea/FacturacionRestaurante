@@ -41,11 +41,30 @@
             Almacenes
         </div>
         <div class="card-body">
-                <div>
-                    <form method="POST" action="">
-                        <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
+        <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertAlmacenes">Insertar nuevo Almacen</button>
+
+        <div id="InsertAlmacenes" class="collapse bg-info text-white  ">
+                    <form class="insertForm" method="POST" action="Inserts/AlmacenInsert.php">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="txtAlmc_Desc">Nombre del Almacen</label>
+                                <input type="text" 
+                                class="form-control" 
+                                id="txtAlmc_Desc"
+                                name="txtAlmc_Desc"
+                                placeholder="Asigne un nombre al almacen">
+                                
+                            </div>
+                        </div>
+                        <div class="col">
+                            
+                        </div>
+                        </div>
+                        
+                        <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" name="btnInsertar" value="Crear" />
                     </form>
-                </div>
+        </div>
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
