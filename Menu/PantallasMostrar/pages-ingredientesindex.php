@@ -33,7 +33,9 @@
 </style>
 </head>
 <body>
-    <?php include 'layout-pantalla.php'; ?>
+    <?php include 'layout-pantalla.php';
+    date_default_timezone_set("America/Tegucigalpa");
+    ?>
     <div class="container">
 
     <div class="card mt-5">
@@ -41,11 +43,125 @@
             Ingredientes
         </div>
         <div class="card-body">
-                <div>
-                    <form method="POST" action="">
-                        <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
-                    </form>
+<button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertCompraDetalles">Nuevo</button>
+
+<div id="InsertCompraDetalles" class="collapse">
+        <form class="insertForm" method="POST" action="Inserts/IngredientesInsert.php">
+            <div class="row">
+                <div class="col">
+                        
+                        <div class="form-group">
+                            <label for="txtIngr_Descripcion">Ingrediente</label>
+                            <input type="text"
+                            class="form form-control"
+                            name="txtIngr_Descripcion" 
+                            id="txtIngr_Descripcion"
+                            placeholder="Ingrese el nombre del ingrediente"
+                            />
+                            
+                                
+                        </div>
+                        <div class="form-group">
+                            <label for="txtIngr_FechaCaducidad">Fecha de Caducidad</label>
+                            <input type="date"
+                            class="form form-control"
+                            min="<?= date("d/m/Y"); ?>"
+                            name="txtIngr_FechaCaducidad" 
+                            id="txtIngr_FechaCaducidad"
+                            placeholder="Ingrese la fecha de caducidad"
+                            />
+                            
+                            
+                                
+                        </div>
+                        <div class="form-group">
+                                <label for="ddlProveedores">Proveedores</label>
+                                <select class="form form-control" name="ddlProveedores" id="ddlProveedores">
+                                    <option value="" selected disabled>Eliga un proveedor</option>
+                                    <?php
+                                    date_default_timezone_set('America/Tegucigalpa');
+                                    include '../../Login/ConexionDB.php';
+
+                                    $con = new conexion();
+                                    $estadocon = $con->getCon();
+                                    
+
+                                    $query = "EXEC Gnrl.UDP_tblProveedores_Mostrar";
+                                    $result = sqlsrv_query($estadocon,$query);
+                                    if($row = sqlsrv_fetch_array($result)){
+                
+                                        do
+                                        {
+                                                if($row['Prov_Id'] != ""){
+                                
+                                                    echo "<option value=".$row['Prov_Id'].">".$row['Prov_Descripcion']."</option>";
+                                                }
+                                        }
+                                        while($row = sqlsrv_fetch_array($result));
+                                
+                                    } 
+                                    else
+                                    {
+                                        echo "<option value=''>Error</option>";
+                                    }
+                                    ?>
+                                </select>
+                                
+                        </div>
+                        
+                            
+                    
                 </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="txtIngr_Stock">Cantidad</label>
+                        <input type="number"
+                        class="form form-control"
+                        name="txtIngr_Stock" 
+                        id="txtIngr_Stock"
+                        placeholder="Ingrese la cantidad de ingredientes"
+                        min="0" 
+                        max="10000" 
+                        step="1" />
+                            
+                    </div>
+                    <div class="form-group">
+                                <label for="ddlAlmc_Id">Almacen</label>
+                                <select class="form form-control" name="ddlAlmc_Id" id="ddlAlmc_Id" >
+                                        <option value="" selected disabled>Eliga un almacen</option>
+                                        <?php
+                                        
+                                        
+                                        $query = "EXEC Inv.UDP_tblAlmacenes_Mostrar";
+                                        $result = sqlsrv_query($estadocon,$query);
+                                        if($row = sqlsrv_fetch_array($result)){
+                    
+                                            do
+                                            {
+                                                    if($row['Almc_Id'] != ""){
+                                    
+                                                        echo "<option value=".$row['Almc_Id'].">".$row['Almc_Descripcion']."</option>";
+                                                    }
+                                            }
+                                            while($row = sqlsrv_fetch_array($result));
+                                    
+                                        } 
+                                        else
+                                        {
+                                            echo "<option value=''></option>";
+                                        }
+                                        ?>
+                                </select>
+                            
+                            </div>
+                    
+                    
+                </div>
+                </div>
+                
+                <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
+        </form>
+</div>
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
@@ -61,11 +177,7 @@
                 </thead>
                 <tbody>
                 <?php
-                    date_default_timezone_set('America/Tegucigalpa');
-                    include '../../Login/ConexionDB.php';
-
-                    $con = new conexion();
-                    $estadocon = $con->getCon();
+                    
                     
                     $query = "EXEC Inv.UDP_tblIngredientes_Mostrar";
                     $result = sqlsrv_query($estadocon,$query);
