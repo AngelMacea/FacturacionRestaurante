@@ -41,11 +41,106 @@
             Compras Detalles
         </div>
         <div class="card-body">
-                <div>
-                    <form method="POST" action="">
-                        <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
-                    </form>
+        <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertCompraDetalles">Insertar nueva compra</button>
+
+<div id="InsertCompraDetalles" class="collapse">
+        <form class="insertForm" method="POST" action="Inserts/CompraDetallesInsert.php">
+            <div class="row">
+                <div class="col">
+                        <div class="form-group">
+                                <label for="ddlCompras"># de orden</label>
+                                <select class="form form-control" name="ddlComp_NoOrden" id="ddlComp_NoOrden">
+                                    <option value="" selected>Eliga un # de compra</option>
+                                    <?php
+                                    include '../../Login/ConexionDB.php';
+
+                                    $con = new conexion();
+                                    $estadocon = $con->getCon();
+                                    
+                                    $query = "EXEC Inv.UDP_tblCompras_Mostrar";
+                                    $result = sqlsrv_query($estadocon,$query);
+                                    if($row = sqlsrv_fetch_array($result)){
+                
+                                        do
+                                        {
+                                                if($row['Comp_Id'] != ""){
+                                
+                                                    echo "<option value=".$row['Comp_Id'].">".$row['Comp_NoOrden']."</option>";
+                                                }
+                                        }
+                                        while($row = sqlsrv_fetch_array($result));
+                                
+                                    } 
+                                    else
+                                    {
+                                        echo "<option value=''></option>";
+                                    }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                    <div class="form-group">
+                            <label for="ddlIngr_Id">Ingrediente</label>
+                            <select class="form form-control" name="ddlIngr_Id" id="ddlIngr_Id" >
+                                    <option value="" selected>Eliga un ingrediente</option>
+                                    <?php
+                                    
+                                    
+                                    $query = "EXEC Inv.UDP_tblIngredientes_Mostrar";
+                                    $result = sqlsrv_query($estadocon,$query);
+                                    if($row = sqlsrv_fetch_array($result)){
+                
+                                        do
+                                        {
+                                                if($row['Ingr_Id'] != ""){
+                                
+                                                    echo "<option value=".$row['Ingr_Id'].">".$row['Ingr_Descripcion']."</option>";
+                                                }
+                                        }
+                                        while($row = sqlsrv_fetch_array($result));
+                                
+                                    } 
+                                    else
+                                    {
+                                        echo "<option value=''></option>";
+                                    }
+                                    ?>
+                            </select>
+                            
+                    </div>
                 </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="txtCompDe_PrecioCompra">Precio de Compra</label>
+                        <input type="number"
+                        class="form form-control"
+                        name="txtCompDe_PrecioCompra" 
+                        id="txtCompDe_PrecioCompra"
+                        placeholder="Ingrese el precio del ingrediente"
+                        min="0.00" 
+                        max="10000.00" 
+                        step="0.01" />
+                            
+                    </div>
+                    <div class="form-group">
+                        <label for="txtCompDe_PrecioCompra">Cantidad</label>
+                        <input type="number"
+                        class="form form-control"
+                        name="txtCompDe_Cantidad" 
+                        id="txtCompDe_Cantidad"
+                        placeholder="Ingrese la cantidad de ingredientes"
+                        min="0.00" 
+                        max="10000.00" 
+                        step="1" />
+                            
+                    </div>
+                    
+                </div>
+                </div>
+                
+                <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
+        </form>
+</div>
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
@@ -54,15 +149,12 @@
                 <th>Ingredientes</th>
                 <th>Precio Compra</th>
                 <th>Cantidad</th>
+                <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
                 
-                    include '../../Login/ConexionDB.php';
-
-                    $con = new conexion();
-                    $estadocon = $con->getCon();
                     
                     $query = "EXEC Inv.UDP_tblCompraDetalles_Mostrar";
                     $result = sqlsrv_query($estadocon,$query);
@@ -76,7 +168,7 @@
                             {
                                 
                                 print   '<tr>';
-                                print   '<td>' .$row['ID'] .'</td>';
+                                print   '<td>' .$row['CompDe_Id'] .'</td>';
                                 print   '<td>' .$row['Comp_NoOrden'] .'</td>';
                                 print   '<td>' .$row['Ingr_Descripcion'] .'</td>';
                                 print   '<td>' .$row['CompDe_PrecioCompra'] .'</td>';
