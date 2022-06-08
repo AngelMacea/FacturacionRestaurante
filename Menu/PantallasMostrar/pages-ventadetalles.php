@@ -40,7 +40,7 @@
 
     <div class="card mt-5">
         <div class="card-header fw-bold fs-5 ps-5 mb-5 ">
-            Ventas
+            Venta Detalles
         </div>
         <div class="card-body">
         <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertVentasDetalles">Nuevo</button>

@@ -117,8 +117,7 @@
                                 print   '<td>' .$row['Comp_Id'] .'</td>';
                                 print   '<td>' .$row['Comp_Fecha'] .'</td>';
                                 print   '<td>' .$row['Comp_NoOrden'] .'</td>';
-                                print   '<td>' .$row['Comp_Comp_IVA'] .'</td>';
-                                print   '<td>' .$row['Comp_SubTotal'] .'</td>';
+                                print   '<td>' .$row['Comp_IVA'] .'</td>';
                                 print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
                                 print   '</tr>';
 

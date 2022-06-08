@@ -227,8 +227,15 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+          <li>
+            <a href="pages-ventadetalles.php">
+              <i class="bi bi-circle"></i><span>Venta Detalles</span>
+            </a>
+          </li>
+          <li>
+          <li>
+            <a href="pages-detallesdomiciliosindex.php">
+              <i class="bi bi-circle"></i><span>Ventas a domicilio</span>
             </a>
           </li>
         </ul>
@@ -265,7 +272,7 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
         $(document).ready(function() {
         $('#TablaE1').DataTable( {
             "language": {
-                "decimal":        "",
+                "decimal":        ".",
                 "emptyTable":     "Sin datos para mostrar",
                 "info":           "Mostrando _START_ hasta _END_ de _TOTAL_ registros",
                 "infoEmpty":      "Sin registros",

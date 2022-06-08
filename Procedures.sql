@@ -50,7 +50,6 @@ BEGIN
 	SELECT * FROM Acce.tblUsuarios WHERE Usua_Usuario = @Usua_Usuario AND Usua_Pass = @Usua_Pass
 END
 
-EXEC Acce.UDP_tblUsuarios_Validacion '$Usuario','$Pass'
 
 CREATE PROCEDURE Acce.UDP_tblUsuarios_Mostrar
 AS
@@ -64,7 +63,7 @@ BEGIN
 	WHERE Usua_Estado = 1
 END
 
-EXEC Acce.UDP_tblUsuarios_Mostrar
+
 
 --Tabla Paises
 
@@ -109,7 +108,7 @@ BEGIN
 	WHERE Pais_Estado = 1
 END
 
-EXEC Gnrl.UDP_tblPaises_Mostrar
+
 GO
 
 --Tabla Ciudades
@@ -160,7 +159,7 @@ BEGIN
 	FROM Gnrl.tblCiudades AS Ciud INNER JOIN Gnrl.tblPaises AS Pais ON Pais.Pais_Id = Ciud.Pais_Id
 	WHERE Ciud.Ciud_Estado = 1
 END
-EXEC Gnrl.UDP_tblCiudades_Mostrar
+
 GO
 
 --Tabla Proveedores
@@ -779,14 +778,13 @@ GO
 CREATE PROCEDURE Inv.UDP_tblCompras_Mostrar
 AS
 BEGIN
-	SELECT COMP.Comp_Id, COMP.Comp_Fecha, COMP.Comp_NoOrden, COMP.Comp_IVA, SUM(CODE.CompDe_PrecioCompra) AS [Comp_SubTotal]
+	SELECT COMP.Comp_Id,CAST(COMP.Comp_Fecha AS VARCHAR(20)) AS [Comp_Fecha] , COMP.Comp_NoOrden, COMP.Comp_IVA
 	FROM Inv.tblCompras AS COMP
-	INNER JOIN Inv.tblCompraDetalles AS CODE ON CODE.Comp_Id = COMP.Comp_Id
 	WHERE COMP.Comp_Estado = 1
-	GROUP BY COMP.Comp_Id, COMP.Comp_Fecha, COMP.Comp_NoOrden, COMP.Comp_IVA
-
 END
 GO
+
+
 
 --Tabla Compras Detalles
 
@@ -804,6 +802,8 @@ BEGIN
 
     END
 GO
+
+
 CREATE PROCEDURE Inv.UDP_tblCompraDetalles_Update
     @CompDe_Id      INT,
 	@Comp_Id		INT,
@@ -920,10 +920,11 @@ BEGIN
 	FROM Vent.tblVentas AS VENT
 	INNER JOIN Gnrl.tblClientes AS CLIE ON CLIE.Clie_Id = VENT.Clie_Id
 	INNER JOIN Gnrl.tblEmpleados AS EMPL ON EMPL.Emp_Id = VENT.Emp_Id
-
 	WHERE Vent.Vent_Estado = 1
 END
 GO
+
+
 
 --Tabla Venta Detalles
 --EN EL VENTAS DETALLES INSERT HAY QUE HACER LA VALIDACION DE QUE SI LOS INGREDIENTES ESTAN EN 0, NO DEJE HACER LA COMPRA
@@ -962,7 +963,7 @@ BEGIN
 			EXEC Inv.UDP_tblIngredientes_ReducirStock @Ingr_Id, @CantidadUsada
 			CONTINUE
 		END
-
+		
 	FETCH NEXT FROM ComprobacionIngrStock_Cursor INTO @Men_Id, @Ingr_Id, @MenuDe_Cantidad
 	END
 	CLOSE ComprobacionIngrStock_Cursor
