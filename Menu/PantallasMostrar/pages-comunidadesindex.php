@@ -100,7 +100,7 @@
                     <div class="row">
                     <div class="col-6">
                             <div class="form-group">
-                                    <label for="exampleInputEmail1">Comunidades</label>
+                                    <label for="exampleInputEmail1">Comunidad</label>
                                     <input type="text" 
                                     class="form-control" 
                                     id="txtComunidades"
