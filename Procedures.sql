@@ -220,9 +220,7 @@ BEGIN
 	INNER JOIN Gnrl.tblPaises AS Pais  ON Pais.Pais_Id = Ciud.Pais_Id
 	WHERE Prov.Prov_Estado = 1
 END
-
-EXEC Gnrl.UDP_tblProveedores_Mostrar
-
+GO
 --Tabla Clientes 
 CREATE PROCEDURE Gnrl.UDP_tblClientes_Insert
     @Clie_Identidad     NVARCHAR(15),
@@ -285,7 +283,7 @@ BEGIN
 	FROM Gnrl.tblClientes AS Clie
 	WHERE Clie.Clie_Estado = 1
 END
-
+GO
 --Tabla Comunidades
 CREATE PROCEDURE Gnrl.UDP_tblComunidades_Insert
     @Comu_Descripcion   NVARCHAR(50),
@@ -338,7 +336,7 @@ BEGIN
 	INNER JOIN Gnrl.tblCiudades AS Ciud ON Ciud.Ciud_Id = Comu.Ciud_Id
 	WHERE Comu_Estado = 1
 END
-EXEC Gnrl.UDP_tblComunidades_Mostrar
+GO
 
 --Tabla Estados Civiles
 
@@ -384,8 +382,7 @@ BEGIN
 	FROM Gnrl.tblEstadoCiviles
 	WHERE EsCi_Estado = 1
 END
-
-EXEC Gnrl.UDP_tblEstadosCiviles_Mostrar
+GO
 
 --Tabla Roles
 
@@ -429,7 +426,7 @@ BEGIN
 	SELECT Rol_Id, Rol_Descripcion FROM Gnrl.tblRoles
 	WHERE Rol_Estado = 1
 END
-EXEC Gnrl.UDP_tblRoles_Mostrar
+GO
 
 --Tabla Empleados
 
@@ -508,7 +505,7 @@ BEGIN
 	INNER JOIN Gnrl.tblRoles AS Rol ON Rol.Rol_Id = Empleado.Rol_Id
 	WHERE Empleado.Emp_Estado = 1
 END
-
+GO
 --Tabla Almacenes
 
 CREATE PROCEDURE Inv.UDP_tblAlmacenes_Insert
@@ -554,7 +551,20 @@ END
 GO
 
 --Tabla Ingredientes
+CREATE PROCEDURE Inv.UDP_tblIngredientes_ReducirStock
+    @Ingr_Id    INT,
+    @CantidaAUtilizar INT
+AS 
+BEGIN
+    DECLARE @Stock INT
+    SET @Stock = (SELECT Ingr_Stock FROM Inv.tblIngredientes WHERE Ingr_Id = @Ingr_Id)
 
+    UPDATE Inv.tblIngredientes
+    SET Ingr_Stock = @Stock - @CantidaAUtilizar
+    WHERE Ingr_Id = @Ingr_Id
+
+END
+GO
 CREATE PROCEDURE Inv.UDP_tblIngredientes_Insert
     @Ingr_Descripcion   INT,
     @Ingr_Stock         INT,
@@ -664,10 +674,7 @@ BEGIN
 	SELECT Menu_Id, Menu_Descripcion, Menu_Precio FROM Gnrl.tblMenus
 	WHERE Menu_Estado = 1
 END
-
-EXEC  Gnrl.UDP_tblMenus_Mostrar
-
-select * from Gnrl.tblMenuDetalles
+GO
 
 
 --Tabla Menu Detalles
@@ -725,8 +732,7 @@ BEGIN
 	INNER JOIN Inv.tblIngredientes AS Ingr ON Ingr.Ingr_Id = MenuDe.Ingr_Id
 	WHERE MenuDe.MenuDe_Estado = 1
 END
-
-EXEC Gnrl.UDP_tblMenuDetalles_Mostrar
+GO
 
 --Tabla Compras
 
@@ -903,8 +909,7 @@ AS
 BEGIN
 	SELECT	VENT.Vent_Id, CONCAT_WS(' ', CLIE.Clie_Nombres, CLIE.Clie_Apellidos) AS [Vent_Cliente],
 			CAST(VENT.Vent_Fecha AS VARCHAR(20)) AS [Vent_Fecha], CONCAT_WS(' ', EMPL.Emp_Nombres,EMPL.Emp_Apellidos) AS [Vent_Empleado],
-			VENT.Vent_NoOrden, VENT.Vent_IVA, VENT.Vent_Descuento, ((VentDe_Cantidad*(MENU.Menu_Precio))-Vent.Vent_Descuento) AS [Vent_SubTotal],
-			((VentDe_Cantidad*(MENU.Menu_Precio))-Vent.Vent_Descuento)*(VENT.Vent_IVA/100)+ ((VentDe_Cantidad*(MENU.Menu_Precio))-Vent.Vent_Descuento) AS [Vent_Total],
+			VENT.Vent_NoOrden, VENT.Vent_IVA, VENT.Vent_Descuento,
 			CASE  
 				WHEN VENT.Vent_Servicio = 'L' THEN 'Local'
 				WHEN VENT.Vent_Servicio = 'D' THEN 'Delivery'
@@ -915,8 +920,6 @@ BEGIN
 	FROM Vent.tblVentas AS VENT
 	INNER JOIN Gnrl.tblClientes AS CLIE ON CLIE.Clie_Id = VENT.Clie_Id
 	INNER JOIN Gnrl.tblEmpleados AS EMPL ON EMPL.Emp_Id = VENT.Emp_Id
-	INNER JOIN Vent.tblVentaDetalles AS VEDE ON VEDE.Vent_Id = VENT.Vent_Id
-	INNER JOIN Gnrl.tblMenus AS MENU ON MENU.Menu_Id = VEDE.Menu_Id
 
 	WHERE Vent.Vent_Estado = 1
 END
@@ -925,60 +928,60 @@ GO
 --Tabla Venta Detalles
 --EN EL VENTAS DETALLES INSERT HAY QUE HACER LA VALIDACION DE QUE SI LOS INGREDIENTES ESTAN EN 0, NO DEJE HACER LA COMPRA
 CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Insert
-    @Menu_Id		    INT,
-	@VentDe_Cantidad INT,
+	@Vent_Id			INT,
+	@Menu_Id			INT,
+	@VentDe_Cantidad	INT,
 	@VentDe_UsuarioCreacion	 INT
 AS 
 BEGIN
-
-	DECLARE @Validacion BIT,@Contador INT
-	SET @Validacion = 1
-	SET @Contador = 0
-
-	DECLARE CantidadMenus_Cursor Cursor
-	FROM SELECT Menu_Id, VentDe_Cantidad
-	FROM Vent.tblVentaDetalles WHERE 
+	DECLARE @validacion BIT
+	SET @validacion = 1
 
 	DECLARE ComprobacionIngrStock_Cursor CURSOR
 	FOR SELECT Menu_Id, Ingr_Id, MenuDe_Cantidad
-	FROM Gnrl.tblMenuDetalles WHERE Menu_Id = 1
-	
+	FROM Gnrl.tblMenuDetalles WHERE Menu_Id = @Menu_Id AND MenuDe_Estado = 1
 	OPEN ComprobacionIngrStock_Cursor
 	DECLARE @Men_Id INT, @Ingr_Id INT, @MenuDe_Cantidad INT
 	FETCH NEXT FROM ComprobacionIngrStock_Cursor INTO @Men_Id, @Ingr_Id, @MenuDe_Cantidad
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		PRINT CAST(@Men_Id AS VARCHAR(5))+' - '+CAST(@Ingr_Id AS VARCHAR(5))+' - '+CAST(@MenuDe_Cantidad AS VARCHAR(5))
+		DECLARE @STOCK INT
+		SET @STOCK  = (SELECT Ingr_Stock FROM Inv.tblIngredientes WHERE Ingr_Id = @Ingr_Id AND Ingr_Estado = 1)
+		DECLARE @CantidadUsada INT
+		SET @CantidadUsada = (@MenuDe_Cantidad * @VentDe_Cantidad)
 
-		DECLARE CantidadIngr_Cursor CURSOR
-		FOR SELECT Ingr_Id, Ingr_Stock
-		FROM Inv.tblIngredientes WHERE Ingr_Id = @Ingr_Id AND Ingr_Estatus = 'B'
-
-		OPEN CantidadIngr_Cursor
-		DECLARE @Ing_Id INT, @Ingr_Stock INT
-		FETCH NEXT FROM CantidadIngr_Cursor INTO @Ingr_Id,@Ingr_Stock
-		WHILE @@FETCH_STATUS = 0
+		IF(@STOCK - @CantidadUsada < 0)
 		BEGIN
-			PRINT '++'+CAST(@Ingr_Id AS VARCHAR(1))
-		FETCH NEXT FROM CantidadIngr_Cursor INTO @Ingr_Id,@Ingr_Stock
+			PRINT 'No hay suficiente stock de '+CAST(@Ingr_Id AS VARCHAR(10))
+			PRINT 'HACE FALTA: '+CAST(@STOCK - @CantidadUsada AS VARCHAR(10))
+			SET @validacion = 0
 		END
-		CLOSE CantidadIngr_Cursor
-		DEALLOCATE CantidadIngr_Cursor
-
+		ELSE
+		BEGIN
+			PRINT 'HAY STOCK'
+			EXEC Inv.UDP_tblIngredientes_ReducirStock @Ingr_Id, @CantidadUsada
+			CONTINUE
+		END
 
 	FETCH NEXT FROM ComprobacionIngrStock_Cursor INTO @Men_Id, @Ingr_Id, @MenuDe_Cantidad
 	END
 	CLOSE ComprobacionIngrStock_Cursor
 	DEALLOCATE ComprobacionIngrStock_Cursor
 
-    INSERT INTO Vent.tblVentaDetalles 
-    (Menu_Id, VentDe_Cantidad, VentDe_UsuarioCreacion, VentDe_FechaCreacion)
-    VALUES (@Menu_Id, @VentDe_Cantidad, @VentDe_UsuarioCreacion, CURRENT_TIMESTAMP)
+	IF(@validacion = 1) 
+	BEGIN
+		INSERT INTO Vent.tblVentaDetalles 
+		(Menu_Id, VentDe_Cantidad, VentDe_UsuarioCreacion, VentDe_FechaCreacion)
+		VALUES (@Menu_Id, @VentDe_Cantidad, @VentDe_UsuarioCreacion, CURRENT_TIMESTAMP)
+	END
+	ELSE
+	BEGIN
+	 PRINT 'HAY PROBLEMA'
+	END
+
 END
-SELECT * FROM Gnrl.tblMenus
-SELECT * FROM Gnrl.tblMenuDetalles
-SELECT * FROM Vent.tblVentaDetalles
-SELECT * FROM Inv.tblIngredientes
+GO
+
 GO
 CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Update
     @VentDe_Id      INT,
@@ -1004,6 +1007,16 @@ BEGIN
         VentDe_UsuarioModifica = @VentDe_UsuarioModifica,
         VentDe_FechaModifica = CURRENT_TIMESTAMP
     WHERE VentDe_Id = @VentDe_Id
+END
+GO
+CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Mostrar
+AS
+BEGIN
+	SELECT VEDE.VentDe_Id, VENT.Vent_NoOrden, MENU.Menu_Descripcion,VEDE.VentDe_Cantidad
+	FROM Vent.tblVentaDetalles AS VEDE
+	INNER JOIN Vent.tblVentas AS VENT ON VENT.Vent_Id = VEDE.Vent_Id
+	INNER JOIN Gnrl.tblMenus AS MENU ON MENU.Menu_Id = VEDE.Menu_Id
+	WHERE VentDe_Estado = 1
 END
 GO
 
@@ -1045,5 +1058,17 @@ BEGIN
     SET VentDol_Estado = 0,
         VentDol_UsuarioModifica = @VentDol_UsuarioModifica,
         VentDol_FechaModifica = CURRENT_TIMESTAMP
+END
+GO
+CREATE PROCEDURE Vent.UDP_tblDomicilioDetalles_Mostrar
+AS
+BEGIN
+	SELECT DODE.VentDol_Id,VENT.Vent_NoOrden, CONCAT_WS(' ', EMPL.Emp_Nombres, EMPL.Emp_Apellidos) AS [Nombre], CIUD.Ciud_Descripcion, COMU.Comu_Descripcion, COMU.Comu_TarifaEnvio
+	FROM Vent.tblDomicilioDetalles AS DODE
+	INNER JOIN Vent.tblVentas AS VENT ON VENT.Vent_Id = DODE.Vent_Id
+	INNER JOIN Gnrl.tblEmpleados AS EMPL ON EMPL.Emp_Id = DODE.Emp_Id
+	INNER JOIN Gnrl.tblComunidades AS COMU ON COMU.Comu_Id = DODE.Comu_Id
+	INNER JOIN Gnrl.tblCiudades AS CIUD ON CIUD.Ciud_Id = COMU.Ciud_Id
+	WHERE DODE.VentDol_Estado = 1
 END
 GO
