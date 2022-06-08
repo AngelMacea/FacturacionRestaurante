@@ -1,2 +1,4 @@
 FacturacionRestaurante/assets
 /assets
+FacturacionRestaurante/Menu/PantallasMostrar/Inserts/ConexionDB.php
+FacturacionRestaurante/Login/ConexionDB.php

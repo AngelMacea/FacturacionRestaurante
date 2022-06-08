@@ -5,8 +5,8 @@
         private $con;
         function getCon()
         {
-            $servername1 = "DESKTOP-OFF7LQC";
-            $connectionInfo = array("Database"=>"FacturacionRestaurante", "UID"=>"AdminDB", "PWD"=>"123", "CharacterSet"=>"UTF-8");
+            $servername1 = "DESKTOP-R5AKNLQ";
+            $connectionInfo = array("Database"=>"FacturacionRestaurante", "UID"=>"Admin", "PWD"=>"123", "CharacterSet"=>"UTF-8");
 
             $con = sqlsrv_connect($servername1, $connectionInfo);
 
