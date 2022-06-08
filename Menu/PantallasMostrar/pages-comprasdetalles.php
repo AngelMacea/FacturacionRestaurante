@@ -52,7 +52,7 @@
                                 <select class="form form-control" name="ddlComp_NoOrden" id="ddlComp_NoOrden">
                                     <option value="" selected>Eliga un # de compra</option>
                                     <?php
-                                    include '../../Login/ConexionDB.php';
+                                      include '../../assets/conexion/ConexionDB.php';
 
                                     $con = new conexion();
                                     $estadocon = $con->getCon();

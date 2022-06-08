@@ -55,7 +55,7 @@
                                     <option value="" selected disabled>Eliga un cliente</option>
                                     <?php
                                     
-                                    include '../../Login/ConexionDB.php';
+                                    include '../../assets/conexion/ConexionDB.php';
 
                                     $con = new conexion();
                                     $estadocon = $con->getCon();

@@ -55,7 +55,7 @@
                 </thead>
                 <tbody>
                 <?php
-                    include '../../Login/ConexionDB.php';
+                    include '../../assets/conexion/ConexionDB.php';
 
                     $con = new conexion();
                     $estadocon = $con->getCon();

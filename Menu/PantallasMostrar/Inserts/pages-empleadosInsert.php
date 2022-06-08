@@ -106,7 +106,7 @@
                         <label for="txtEmp_Id">Estado Civil</label>
                                 <select class="form form-control" name="ddlEstadoCiviles" id="ddlEstadoCiviles">
                                     <?php
-                                    include '../../../Login/ConexionDB.php';
+                                    include '../../../assets/conexion/ConexionDB.php';
 
                                     $con = new conexion();
                                     $estadocon = $con->getCon();

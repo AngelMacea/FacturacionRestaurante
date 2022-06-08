@@ -80,7 +80,7 @@
                                     <option value="" selected disabled>Eliga un proveedor</option>
                                     <?php
                                     date_default_timezone_set('America/Tegucigalpa');
-                                    include '../../Login/ConexionDB.php';
+                                    include '../../assets/conexion/ConexionDB.php';
 
                                     $con = new conexion();
                                     $estadocon = $con->getCon();

@@ -53,7 +53,7 @@
                                 <select class="form form-control" name="ddlVent_Id" id="ddlVent_Id">
                                     <option value="" selected disabled>Eliga un # de Orden</option>
                                     <?php
-                                    include '../../Login/ConexionDB.php';
+                                      include '../../assets/conexion/ConexionDB.php';
 
                                     $con = new conexion();
                                     $estadocon = $con->getCon();

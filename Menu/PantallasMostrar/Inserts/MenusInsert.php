@@ -1,6 +1,5 @@
 <?php
-    include 'ConexionDB.php';
-
+    include '../../../assets/conexion/ConexionDB.php';
     $con = new conexion();
     $estadocon = $con->getCon();
     session_start();
