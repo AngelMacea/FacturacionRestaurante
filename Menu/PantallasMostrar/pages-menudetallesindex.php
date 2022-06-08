@@ -97,7 +97,7 @@
                     <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                        <label for="txtEmp_Id">Menú</label>
+                        <label for="txtMenú_Id">Menú</label>
                                 <select class="form form-control flexselect" name="ddlMenus" id="ddlMenus">
                                     <?php
                                     $query = "EXEC Gnrl.UDP_tblMenus_Mostrar";
@@ -120,7 +120,7 @@
                         </div>
                         <div class="col-6">
                         <div class="form-group">
-                        <label for="txtEmp_Id">Ingrediente</label>
+                        <label for="txtMenú_Id">Ingrediente</label>
                                 <select class="form form-control flexselect" name="ddlIngredientes" id="ddlIngredientes">
                                     <?php
                                     $query = "EXEC Inv.UDP_tblIngredientes_Mostrar";
