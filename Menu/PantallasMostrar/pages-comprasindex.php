@@ -41,11 +41,48 @@
             Compras
         </div>
         <div class="card-body">
-                <div>
-                    <form method="POST" action="">
-                        <input type="button" class="btn btn-primary mb-5" id="btnNuevo" value="Nuevo" />
+            <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertCompra">Insertar nueva compra</button>
+
+            <div id="InsertCompra" class="collapse">
+                    <form class="insertForm" method="POST" action="Inserts/ComprasInsert.php">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="txtEmp_Id">Fecha de la compra</label>
+                                    <input type="date"
+                                    class="form-control"
+                                    id="txtComp_Fecha"
+                                    name="txtComp_Fecha"
+                                    >
+                                    
+                                </div>
+                                <div class="form-group">
+                                        <label for="txtNombre"># de orden</label>
+                                        <input type="text" 
+                                        class="form-control" 
+                                        id="txtComp_NoOrden"
+                                        name="txtComp_NoOrden"
+                                        placeholder="Ingrese el # de orden">
+                                        
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                        <label for="txtComp_IVA">IVA %</label>
+                                        <input type="number" 
+                                        class="form-control" 
+                                        id="txtComp_IVA"
+                                        name="txtComp_IVA"
+                                        placeholder="Ingrese el % de IVA">
+                                        
+                                </div>
+                                
+                            </div>
+                            </div>
+                            
+                            <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
                     </form>
-                </div>
+            </div>
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
@@ -116,3 +153,4 @@
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
 </body>
 </html>
+
