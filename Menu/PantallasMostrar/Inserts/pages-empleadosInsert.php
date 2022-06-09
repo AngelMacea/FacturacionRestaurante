@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="../../../assets/flexselect/flexselect.css" type="text/css" media="screen" />
 </head>
 <body>
-    <?php  include '../layout-pantalla.php';?>
+    <?php  include 'layout-insert.php';?>
     <div class="container">
 
     <div class="card mt-5">

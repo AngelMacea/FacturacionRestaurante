@@ -211,30 +211,11 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
       <a class="nav-link collapsed mb-1" href="pages-comprasindex.php">
           <i class="bi bi-menu-button-wide"></i><span>Compras</span></i>
         </a>
-
+       
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Ventas</span><i class="bi bi-chevron-down ms-auto"></i>
+      <a class="nav-link collapsed mb-1" href="pages-ventasindex.php">
+      <i class="bi bi-layout-text-window-reverse"></i></i><span>Ventas</span></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="pages-ventasindex.php">
-              <i class="bi bi-circle"></i><span>Ventas</span>
-            </a>
-          </li>
-          <li>
-          <li>
-            <a href="pages-ventadetalles.php">
-              <i class="bi bi-circle"></i><span>Venta Detalles</span>
-            </a>
-          </li>
-          <li>
-          <li>
-            <a href="pages-detallesdomiciliosindex.php">
-              <i class="bi bi-circle"></i><span>Ventas a domicilio</span>
-            </a>
-          </li>
-        </ul>
       </li><!-- End Tables Nav -->
 
     
