@@ -949,81 +949,23 @@ CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Insert
 	@VentDe_UsuarioCreacion	 INT
 AS 
 BEGIN
-	DECLARE @Validacion BIT
-	SET @Validacion = 1
+	DECLARE @Ingr_Id INT
+	SET @Ingr_Id = (SELECT Ingr_Id FROM Gnrl.tblMenuDetalles WHERE Menu_Id = @Menu_Id)
 
-	DECLARE StockValidacion_Cursor CURSOR
-	FOR SELECT	MEDE.MenuDe_Id, MEDE.Menu_Id ,MEDE.Ingr_Id,MEDE.MenuDe_Cantidad
-	FROM Gnrl.tblMenuDetalles AS MEDE WHERE MEDE.Menu_Id = @Menu_Id AND MEDE.MenuDe_Estado = 1
-	OPEN StockValidacion_Cursor
-	DECLARE @MenuDe_Id INT, @Id_Menu INT, @Ingr_Id INT, @MenuDe_Cantidad INT
-	FETCH NEXT FROM StockValidacion_Cursor INTO @MenuDe_Id,@Id_Menu,@Ingr_Id,@MenuDe_Cantidad
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-		DECLARE @Ingrediente VARCHAR(30)
-		SET @Ingrediente = (SELECT Ingr_Descripcion FROM Inv.tblIngredientes WHERE Ingr_Id = @Ingr_Id)
-		DECLARE @IngrStock INT
-		SET @IngrStock = (SELECT Ingr_Stock FROM Inv.tblIngredientes WHERE Ingr_Id = @Ingr_Id)
-		DECLARE @CantidadUtilizada INT
-		SET @CantidadUtilizada = (@VentDe_Cantidad * @MenuDe_Cantidad)
+	DECLARE @CantidadUtil INT
+	SET @CantidadUtil = (SELECT MenuDe_Cantidad FROM Gnrl.tblMenuDetalles  WHERE Menu_Id = @Menu_Id)
 
-		PRINT 'DATOS DEL VENTA DETALLES:'
-		PRINT 'VENTA ID: '+CAST(@Vent_Id AS VARCHAR(20))+' MENU ID: '+CAST(@Menu_Id AS VARCHAR(10))+' VEDE CANTIDAD: '+CAST(@VentDe_Cantidad AS VARCHAR(20))
-		PRINT 'DATOS DE INGREDIENTES:'
-		PRINT 'INGREDIENTE: '+@Ingrediente+' CANTIDAD DISPONIBLE: '+CAST(@IngrStock AS VARCHAR(20))
-		PRINT 'CANTIDAD A UTILIZAR: '+CAST(@CantidadUtilizada AS VARCHAR(20))
-		PRINT 'RESTAR DEL STOCK: '+CAST((@IngrStock - @CantidadUtilizada) AS VARCHAR(20))
-		PRINT '---------'
-		IF(@IngrStock - @CantidadUtilizada >= 0)
-		BEGIN
-			PRINT '======= NO HAY Problema de stock con: '+@Ingrediente
-		END
-		ELSE
-		BEGIN
-			PRINT '======= Problema de stock con: '+@Ingrediente
-			SET @Validacion = 0
-			BREAK
-		END
+	DECLARE @STOCK INT
+	SET @STOCK = (SELECT Ingr_Stock FROM Inv.tblIngredientes WHERE Ingr_Id = @Ingr_Id)
 
-		
-	FETCH NEXT FROM StockValidacion_Cursor INTO @MenuDe_Id,@Id_Menu,@Ingr_Id,@MenuDe_Cantidad
-	END
-	CLOSE StockValidacion_Cursor
-	DEALLOCATE StockValidacion_Cursor
-
-	IF(@Validacion = 1)
+	IF(@STOCK - (@CantidadUtil * @VentDe_Cantidad) >= 0)
 	BEGIN
 
-	 PRINT 'Se puede hacer insert'
-	 	DECLARE StockResta_Cursor CURSOR
-	FOR SELECT	MEDE.MenuDe_Id, MEDE.Menu_Id ,MEDE.Ingr_Id,MEDE.MenuDe_Cantidad
-	FROM Gnrl.tblMenuDetalles AS MEDE WHERE MEDE.Menu_Id = @Menu_Id AND MEDE.MenuDe_Estado = 1
-	OPEN StockResta_Cursor
-	DECLARE @ID INT, @Menu INT, @Ing_Id INT, @MeDe_Cantidad INT
-	FETCH NEXT FROM StockResta_Cursor INTO @ID,@Menu,@Ing_Id,@MeDe_Cantidad
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-		DECLARE @Ingr VARCHAR(30)
-		SET @Ingr = (SELECT Ingr_Descripcion FROM Inv.tblIngredientes WHERE Ingr_Id = @Ing_Id)
-		DECLARE @IngStock INT
-		SET @IngStock = (SELECT Ingr_Stock FROM Inv.tblIngredientes WHERE Ingr_Id = @Ing_Id)
-		DECLARE @CantidadUtil INT
-		SET @CantidadUtil = (@VentDe_Cantidad * @MeDe_Cantidad)
+		INSERT INTO Vent.tblVentaDetalles (Vent_Id, Menu_Id, VentDe_Cantidad, VentDe_UsuarioCreacion)
+		VALUES(@Vent_Id, @Menu_Id, @VentDe_Cantidad, @VentDe_UsuarioCreacion)
 
-		UPDATE Inv.tblIngredientes
-		SET Ingr_Stock = Ingr_Stock - @CantidadUtil
-		WHERE Ingr_Id = @Ing_Id
 
-		
-	FETCH NEXT FROM StockResta_Cursor INTO @ID,@Menu,@Ing_Id,@MeDe_Cantidad
-	END
-	CLOSE StockResta_Cursor
-	DEALLOCATE StockResta_Cursor
 
-	END
-	else
-	BEGIN
-	PRINT 'NO Se puede hacer insert'
 	END
 END
 

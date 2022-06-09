@@ -235,13 +235,29 @@ CREATE TABLE [Vent].[tblVentaDetalles_Historial]
 	VentDe_Estado				BIT DEFAULT '1',
 )
 GO
-CREATE TRIGGER Vent.TR_tblVentaDetalles_Insert
+CREATE TRIGGER Vent.TR_tblVentaDetalles_ReducirStock
 ON [Vent].[tblVentaDetalles]
 AFTER INSERT
+AS
 BEGIN
-	
+	DECLARE @Vent_Id INT
+	SET @Vent_Id = (SELECT Vent_Id FROM inserted)
+	DECLARE @Menu_Id INT
+	SET @Menu_Id = (SELECT Menu_Id FROM inserted)
+	DECLARE @VentDe_Cantidad INT
+	SET @VentDe_Cantidad = (SELECT VentDe_Cantidad FROM inserted)
 
+	DECLARE @Ingr_Id INT
+	SET @Ingr_Id = (SELECT Ingr_Id FROM Gnrl.tblMenuDetalles WHERE Menu_Id = @Menu_Id)
 
-	
+	DECLARE @CantidadUtil INT
+	SET @CantidadUtil = (SELECT MenuDe_Cantidad FROM Gnrl.tblMenuDetalles  WHERE Menu_Id = @Menu_Id)
+
+	DECLARE @STOCK INT
+	SET @STOCK = (SELECT Ingr_Stock FROM Inv.tblIngredientes WHERE Ingr_Id = @Ingr_Id)
+
+	UPDATE Inv.tblIngredientes
+	SET Ingr_Stock = @STOCK - (@CantidadUtil * @VentDe_Cantidad)
+	WHERE Ingr_Id = @Ingr_Id
 END
 
