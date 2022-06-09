@@ -62,10 +62,6 @@ CREATE TABLE Acce.tblUsuarios(
 GO
 /*
 ALTER TABLE [ACCE].[tblUsuarios]
-ADD CONSTRAINT FK_tblUsuarios_tblUsuarios_Usuario_Creacion FOREIGN KEY (Usua_UsuarioCreacion) REFERENCES Acce.tblUsuarios(Usua_Id)
-ALTER TABLE [ACCE].[tblUsuarios]
-ADD CONSTRAINT FK_tblUsuarios_tblUsuarios_Usuario_Modifica FOREIGN KEY (Usua_UsuarioModifica) REFERENCES Acce.tblUsuarios(Usua_Id)
-ALTER TABLE [ACCE].[tblUsuarios]
 ADD CONSTRAINT FK_tblUsuarios_tblEmpleados_Emp_Id FOREIGN KEY (Emp_Id) REFERENCES GNRL.tblEmpleados (Emp_Id)
 */
 GO
