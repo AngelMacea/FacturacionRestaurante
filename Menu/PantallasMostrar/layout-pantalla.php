@@ -199,17 +199,7 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
             <a href="pages-almacenesindex.php">
               <i class="bi bi-circle"></i><span>Almacenes</span>
             </a>
-          </li>
-          <li>
-            <a href="pages-comprasindex.php">
-              <i class="bi bi-circle"></i><span>Compras</span>
-            </a>
-          </li>
-          <li>
-            <a href="pages-comprasdetalles.php">
-              <i class="bi bi-circle"></i><span>Compras Detalles</span>
-            </a>
-          </li>
+          </li>   
           <li>
             <a href="pages-ingredientesindex.php">
               <i class="bi bi-circle"></i><span>Ingredientes</span>
@@ -218,7 +208,7 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
         </ul>
       </li><!-- End Forms Nav -->
 
-      <a class="nav-link collapsed mb-1" href="#">
+      <a class="nav-link collapsed mb-1" href="PantallasMostrar/pages-comprasindex.php">
           <i class="bi bi-menu-button-wide"></i><span>Compras</span></i>
         </a>
 
