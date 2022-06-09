@@ -208,7 +208,7 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
         </ul>
       </li><!-- End Forms Nav -->
 
-      <a class="nav-link collapsed mb-1" href="PantallasMostrar/pages-comprasindex.php">
+      <a class="nav-link collapsed mb-1" href="pages-comprasindex.php">
           <i class="bi bi-menu-button-wide"></i><span>Compras</span></i>
         </a>
 
