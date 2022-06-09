@@ -49,7 +49,7 @@ AS
 BEGIN
 	SELECT * FROM Acce.tblUsuarios WHERE Usua_Usuario = @Usua_Usuario AND Usua_Pass = @Usua_Pass
 END
-
+GO
 
 CREATE PROCEDURE Acce.UDP_tblUsuarios_Mostrar
 AS
@@ -62,8 +62,7 @@ BEGIN
 	INNER JOIN Gnrl.tblEmpleados AS Empleado ON Usuario.Emp_Id = Empleado.Emp_Id
 	WHERE Usua_Estado = 1
 END
-
-
+GO
 
 --Tabla Paises
 
