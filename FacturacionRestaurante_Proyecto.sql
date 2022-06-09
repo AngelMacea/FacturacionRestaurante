@@ -259,7 +259,7 @@ CREATE TABLE Gnrl.tblMenuDetalles(
 CREATE TABLE Inv.tblCompras(
 	Comp_Id INT PRIMARY KEY IDENTITY(1,1),
 	Comp_Fecha DATE,
-	Comp_NoOrden NVARCHAR(6),
+	Comp_NoOrden NVARCHAR(6) UNIQUE,
 	Comp_IVA		INT,
 	Comp_UsuarioCreacion	 INT,
 	Comp_FechaCreacion		 DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -292,7 +292,7 @@ CREATE TABLE Vent.tblVentas(
 	Clie_Id	INT,
 	Vent_Fecha DATETIME,
 	Emp_Id INT,
-	Vent_NoOrden NVARCHAR(6),
+	Vent_NoOrden NVARCHAR(6) UNIQUE,
 	Vent_IVA INT,
 	Vent_Descuento MONEY,
 	Vent_Servicio  CHAR(1),
