@@ -734,17 +734,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE Inv.UDP_tblCompraDetalles_MostrarRecibo
-@Comp_NoOrden NVARCHAR(6)
-AS
-BEGIN
-	SELECT CODE.CompDe_Id,COMP.Comp_NoOrden,INGR.Ingr_Id, INGR.Ingr_Descripcion, CODE.CompDe_PrecioCompra, CODE.CompDe_Cantidad,COMP.Comp_IVA
-	FROM Inv.tblCompraDetalles AS CODE
-	INNER JOIN Inv.tblCompras AS COMP ON COMP.Comp_Id = CODE.Comp_Id
-	INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
-	WHERE CODE.CompDe_Estado = 1 AND COMP.Comp_NoOrden = @Comp_NoOrden
-END
-GO
 
 --Tabla Compras
 
@@ -859,6 +848,17 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE Inv.UDP_tblCompraDetalles_MostrarRecibo
+@Comp_NoOrden NVARCHAR(6)
+AS
+BEGIN
+	SELECT CODE.CompDe_Id,COMP.Comp_NoOrden,INGR.Ingr_Id, INGR.Ingr_Descripcion, CODE.CompDe_PrecioCompra, CODE.CompDe_Cantidad,COMP.Comp_IVA
+	FROM Inv.tblCompraDetalles AS CODE
+	INNER JOIN Inv.tblCompras AS COMP ON COMP.Comp_Id = CODE.Comp_Id
+	INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
+	WHERE CODE.CompDe_Estado = 1 AND COMP.Comp_NoOrden = @Comp_NoOrden
+END
+GO
 
 --Tabla Ventas
 
