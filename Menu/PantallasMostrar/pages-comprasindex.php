@@ -28,7 +28,10 @@
   <link rel="stylesheet" href="../../assets/iziToast-master/dist/css/iziToast.min.css">
 </head>
 <body>
-    <?php include 'layout-pantalla.php'; ?>
+    <?php include 'layout-pantalla.php'; 
+    date_default_timezone_set('America/Tegucigalpa');
+    ?>
+    
     <div class="container">
 
     <div class="card mt-5">

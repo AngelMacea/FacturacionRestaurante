@@ -579,6 +579,7 @@ BEGIN
 END
 GO
 
+
 CREATE PROCEDURE Inv.UDP_tblIngredientes_Update
     @Ingr_Id            INT,
     @Ingr_Descripcion   INT,
@@ -779,11 +780,12 @@ GO
 CREATE PROCEDURE Inv.UDP_tblCompras_Mostrar
 AS
 BEGIN
-	SELECT COMP.Comp_Id,CAST(COMP.Comp_Fecha AS VARCHAR(20)) AS [Comp_Fecha] , COMP.Comp_NoOrden, COMP.Comp_IVA
+	SELECT COMP.Comp_Id, CAST(COMP.Comp_Fecha AS nvarchar(50)) AS [Comp_Fecha] , COMP.Comp_NoOrden, COMP.Comp_IVA
 	FROM Inv.tblCompras AS COMP
 	WHERE COMP.Comp_Estado = 1
 END
 GO
+
 
 
 
