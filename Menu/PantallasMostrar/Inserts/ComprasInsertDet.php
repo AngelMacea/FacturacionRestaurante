@@ -24,11 +24,6 @@ $Precio   = $_POST['txtPrecio'];
 
       if(sqlsrv_execute($result))
       {
-        
-        
-
-
-
           $_SESSION['ValidacionSuccess'] = true;
           header('location: pages-comprasInserted.php');
           
