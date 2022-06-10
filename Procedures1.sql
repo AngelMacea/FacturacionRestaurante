@@ -991,7 +991,7 @@ BEGIN
 
 	END
 END
-EXEC Vent.UDP_tblVentaDetalles_Insert
+EXEC Vent.UDP_tblVentaDetalles_Insert 
 
 
 GO
@@ -1022,13 +1022,14 @@ BEGIN
 END
 GO
 CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Mostrar
+@Vent_NoOrden NVARCHAR(6)
 AS
 BEGIN
-	SELECT VEDE.VentDe_Id, VENT.Vent_NoOrden, MENU.Menu_Descripcion,VEDE.VentDe_Cantidad
-	FROM Vent.tblVentaDetalles AS VEDE
-	INNER JOIN Vent.tblVentas AS VENT ON VENT.Vent_Id = VEDE.Vent_Id
-	INNER JOIN Gnrl.tblMenus AS MENU ON MENU.Menu_Id = VEDE.Menu_Id
-	WHERE VentDe_Estado = 1
+    SELECT VEDE.VentDe_Id , VENT.Vent_NoOrden, MENU.Menu_Descripcion, MENU.Menu_Precio,VEDE.VentDe_Cantidad,VENT.Vent_IVA
+    FROM Vent.tblVentaDetalles AS VEDE
+    INNER JOIN Vent.tblVentas AS VENT ON VENT.Vent_Id = VEDE.Vent_Id
+    INNER JOIN Gnrl.tblMenus AS MENU ON MENU.Menu_Id = VEDE.Menu_Id
+    WHERE VentDe_Estado = 1 AND VENT.Vent_NoOrden = @Vent_NoOrden
 END
 GO
 

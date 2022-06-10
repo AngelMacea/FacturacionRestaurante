@@ -49,6 +49,7 @@ session_start();
             $queryInsert = "EXEC Vent.UDP_tblVentaDetalles_Insert '$Vent_Id','$Menu','$Cantidad','{$_SESSION['Usua_Id']}'";
             $result = sqlsrv_prepare($estadocon, $queryInsert);
             
+            
              if(sqlsrv_execute($result))
                 {
                     header('location: pages-ventasInserted.php');

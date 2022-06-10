@@ -44,12 +44,6 @@
             <div class="col-10">
             Insertar registro
             </div>
-            <div class="col-2">
-                <a class="dropdown-item d-flex align-items-center" href="../pages-comprasindex.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Regresar</span>
-              </a>
-            </div>
             </div>
             
         </div>

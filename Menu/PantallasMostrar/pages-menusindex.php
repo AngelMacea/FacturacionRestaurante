@@ -63,13 +63,13 @@
                         
 
                         do{
-                            if($row['Menu_Id'] != "")
+                            if($row['ID'] != "")
                             {
                                 
                                 print   '<tr>';
-                                print   '<td>' .$row['Menu_Id'] .'</td>';
-                                print   '<td>' .$row['Menu_Descripcion'] .'</td>';
-                                print   '<td>' .$row['Menu_Precio'] .'</td>';
+                                print   '<td>' .$row['ID'] .'</td>';
+                                print   '<td>' .$row['Descripcion'] .'</td>';
+                                print   '<td>' .$row['Precio'] .'</td>';
                                 print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
                                 print   '</tr>';
                                 
