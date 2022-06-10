@@ -855,9 +855,11 @@ BEGIN
 	FROM Inv.tblCompraDetalles AS CODE
 	INNER JOIN Inv.tblCompras AS COMP ON COMP.Comp_Id = CODE.Comp_Id
 	INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
-	WHERE CODE.CompDe_Estado = 1
+	WHERE CODE.CompDe_Estado = 1 AND COMP.Comp_NoOrden = @NumOrden
 END
 GO
+
+
 CREATE PROCEDURE Inv.UDP_tblCompraDetalles_MostrarRecibo
 @Comp_NoOrden NVARCHAR(6)
 AS
