@@ -36,7 +36,7 @@
             Ventas
         </div>
         <div class="card-body">
-        <a class="btn btn-primary mb-5" href="Inserts/pages-comprasInsert.php" >Nuevo</a>
+        <a class="btn btn-primary mb-5" href="Inserts/pages-ventasInsert.php" >Nuevo</a>
             <table id="example" class="table table-striped mt-5">
                     <thead>
                         <tr>
@@ -44,7 +44,7 @@
                             <th>ID</th>
                             <th>Fecha</th>
                             <th>Numero Orden</th>
-                            <th>Proveedor</th>
+                            <th>Cliente</th>
                         </tr>
                     </thead>
             </table>
@@ -52,113 +52,6 @@
         </div>
     </div>
 
-
-     <!-- Modal -->
-<div class="modal fade" id="ComprasModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Insertar registro</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <form class="insertForm" method="POST" action="Inserts/ComprasInsert.php">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="txtEmp_Id">Fecha de la compra</label>
-                                    <input type="date"
-                                    class="form-control"
-                                    id="txtComp_Fecha"
-                                    name="txtComp_Fecha"
-                                    >
-                                    
-                                </div>
-                                <div class="form-group">
-                                        <label for="txtNombre"># de orden</label>
-                                        <input type="text" 
-                                        class="form-control" 
-                                        id="txtComp_NoOrden"
-                                        name="txtComp_NoOrden"
-                                        placeholder="Ingrese el # de orden">
-                                        
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                        <label for="txtComp_IVA">IVA %</label>
-                                        <input type="number" 
-                                        class="form-control" 
-                                        id="txtComp_IVA"
-                                        name="txtComp_IVA"
-                                        placeholder="Ingrese el % de IVA">
-                                        
-                                </div>
-                                
-                            </div>
-                            </div>
-                            
-                            <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
-                    </form>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="ComprasDetallesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Insertar registro</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <form class="insertForm" method="POST" action="Inserts/ComprasInsert.php">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="txtEmp_Id">Fecha de la compra</label>
-                                    <input type="date"
-                                    class="form-control"
-                                    id="txtComp_Fecha"
-                                    name="txtComp_Fecha"
-                                    >
-                                    
-                                </div>
-                                <div class="form-group">
-                                        <label for="txtNombre"># de orden</label>
-                                        <input type="text" 
-                                        class="form-control" 
-                                        id="txtComp_NoOrden"
-                                        name="txtComp_NoOrden"
-                                        placeholder="Ingrese el # de orden">
-                                        
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                        <label for="txtComp_IVA">IVA %</label>
-                                        <input type="number" 
-                                        class="form-control" 
-                                        id="txtComp_IVA"
-                                        name="txtComp_IVA"
-                                        placeholder="Ingrese el % de IVA">
-                                        
-                                </div>
-                                
-                            </div>
-                            </div>
-                            
-                            <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
-                    </form>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
 
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -180,7 +73,7 @@
     <script src="../../assets/iziToast-master/dist/js/iziToast.min.js" type="text/javascript"></script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
      <script src="../../assets/js/alertas.js"></script>
-     <script src="../../assets/js/tablamaestra.js"></script>
+     <script src="../../assets/js/tablamaestraVentas.js"></script>
     <?php include('pages-validar.php');?>
 </body>
 </html>

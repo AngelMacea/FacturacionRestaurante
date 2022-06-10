@@ -6,7 +6,7 @@
     
 
     $response = array();
-    $query="EXEC Inv.UDP_tblCompras_Mostrar";
+    $query="EXEC Vent.UDP_tblVentas_Mostrar";
     $result = sqlsrv_prepare($estadocon,$query);
 
        if(sqlsrv_execute($result)){
@@ -15,7 +15,7 @@
                array_push(
                    $response['response'],
                    array(
-                       "compraIdentificacion"=>$row['Comp_Id'], "compraFecha"=>$row['Comp_Fecha'], "compraOrden"=>$row['Comp_NoOrden'], "compraImpuesto"=>$row['Comp_IVA']
+                       "ventaIdentificacion"=>$row['Vent_Id'], "ventaCliente"=>$row['Vent_Cliente'], "ventaFecha"=>$row['Vent_Fecha'],"ventaOrden"=>$row['Vent_NoOrden'], "ventaImpuesto"=>$row['Vent_IVA'],"ventaDescuento"=>$row['Vent_Descuento'],"ventaServicio"=>$row['Vent_Servicio'],"ventaObservacion"=>$row['Vent_Observaciones']
                    )
                );
            }
