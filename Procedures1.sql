@@ -49,7 +49,7 @@ AS
 BEGIN
 	SELECT * FROM Acce.tblUsuarios WHERE Usua_Usuario = @Usua_Usuario AND Usua_Pass = @Usua_Pass
 END
-
+GO
 
 CREATE PROCEDURE Acce.UDP_tblUsuarios_Mostrar
 AS
@@ -62,7 +62,7 @@ BEGIN
 	INNER JOIN Gnrl.tblEmpleados AS Empleado ON Usuario.Emp_Id = Empleado.Emp_Id
 	WHERE Usua_Estado = 1
 END
-
+GO
 
 
 --Tabla Paises
@@ -865,11 +865,11 @@ BEGIN
     SELECT COMP.Comp_Id, COMP.Comp_Fecha, COMP.Comp_NoOrden, COMP.Comp_IVA, PROV.Prov_Descripcion FROM Inv.tblCompras AS COMP
     inner join Inv.tblCompraDetalles AS CODE ON CODE.Comp_Id = COMP.Comp_Id
     inner join Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
-    inner join Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = INGR.Prov_Id
+    inner join Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = COMP.Prov_Id
     WHERE CODE.CompDe_Estado = 1 AND COMP.Comp_NoOrden = @NoOrden
 END
 
-
+GO
 --Tabla Ventas
 
 CREATE PROCEDURE Vent.UDP_tblVentas_Insert
@@ -890,9 +890,6 @@ BEGIN
 END
 GO 
 
-EXEC Vent.UDP_tblVentas_Insert '3','2022-07-02','1','#34','43','2',' D','34221','1'
-select * from Vent.tblVentas
-SELECT * FROM Vent.tblVentaDetalles
 
 CREATE PROCEDURE Vent.UDP_tblVentas_Update
     @Vent_Id        INT,
@@ -963,8 +960,23 @@ AS
 BEGIN
 	SELECT Vent_Id ID FROM Vent.tblVentas WHERE Vent_NoOrden = @VentNoOrden
 END
-EXEC Vent.UDP_tblVentaDetalles_MostrarVentId '#6FlnW'
+GO
 
+CREATE PROCEDURE Vent.UDP_tblVentas_MostrarCabecera
+ @VentNoOrden NVARCHAR(6)
+AS
+BEGIN
+    SELECT    CONCAT_WS(' ', CLIE.Clie_Nombres, CLIE.Clie_Apellidos) AS Cliente,
+            CASE
+                WHEN VENT.Vent_Servicio = 'L' THEN 'Local'
+                WHEN VENT.Vent_Servicio = 'D' THEN 'Delivery'
+                WHEN VENT.Vent_Servicio = 'A' THEN 'Autoservicio'
+            END AS Servicio
+    FROM Vent.tblVentas AS VENT
+    INNER JOIN Gnrl.tblClientes AS CLIE ON CLIE.Clie_Id = VENT.Clie_Id
+    WHERE Vent.Vent_Estado = 1 AND Vent.Vent_NoOrden =  @VentNoOrden
+END
+GO
 CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Insert
 	@Vent_Id			INT,
 	@Menu_Id			INT,
@@ -991,7 +1003,7 @@ BEGIN
 
 	END
 END
-EXEC Vent.UDP_tblVentaDetalles_Insert
+GO
 
 
 GO
@@ -1021,19 +1033,19 @@ BEGIN
     WHERE VentDe_Id = @VentDe_Id
 END
 GO
+
 CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Mostrar
+@Vent_NoOrden NVARCHAR(6)
 AS
 BEGIN
-	SELECT VEDE.VentDe_Id, VENT.Vent_NoOrden, MENU.Menu_Descripcion,VEDE.VentDe_Cantidad
-	FROM Vent.tblVentaDetalles AS VEDE
-	INNER JOIN Vent.tblVentas AS VENT ON VENT.Vent_Id = VEDE.Vent_Id
-	INNER JOIN Gnrl.tblMenus AS MENU ON MENU.Menu_Id = VEDE.Menu_Id
-	WHERE VentDe_Estado = 1
+    SELECT VEDE.VentDe_Id , VENT.Vent_NoOrden, MENU.Menu_Descripcion, MENU.Menu_Precio,VEDE.VentDe_Cantidad,VENT.Vent_IVA
+    FROM Vent.tblVentaDetalles AS VEDE
+    INNER JOIN Vent.tblVentas AS VENT ON VENT.Vent_Id = VEDE.Vent_Id
+    INNER JOIN Gnrl.tblMenus AS MENU ON MENU.Menu_Id = VEDE.Menu_Id
+    WHERE VentDe_Estado = 1 AND VENT.Vent_NoOrden = @Vent_NoOrden
 END
+
 GO
-
-
-
 --Tabla Domicilio Detalles
 
 CREATE PROCEDURE Vent.UDP_tblDomicilioDetalles_Insert
