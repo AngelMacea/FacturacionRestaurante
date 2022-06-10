@@ -126,8 +126,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                <label for="ddlIngr_Id">Ingrediente</label>
-                                <select class="form form-control flexselect" name="ddlIngr_Id" id="ddlIngr_Id" >
+                                <label for="ddlIngrediente">Ingrediente</label>
+                                <select class="form form-control flexselect" name="ddlIngrediente" id="ddlIngrediente" >
                                 <option value="" selected disabled></option>
                                         <?php
                                         
@@ -156,16 +156,27 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                <input type="submit" class="btn btn-primary " id="btnCrear" value="Crear" />
+                                    <label for="txtPrecio">Precio</label>
+                                    <input type="number"
+                                    class="form form-control"
+                                    name="txtPrecio" 
+                                    id="txtPrecio"
+                                    placeholder="Ingrese el precio del ingrediente"
+                                    min="0.00" 
+                                    max="10000.00" 
+                                    step="1" />     
+                                </div> 
+                                <div class="form-group">
+                                <input type="submit" class="btn btn-primary " id="btnCrear" name="btnCrear" value="Crear" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="txtCompDe_PrecioCompra">Cantidad</label>
+                                    <label for="txtCantidad">Cantidad</label>
                                     <input type="number"
                                     class="form form-control"
-                                    name="txtCompDe_Cantidad" 
-                                    id="txtCompDe_Cantidad"
+                                    name="txtCantidad" 
+                                    id="txtCantidad"
                                     placeholder="Ingrese la cantidad de ingredientes"
                                     min="0.00" 
                                     max="10000.00" 
