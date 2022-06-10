@@ -30,7 +30,7 @@
     if(sqlsrv_execute($result))
     {
         $_SESSION['ValidacionSuccess'] = true;
-        header('location: ../pages-empleadoIndex.php');
+        header('location: ../pages-empleadoindex.php');
         
     }
     else
