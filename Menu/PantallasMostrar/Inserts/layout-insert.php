@@ -67,7 +67,7 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="blank.php" class="logo d-flex align-items-center">
+      <a href="../blank.php" class="logo d-flex align-items-center">
 
         <span class="d-none d-lg-block">Restaurante</span>
       </a>
