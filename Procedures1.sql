@@ -674,6 +674,7 @@ END
 GO
 
 
+
 --Tabla Menu Detalles
 
 CREATE PROCEDURE Gnrl.UDP_tblMenuDetalles_Insert
@@ -730,6 +731,7 @@ BEGIN
 	WHERE MenuDe.MenuDe_Estado = 1
 END
 GO
+EXEC Gnrl.UDP_tblMenuDetalles_Mostrar
 
 --Tabla Compras
 
@@ -976,6 +978,7 @@ BEGIN
 END
 GO
 
+
 CREATE PROCEDURE Vent.UDP_tblVentas_MostrarCabecera
  @VentNoOrden NVARCHAR(6)
 AS
@@ -992,9 +995,9 @@ BEGIN
 END
 GO
 CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Insert
-	@Vent_Id			INT,
-	@Menu_Id			INT,
-	@VentDe_Cantidad	INT,
+	@Vent_Id				INT,
+	@Menu_Id				INT,
+	@VentDe_Cantidad		INT,
 	@VentDe_UsuarioCreacion	 INT
 AS 
 BEGIN

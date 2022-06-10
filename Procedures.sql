@@ -785,15 +785,14 @@ GO
 CREATE PROCEDURE Inv.UDP_tblCompras_Mostrar
 AS
 BEGIN
-	SELECT COMP.Comp_Id, CAST(COMP.Comp_Fecha AS nvarchar(50)) AS [Comp_Fecha] , COMP.Comp_NoOrden, COMP.Comp_IVA, PROV.Prov_Descripcion
-	FROM Inv.tblCompras AS COMP 
-	INNER JOIN Inv.tblCompraDetalles AS CODE ON CODE.Comp_Id = COMP.Comp_Id
-	INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
-	INNER JOIN Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = COMP.Prov_Id
-	WHERE COMP.Comp_Estado = 1
+    SELECT COMP.Comp_Id, CAST(COMP.Comp_Fecha AS nvarchar(50)) AS [Comp_Fecha] , COMP.Comp_NoOrden, COMP.Comp_IVA, PROV.Prov_Descripcion
+    FROM Inv.tblCompras AS COMP 
+    INNER JOIN Inv.tblCompraDetalles AS CODE ON CODE.Comp_Id = COMP.Comp_Id
+    INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
+    INNER JOIN Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = COMP.Prov_Id
+    WHERE COMP.Comp_Estado = 1
 END
 GO
-
 
 --Tabla Compras Detalles
 

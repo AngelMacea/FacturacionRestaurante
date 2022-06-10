@@ -107,9 +107,9 @@
                 
                                         do
                                         {
-                                                if($row['Menu_Id'] != ""){
+                                                if($row['ID'] != ""){
                                 
-                                                    echo "<option value=".$row['Menu_Id'].">".$row['Menu_Descripcion']."</option>";
+                                                    echo "<option value=".$row['ID'].">".$row['Descripcion']."</option>";
                                                 }
                                         }
                                         while($row = sqlsrv_fetch_array($result));
