@@ -5,7 +5,6 @@ CREATE TABLE [Inv].[tblIngredientes_Historial](
 	Ingr_Id					INT,
 	Ingr_Descripcion		NVARCHAR(50),
 	Ingr_Stock				INT,
-	Prov_Id					INT,
 	Ingr_FechaCaducidad		DATE,
 	Ingr_Estatus			CHAR(1),
 	Almc_Id					INT,
@@ -24,7 +23,7 @@ AFTER INSERT
 AS
 BEGIN
 	INSERT INTO [Inv].[tblIngredientes_Historial]
-	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'I', [Ingr_FechaModifica], [Ingr_Estado]
+	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'I', [Ingr_FechaModifica], [Ingr_Estado]
 	FROM inserted
 END
 GO
@@ -35,7 +34,7 @@ AFTER DELETE
 AS
 BEGIN
 	INSERT INTO [Inv].[tblIngredientes_Historial]
-	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'D', GETDATE(), [Ingr_Estado]
+	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'D', GETDATE(), [Ingr_Estado]
 	FROM deleted
 END
 GO
@@ -46,7 +45,7 @@ AFTER UPDATE
 AS
 BEGIN
 	INSERT INTO [Inv].[tblIngredientes_Historial]
-	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'U', GETDATE(), [Ingr_Estado]
+	SELECT [Ingr_Id], [Ingr_Descripcion], [Ingr_Stock], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion], [Ingr_UsuarioModifica],'U', GETDATE(), [Ingr_Estado]
 	FROM inserted
 END
 GO
@@ -54,8 +53,9 @@ GO
 --COMPRAS
 
 CREATE TABLE Inv.tblCompras_Historial(
-	Comp_Id INT,
-	Comp_Fecha DATE,
+	Comp_Id 	INT,
+	Comp_Fecha 	DATE,
+	Prov_Id		INT,
 	Comp_NoOrden NVARCHAR(6),
 	Comp_IVA		INT,
 	Comp_UsuarioCreacion	 INT,
@@ -72,7 +72,7 @@ GO
 	AS
 	BEGIN
 		INSERT INTO [Inv].[tblCompras_Historial]
-		SELECT [Comp_Id], [Comp_Fecha], [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'I', [Comp_FechaModifica], [Comp_Estado]
+		SELECT [Comp_Id], [Comp_Fecha], Prov_Id,[Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'I', [Comp_FechaModifica], [Comp_Estado]
 		FROM inserted
 	END
 GO
@@ -82,7 +82,7 @@ GO
 	AS
 	BEGIN
 		INSERT INTO [Inv].[tblCompras_Historial]
-		SELECT [Comp_Id], [Comp_Fecha], [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'D', GETDATE(), [Comp_Estado]
+		SELECT [Comp_Id], [Comp_Fecha],Prov_Id, [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'D', GETDATE(), [Comp_Estado]
 		FROM deleted
 	END
 GO
@@ -92,7 +92,7 @@ GO
 	AS
 	BEGIN
 		INSERT INTO [Inv].[tblCompras_Historial]
-		SELECT [Comp_Id], [Comp_Fecha], [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'U', GETDATE(), [Comp_Estado]
+		SELECT [Comp_Id], [Comp_Fecha], Prov_Id,[Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion], [Comp_UsuarioModifica], 'U', GETDATE(), [Comp_Estado]
 		FROM inserted
 	END
 GO
