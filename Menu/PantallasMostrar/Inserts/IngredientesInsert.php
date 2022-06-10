@@ -7,12 +7,11 @@
 
     $ingredienteDescripcion= $_POST['txtIngr_Descripcion'];
     $ingredienteFechaCaducidad = $_POST['txtIngr_FechaCaducidad'];
-    $proveedorIdentificacion = $_POST['ddlProveedores'];
     $ingredienteStock = $_POST['txtIngr_Stock'];
     $almacenIdentificacion = $_POST['ddlAlmc_Id'];
 
     
-    if($ingredienteDescripcion== "" || $ingredienteFechaCaducidad =="" || $proveedorIdentificacion =="" || $ingredienteStock ==""|| $almacenIdentificacion ==""){
+    if($ingredienteDescripcion== "" || $ingredienteFechaCaducidad =="" || $ingredienteStock ==""|| $almacenIdentificacion ==""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;
@@ -20,7 +19,7 @@
     }
     else{
         $_SESSION['ValidacionError'] = false;
-    $queryInsert = "EXEC Inv.UDP_tblIngredientes_Insert '$ingredienteDescripcion', '$ingredienteStock', '$proveedorIdentificacion', '$ingredienteFechaCaducidad', 'B', '$almacenIdentificacion','{$_SESSION['Usua_Id']}'";
+    $queryInsert = "EXEC Inv.UDP_tblIngredientes_Insert '$ingredienteDescripcion', '$ingredienteStock', '$ingredienteFechaCaducidad', 'B', '$almacenIdentificacion','{$_SESSION['Usua_Id']}'";
     $result = sqlsrv_prepare($estadocon, $queryInsert);
     
     if(sqlsrv_execute($result))

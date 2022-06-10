@@ -42,8 +42,13 @@
   background: #C9D6FF;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
-
+.logo span {
+  font-size: 30px;
+  font-weight: 700;
+  color: #BF0404;
+  font-family: "Nunito", sans-serif;
 }
 
   </style>
@@ -69,7 +74,7 @@ background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, F
     <div class="d-flex align-items-center justify-content-between">
       <a href="blank.php" class="logo d-flex align-items-center">
 
-        <span class="d-none d-lg-block">Restaurante</span>
+        <span class="d-none d-lg-block">Restaurante 中国</span>
       </a>
     </div><!-- End Logo -->
 

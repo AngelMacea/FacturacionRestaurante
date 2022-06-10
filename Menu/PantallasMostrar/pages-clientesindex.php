@@ -66,11 +66,11 @@
                         
 
                         do{
-                            if($row['Clie_Id'] != "")
+                            if($row['Identificacion'] != "")
                             {
                                 
                                 print '<tr>';
-                                print   '<td>' .$row['Clie_Id'] .'</td>';
+                                print   '<td>' .$row['Identificacion'] .'</td>';
                                 print   '<td>' .$row['Clie_Identificacion'] .'</td>';
                                 print   '<td>' .$row['Nombre'] .'</td>';
                                 print   '<td>' .$row['Sexo'] .'</td>';
