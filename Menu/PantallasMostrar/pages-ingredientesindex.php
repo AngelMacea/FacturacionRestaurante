@@ -151,36 +151,7 @@
                 </div>
 
                 <div class="col-6">
-                        <div class="form-group">
-                                <label for="ddlProveedores">Proveedor</label>
-                                <select class="form form-control flexselect" name="ddlProveedores" id="ddlProveedores">
-                                <option value="" selected disabled></option>
-                                    <?php
-                                
-                                    $query = "EXEC Gnrl.UDP_tblProveedores_Mostrar";
-                                    $result = sqlsrv_query($estadocon,$query);
-                                    if($row = sqlsrv_fetch_array($result)){
-                
-                                        do
-                                        {
-                                                if($row['Prov_Id'] != ""){
-                                
-                                                    echo "<option value=".$row['Prov_Id'].">".$row['Prov_Descripcion']."</option>";
-                                                }
-                                        }
-                                        while($row = sqlsrv_fetch_array($result));
-                                
-                                    } 
-                                    else
-                                    {
-                                        echo "<option value=''>Error</option>";
-                                    }
-                                    ?>
-                                </select>
-                        </div>
-                        </div>
-                    <div class="col-6">
-                    <div class="form-group">
+                <div class="form-group">
                                 <label for="ddlAlmc_Id">Almacen</label>
                                 <select class="form form-control flexselect" name="ddlAlmc_Id" id="ddlAlmc_Id" >
                                         <option value="" selected disabled></option>
@@ -214,6 +185,9 @@
                     
                 
                 </div>
+                        </div>
+                    <div class="col-6">
+                    
                 
                 <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Agregar" />
         </form>
