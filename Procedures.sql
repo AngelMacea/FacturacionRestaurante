@@ -780,13 +780,14 @@ GO
 CREATE PROCEDURE Inv.UDP_tblCompras_Mostrar
 AS
 BEGIN
-	SELECT COMP.Comp_Id, CAST(COMP.Comp_Fecha AS nvarchar(50)) AS [Comp_Fecha] , COMP.Comp_NoOrden, COMP.Comp_IVA
-	FROM Inv.tblCompras AS COMP
+	SELECT COMP.Comp_Id, CAST(COMP.Comp_Fecha AS nvarchar(50)) AS [Comp_Fecha] , COMP.Comp_NoOrden, COMP.Comp_IVA, PROV.Prov_Descripcion
+	FROM Inv.tblCompras AS COMP 
+	INNER JOIN Inv.tblCompraDetalles AS CODE ON CODE.Comp_Id = COMP.Comp_Id
+	INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
+	INNER JOIN Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = INGR.Prov_Id
 	WHERE COMP.Comp_Estado = 1
 END
 GO
-
-
 
 
 --Tabla Compras Detalles
@@ -805,7 +806,6 @@ BEGIN
 
     END
 GO
-
 
 CREATE PROCEDURE Inv.UDP_tblCompraDetalles_Update
     @CompDe_Id      INT,
@@ -848,17 +848,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE Inv.UDP_tblCompraDetalles_MostrarRecibo
-@Comp_NoOrden NVARCHAR(6)
-AS
-BEGIN
-	SELECT CODE.CompDe_Id,COMP.Comp_NoOrden,INGR.Ingr_Id, INGR.Ingr_Descripcion, CODE.CompDe_PrecioCompra, CODE.CompDe_Cantidad,COMP.Comp_IVA
-	FROM Inv.tblCompraDetalles AS CODE
-	INNER JOIN Inv.tblCompras AS COMP ON COMP.Comp_Id = CODE.Comp_Id
-	INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
-	WHERE CODE.CompDe_Estado = 1 AND COMP.Comp_NoOrden = @Comp_NoOrden
-END
-GO
 
 --Tabla Ventas
 

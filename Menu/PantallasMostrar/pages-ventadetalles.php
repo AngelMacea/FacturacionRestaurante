@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas</title>
+    <title>Compras Detalles</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css" />
     <link rel="stylesheet" 
         href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -33,43 +33,39 @@
 </style>
 </head>
 <body>
-    <?php include 'layout-pantalla.php'; 
-    date_default_timezone_set('America/Tegucigalpa');
-    ?>
-<div class="container">
+    <?php include 'layout-pantalla.php'; ?>
+    <div class="container">
 
     <div class="card mt-5">
-        <div class="card-header fw-bold fs-5 ps-5 mb-5 ">
-            Venta Detalles
+        <div class="card-header fw-bold fs-5 ps-5 mb-5">
+            Compras Detalles
         </div>
         <div class="card-body">
-        <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertVentasDetalles">Nuevo</button>
+        <button class="btn btn-primary mb-5" data-toggle="collapse" data-target="#InsertCompraDetalles">Insertar nueva compra</button>
 
-<div id="InsertVentasDetalles" class="collapse">
-        <form class="insertForm" method="POST" action="Inserts/VentaDetallesInsert.php">
+<div id="InsertCompraDetalles" class="collapse">
+        <form class="insertForm" method="POST" action="Inserts/CompraDetallesInsert.php">
             <div class="row">
                 <div class="col">
-                            <div class="form-group">
-                                <label for="ddlMenu">Menu</label>
-                                <select class="form form-control" name="ddlMenu" id="ddlMenu">
-                                    <option value="" selected disabled>Eliga un menu</option>
+                        <div class="form-group">
+                                <label for="ddlCompras"># de orden</label>
+                                <select class="form form-control" name="ddlComp_NoOrden" id="ddlComp_NoOrden">
+                                    <option value="" selected>Eliga un # de compra</option>
                                     <?php
-                                    
-                                    include '../../assets/conexion/ConexionDB.php';
+                                      include '../../assets/conexion/ConexionDB.php';
 
                                     $con = new conexion();
                                     $estadocon = $con->getCon();
                                     
-
-                                    $query = "EXEC Gnrl.UDP_tblMenus_Mostrar";
+                                    $query = "EXEC Inv.UDP_tblCompras_Mostrar";
                                     $result = sqlsrv_query($estadocon,$query);
                                     if($row = sqlsrv_fetch_array($result)){
                 
                                         do
                                         {
-                                                if($row['Menu_Id'] != ""){
+                                                if($row['Comp_Id'] != ""){
                                 
-                                                    echo "<option value=".$row['Menu_Id'].">".$row['Menu_Descripcion']." - L.".$row['Menu_Precio']."</option>";
+                                                    echo "<option value=".$row['Comp_Id'].">".$row['Comp_NoOrden']."</option>";
                                                 }
                                         }
                                         while($row = sqlsrv_fetch_array($result));
@@ -77,97 +73,106 @@
                                     } 
                                     else
                                     {
-                                        echo "<option value=''>Error</option>";
-                                    }
-                                    ?>
-                                </select>
-                                
-                            </div> 
-                            <div class="form-group">
-                                <label for="ddlVent_Id"># Orden de Venta</label>
-                                <select class="form form-control" name="ddlVent_Id" id="ddlVent_Id">
-                                    <option value="" selected disabled>Eliga un # de Orden</option>
-                                    <?php
-                                    
-                                    $query = "EXEC Vent.UDP_tblVentas_Mostrar";
-                                    $result = sqlsrv_query($estadocon,$query);
-                                    if($row = sqlsrv_fetch_array($result)){
-                
-                                        do
-                                        {
-                                                if($row['Vent_Id'] != ""){
-                                
-                                                    echo "<option value=".$row['Vent_Id'].">".$row['Vent_NoOrden']."</option>";
-                                                }
-                                        }
-                                        while($row = sqlsrv_fetch_array($result));
-                                
-                                    } 
-                                    else
-                                    {
-                                        echo "<option value=''>Error</option>";
+                                        echo "<option value=''></option>";
                                     }
                                     ?>
                                 </select>
                                 
                             </div>
+                    <div class="form-group">
+                            <label for="ddlIngr_Id">Ingrediente</label>
+                            <select class="form form-control" name="ddlIngr_Id" id="ddlIngr_Id" >
+                                    <option value="" selected>Eliga un ingrediente</option>
+                                    <?php
+                                    
+                                    
+                                    $query = "EXEC Inv.UDP_tblIngredientes_Mostrar";
+                                    $result = sqlsrv_query($estadocon,$query);
+                                    if($row = sqlsrv_fetch_array($result)){
+                
+                                        do
+                                        {
+                                                if($row['Ingr_Id'] != ""){
+                                
+                                                    echo "<option value=".$row['Ingr_Id'].">".$row['Ingr_Descripcion']."</option>";
+                                                }
+                                        }
+                                        while($row = sqlsrv_fetch_array($result));
+                                
+                                    } 
+                                    else
+                                    {
+                                        echo "<option value=''></option>";
+                                    }
+                                    ?>
+                            </select>
+                            
                     </div>
+                </div>
                 <div class="col">
                     <div class="form-group">
-                            <label for="txtVeDe_Cantidad">Cantidad</label>
-                            <input type="number"
-                            class="form form-control"
-                            name="txtVeDe_Cantidad"
-                            min="1"
-                            max="100" 
-                            id="txtVeDe_Cantidad"
-                            placeholder="Ingrese la cantidad de la compra"
-                            />
+                        <label for="txtCompDe_PrecioCompra">Precio de Compra</label>
+                        <input type="number"
+                        class="form form-control"
+                        name="txtCompDe_PrecioCompra" 
+                        id="txtCompDe_PrecioCompra"
+                        placeholder="Ingrese el precio del ingrediente"
+                        min="0.00" 
+                        max="10000.00" 
+                        step="0.01" />
                             
+                    </div>
+                    <div class="form-group">
+                        <label for="txtCompDe_PrecioCompra">Cantidad</label>
+                        <input type="number"
+                        class="form form-control"
+                        name="txtCompDe_Cantidad" 
+                        id="txtCompDe_Cantidad"
+                        placeholder="Ingrese la cantidad de ingredientes"
+                        min="0.00" 
+                        max="10000.00" 
+                        step="1" />
                             
-                                
                     </div>
                     
                 </div>
                 </div>
-            <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
                 
+                <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
         </form>
 </div>
-</div>
-<div id="DataWrapper" style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
                 <table id="TablaE1" class="table table-striped mt-5">
                 <thead>
                 <tr>
                 <th>ID</th>
-                <th># Orden de venta</th>
-                <th>Menu</th>
+                <th># Orden</th>
+                <th>Ingredientes</th>
+                <th>Precio Compra</th>
                 <th>Cantidad</th>
                 <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
+                
                     
-                    
-                    $query = "EXEC Vent.UDP_tblVentaDetalles_Mostrar";
+                    $query = "EXEC Inv.UDP_tblCompraDetalles_Mostrar";
                     $result = sqlsrv_query($estadocon,$query);
-
 
                     if($row = sqlsrv_fetch_array($result)){
 
                         $TotalCompra = 0;
                         
                         do{
-                            if($row['VentDe_Id'] != "")
+                            if($row['CompDe_Id'] != "")
                             {
                                 
                                 print   '<tr>';
-                                print   '<td>' .$row['VentDe_Id'] .'</td>';
-                                print   '<td>' .$row['Vent_NoOrden'] .'</td>';
-                                print   '<td>' .$row['Menu_Descripcion'] .'</td>';
-                                print   '<td>' .$row['VentDe_Cantidad'] .'</td>';
-
+                                print   '<td>' .$row['CompDe_Id'] .'</td>';
+                                print   '<td>' .$row['Comp_NoOrden'] .'</td>';
+                                print   '<td>' .$row['Ingr_Descripcion'] .'</td>';
+                                print   '<td>' .$row['CompDe_PrecioCompra'] .'</td>';
+                                print   '<td>' .$row['CompDe_Cantidad'] .'</td>';
                                 print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
                                 print   '</tr>';
 
@@ -183,7 +188,7 @@
         </div>
         </div>
 
-</div>
+    </div>
     <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/vendor/chart.js/chart.min.js"></script>

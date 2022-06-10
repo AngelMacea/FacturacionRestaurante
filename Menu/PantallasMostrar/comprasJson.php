@@ -15,7 +15,7 @@
                array_push(
                    $response['response'],
                    array(
-                       "compraIdentificacion"=>$row['Comp_Id'], "compraFecha"=>$row['Comp_Fecha'], "compraOrden"=>$row['Comp_NoOrden'], "compraImpuesto"=>$row['Comp_IVA']
+                       "compraIdentificacion"=>$row['Comp_Id'], "compraFecha"=>$row['Comp_Fecha'], "compraOrden"=>$row['Comp_NoOrden'], "compraImpuesto"=>$row['Comp_IVA'], "proveedorDescripcion"=>$row['Prov_Descripcion']
                    )
                );
            }
