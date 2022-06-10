@@ -864,7 +864,8 @@ BEGIN
     (Clie_Id,Vent_Fecha, Emp_Id, Vent_NoOrden, Vent_IVA, Vent_Descuento, Vent_Servicio, Vent_Observaciones, Vent_UsuarioCreacion ,Vent_FechaCreacion)
     VALUES (@Clie_Id, @Vent_Fecha, @Emp_Id, @Vent_NoOrden, @Vent_IVA, @Vent_Descuento, @Vent_Servicio, @Vent_Observaciones, @Vent_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
-GO 
+GO
+
 CREATE PROCEDURE Vent.UDP_tblVentas_Update
     @Vent_Id        INT,
     @Clie_Id	    INT,
@@ -923,6 +924,22 @@ BEGIN
 	WHERE Vent.Vent_Estado = 1
 END
 GO
+
+CREATE PROCEDURE Vent.UDP_tblVentas_MostrarCabecera
+ @VentNoOrden NVARCHAR(6)
+AS
+BEGIN
+	SELECT	CONCAT_WS(' ', CLIE.Clie_Nombres, CLIE.Clie_Apellidos) AS Cliente,
+			CASE  
+				WHEN VENT.Vent_Servicio = 'L' THEN 'Local'
+				WHEN VENT.Vent_Servicio = 'D' THEN 'Delivery'
+				WHEN VENT.Vent_Servicio = 'A' THEN 'Autoservicio'
+			END AS Servicio
+	FROM Vent.tblVentas AS VENT
+	INNER JOIN Gnrl.tblClientes AS CLIE ON CLIE.Clie_Id = VENT.Clie_Id
+	WHERE Vent.Vent_Estado = 1 AND Vent.Vent_NoOrden =  @VentNoOrden
+END
+
 
 
 
@@ -995,10 +1012,11 @@ BEGIN
 	WHERE VentDe_Estado = 1 AND VENT.Vent_NoOrden = @Vent_NoOrden
 END
 GO
+EXEC Vent.UDP_tblVentaDetalles_Mostrar
 
 --Tabla Domicilio Detalles
 
-CREATE PROCEDURE Vent.UDP_tblDomicilioDetalles_Insert
+CREATE PROCEDURE Vent.UDP_tblDomicilioDetalles_Insert '#546345'
     @Vent_Id    INT,
 	@Emp_Id     INT,
 	@Comu_Id    INT,

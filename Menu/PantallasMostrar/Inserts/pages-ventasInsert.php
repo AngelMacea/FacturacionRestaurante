@@ -54,9 +54,9 @@
             
         </div>
         <div class="card-body">
-        <form class="insertForm" method="POST" action="Inserts/VentasInsert.php">
+        <form class="insertForm" method="POST" action="VentasInsert.php">
             <div class="row">
-                <div class="col">
+                <div class="col-6">
                             <div class="form-group">
                                 <label for="ddlClientes">Cliente</label>
                                 <select class="form form-control flexselect" name="ddlClientes" id="ddlClientes">
@@ -75,9 +75,9 @@
                 
                                         do
                                         {
-                                                if($row['Clie_Id'] != ""){
+                                                if($row['Identificacion'] != ""){
                                 
-                                                    echo "<option value=".$row['Clie_Id'].">".$row['Nombre']."</option>";
+                                                    echo "<option value=".$row['Identificacion'].">".$row['Nombre']."</option>";
                                                 }
                                         }
                                         while($row = sqlsrv_fetch_array($result));
@@ -91,64 +91,36 @@
                                 </select>
                                 
                             </div>
-                            <div class="form-group">
-                                <label for="ddlEmpleados">Empleado</label>
-                                <select class="form form-control flexselect" name="ddlEmpleados" id="ddlEmpleados">
-                                    <option value="" selected disabled></option>
-                                    <?php
-                                    
-                                    $query = "EXEC Gnrl.UDP_tblEmpleados_Mostrar";
-                                    $result = sqlsrv_query($estadocon,$query);
-                                    if($row = sqlsrv_fetch_array($result)){
-                
-                                        do
-                                        {
-                                                if($row['Emp_Id'] != ""){
-                                
-                                                    echo "<option value=".$row['Emp_Id'].">".$row['Nombre']."</option>";
-                                                }
-                                        }
-                                        while($row = sqlsrv_fetch_array($result));
-                                
-                                    } 
-                                    else
-                                    {
-                                        echo "<option value=''>Error</option>";
-                                    }
-                                    ?>
-                                </select>
-                                
-                            </div>
+                    </div>            
+                    <div class="col-6">       
                         <div class="form-group">
-                            <label for="txtVent_NoOrden"># de Orden</label>
+                            <label for="txtVent_NoOrden">Numero de Orden</label>
                             <input type="text"
                             class="form form-control"
                             name="txtVent_NoOrden" 
                             id="txtVent_NoOrden"
-                            placeholder="Ingrese el # de orden"
+                            placeholder="Ingrese el numero de orden"
+                            max="5"
                             />
                             
                                 
                         </div>
+                        </div> 
+                        <div class="col-6"> 
                         <div class="form-group">
-                            <label for="txtVent_IVA">IVA</label>
+                            <label for="txtVent_IVA">Impuesto</label>
                             <input type="number"
                             class="form form-control"
                             min="0"
                             max="100"
                             name="txtVent_IVA" 
                             id="txtVent_IVA"
-                            placeholder="Ingrese el % de IVA"
+                            placeholder="Ingrese el porcentaje del impuesto"
                             />
-                            
-                            
-                                
                         </div>
-                        
+                        </div>
                             
-                    
-                </div>
-                <div class="col">
+                <div class="col-6">
                     <div class="form-group">
                             <label for="txtVent_Fecha">Fecha de venta</label>
                             <input type="date"
@@ -157,11 +129,9 @@
                             id="txtVent_Fecha"
                             placeholder="Ingrese la fecha de la venta"
                             />
-                            
-                            
-                                
                     </div>
-                   
+                    </div>
+                    <div class="col-6">
                             <div class="form-group">
                                 <label for="txtVent_Descuento">Descuento</label>
                                 <input type="number"
@@ -172,38 +142,83 @@
                                 id="txtVent_Descuento"
                                 placeholder="Ingrese el % de descuento"
                                 />
-                                
-                                
                             </div>
+                        </div>
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="ddlVent_Servicio">Tipo de servicio</label>
                                 <select class="form form-control" name="ddlVent_Servicio" id="ddlVent_Servicio" >
-                                        <option value="" selected disabled>Eliga un tipo de servicio</option>
                                         <option value="L">Local</option>
                                         <option value="D">Delivery</option>
                                         <option value="A">Autoservicio</option>
                                 </select>
-                                
-                                
                             </div>
-                            
-                            
-                            
-                    
-                    
-                </div>
-                <div class="form-group">
-                                <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Observaciones/ Direccion </span>
+                            </div>
+                <div class="col-12">
+                    <div class="form-group">
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Observaciones/ Direccion </span>
+                                    </div>
+                                    <textarea class="form-control" name="txtVentObservaciones" id="txtVentObservaciones" style="max-height: 200px" aria-label="Observaciones"></textarea>
+                                    </div> 
                                 </div>
-                                <textarea class="form-control" name="txtVentObservaciones" id="txtVentObservaciones" style="max-height: 200px" aria-label="Observaciones"></textarea>
-                                </div> 
-                            </div>
                 </div>
                 
-                <input type="submit" class="btn btn-primary mb-5" id="btnInsertar" value="Crear" />
-        </form>             
+                    <div class="col-6">
+                        <div class="form-group">
+                                    <label for="ddlMenu">Menu</label>
+                                    <select class="form form-control flexselect" name="ddlMenu" id="ddlMenu">
+                                        <option value="" selected disabled></option>
+                                        <?php
+                                        
+                                        include '../../assets/conexion/ConexionDB.php';
+
+                                        $con = new conexion();
+                                        $estadocon = $con->getCon();
+                                        
+
+                                        $query = "EXEC Gnrl.UDP_tblMenus_Mostrar";
+                                        $result = sqlsrv_query($estadocon,$query);
+                                        if($row = sqlsrv_fetch_array($result)){
+                    
+                                            do
+                                            {
+                                                    if($row['ID'] != ""){
+                                    
+                                                        echo "<option value=".$row['ID'].">".$row['Descripcion']." - L.".$row['Precio']."</option>";
+                                                    }
+                                            }
+                                            while($row = sqlsrv_fetch_array($result));
+                                    
+                                        } 
+                                        else
+                                        {
+                                            echo "<option value=''>Error</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    
+                                </div> 
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                                <label for="txtVeDe_Cantidad">Cantidad</label>
+                                <input type="number"
+                                class="form form-control"
+                                name="txtVeDe_Cantidad"
+                                min="1"
+                                max="100" 
+                                id="txtVeDe_Cantidad"
+                                placeholder="Ingrese la cantidad de la compra"
+                                />       
+                        </div>
+                    </div>
+                    <div class="col-6">
+                <input type="submit" class="btn btn-primary mb-5" id="btnCrear" value="Crear" />
+                </div>
+            </form>             
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -54,76 +54,92 @@
             
         </div>
         <div class="card-body">
-        <form class="insertForm mb-5" method="POST" action="Inserts/ComprasInsert.php">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                        <label for="txtNombre">Número de orden</label>
-                                        <input type="text" 
-                                        class="form-control" 
-                                        disabled
-                                        id="txtComp_NoOrden"
-                                        name="txtComp_NoOrden"
-                                        placeholder="Ingrese el número de orden">
-                                        
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="txtEmp_Id">Fecha de la compra</label>
-                                    <input type="date"
-                                    class="form-control"
-                                    disabled
-                                    id="txtComp_Fecha"
-                                    name="txtComp_Fecha"
-                                    >
-                                    
-                                </div>
-                            </div>
-                            
-                            <div class="col-6">
-                                <div class="form-group">
-                                        <label for="txtComp_IVA">Impuesto</label>
-                                        <input type="number" 
-                                        disabled
-                                        class="form-control" 
-                                        id="txtComp_IVA"
-                                        name="txtComp_IVA"
-                                        placeholder="Ingrese el valor"> 
-                                </div>
-                            </div>
-                            
-                            <div class="col-6">
-                                <div class="form-group">
-                                        <label for="txtComp_IVA">Proveedor</label>
-                                        <input type="number" 
-                                        class="form-control" 
-                                        disabled
-                                        id="txtComp_IVA"
-                                        name="txtComp_IVA"
-                                        placeholder="Seleccione el proveedor"> 
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                <label for="ddlIngr_Id">Menu</label>
-                                <select class="form form-control flexselect" name="ddlIngr_Id" id="ddlIngr_Id" >
-                                <option value="" selected disabled></option>
-                                        <?php
-                                            include '../../../assets/conexion/ConexionDB.php';
+            <?php
+            include '../../../assets/conexion/ConexionDB.php';
 
-                                            $con = new conexion();
-                                            $estadocon = $con->getCon();
+            $con = new conexion();
+            $estadocon = $con->getCon();
+            $NumOrden = $_SESSION["NumOrden"];
+            $query = "EXEC Vent.UDP_tblVentas_MostrarCabecera '$NumOrden'";
+            $result = sqlsrv_query($estadocon,$query);
+            if($row = sqlsrv_fetch_array($result)){
+                $_SESSION["Cliente"] = $row['Cliente'];
+                $_SESSION["Servicio"] = $row['Servicio'];
+  
+            }else{
+              header('location: pages.php');
+            }
+            ?>
+        <form class="insertForm" method="POST" action="VentaDetallesInsert.php">
+            <div class="row">
+                <div class="col-6">
+                            <div class="form-group">
+                                <label for="ddlClientes">Cliente</label>
+                                <input type="text" class="form form-control" disabled value="<?php echo isset($_SESSION["Cliente"]) ? $_SESSION["Cliente"] : ""; ?>"/>
+                                
+                            </div>
+                    </div>            
+                    <div class="col-6">       
+                        <div class="form-group">
+                            <label for="txtVent_NoOrden">Numero de Orden</label>
+                            <input type="text" class="form form-control" disabled value="<?php echo isset($_SESSION["NumOrden"]) ? $_SESSION["NumOrden"] : ""; ?>"/>
+                            
+                                
+                        </div>
+                        </div> 
+                        <div class="col-6"> 
+                        <div class="form-group">
+                            <label for="txtVent_IVA">Impuesto</label>
+                            <input type="text" class="form form-control" disabled value="<?php echo isset($_SESSION["Impuesto"]) ? $_SESSION["Impuesto"] : ""; ?>"/>
+                        </div>
+                        </div>
+                            
+                <div class="col-6">
+                    <div class="form-group">
+                            <label for="txtVent_Fecha">Fecha de venta</label>
+                            <input type="text" class="form form-control" disabled value="<?php echo isset($_SESSION["FechaVenta"]) ? $_SESSION["FechaVenta"] : ""; ?>"/>
+                    </div>
+                    </div>
+                    <div class="col-6">
+                            <div class="form-group">
+                                <label for="txtVent_Descuento">Descuento</label>
+                                <input type="text" class="form form-control" disabled value="<?php echo isset($_SESSION["Descuento"]) ? $_SESSION["Descuento"] : ""; ?>"/>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="ddlVent_Servicio">Tipo de servicio</label>
+                                <input type="text" class="form form-control" disabled value="<?php echo isset($_SESSION["Servicio"]) ? $_SESSION["Servicio"] : ""; ?>"/>
+                            </div>
+                            </div>
+                <div class="col-12">
+                    <div class="form-group">
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Observaciones/ Direccion </span>
+                                    </div>
+                                    <textarea class="form-control" disabled name="txtVentObservaciones" id="txtVentObservaciones" style="max-height: 200px" aria-label="Observaciones" placeholder="<?php echo isset($_SESSION["Observaciones"]) ? $_SESSION["Observaciones"] : ""; ?>"></textarea>
+                                    </div> 
+                                </div>
+                </div>
+                
+                    <div class="col-6">
+                        <div class="form-group">
+                                    <label for="ddlMenu">Menu</label>
+                                    <select class="form form-control flexselect" name="ddlMenu" id="ddlMenu">
+                                        <option value="" selected disabled></option>
+                                        <?php
                                         
-                                        $query = "EXEC Inv.UDP_tblIngredientes_Mostrar";
+
+                                        $query = "EXEC Gnrl.UDP_tblMenus_Mostrar";
                                         $result = sqlsrv_query($estadocon,$query);
                                         if($row = sqlsrv_fetch_array($result)){
                     
                                             do
                                             {
-                                                    if($row['Ingr_Id'] != ""){
+                                                    if($row['ID'] != ""){
                                     
-                                                        echo "<option value=".$row['Ingr_Id'].">".$row['Ingr_Descripcion']."</option>";
+                                                        echo "<option value=".$row['ID'].">".$row['Descripcion']." - L.".$row['Precio']."</option>";
                                                     }
                                             }
                                             while($row = sqlsrv_fetch_array($result));
@@ -131,35 +147,31 @@
                                         } 
                                         else
                                         {
-                                            echo "<option value=''></option>";
+                                            echo "<option value=''>Error</option>";
                                         }
                                         ?>
-                                </select>  
-                                </div>
-                            </div>
+                                    </select>
+                                    
+                                </div> 
+                    </div>
 
-                            <div class="col-6">
-                                <div class="form-group">
-                                <input type="submit" class="btn btn-primary " id="btnCrear" value="Agregar" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="txtCompDe_PrecioCompra">Cantidad</label>
-                                    <input type="number"
-                                    class="form form-control"
-                                    name="txtCompDe_Cantidad" 
-                                    id="txtCompDe_Cantidad"
-                                    placeholder="Ingrese la cantidad de ingredientes"
-                                    min="0.00" 
-                                    max="10000.00" 
-                                    step="1" />     
-                                </div>  
-                            </div>
-                            
-                         </div>
-                                  
-                    </form>
+                    <div class="col-6">
+                        <div class="form-group">
+                                <label for="txtVeDe_Cantidad">Cantidad</label>
+                                <input type="number"
+                                class="form form-control"
+                                name="txtVeDe_Cantidad"
+                                min="1"
+                                max="100" 
+                                id="txtVeDe_Cantidad"
+                                placeholder="Ingrese la cantidad de la compra"
+                                />       
+                        </div>
+                    </div>
+                    <div class="col-6">
+                <input type="submit" class="btn btn-primary mb-5" id="btnCrear" value="Agregar Producto" />
+                </div>
+            </form>  
                     <table id="TablaE1" class="table table-striped mt-5">
                         <thead>
                         <tr>
@@ -170,10 +182,36 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php
+                                $query = "EXEC Vent.UDP_tblVentaDetalles_Mostrar '$NumOrden'";
+                                $result = sqlsrv_query($estadocon,$query);
 
+                                if($row = sqlsrv_fetch_array($result)){
+                                    
+                                    do{
+                                        if($row['VentDe_Id'] != "")
+                                        {
+                                            
+                                            print   '<tr>';
+                                            print   '<td>' .$row['VentDe_Id'] .'</td>';
+                                            print   '<td>' .$row['Menu_Descripcion'] .'</td>';
+                                            print   '<td>' .$row['Menu_Precio'] .'</td>';
+                                            print   '<td>' .$row['VentDe_Cantidad'] .'</td>';
+                                            print   '</tr>';
+
+                                        }
+                                    }
+                                    while($row = sqlsrv_fetch_array($result));
+                                }
+                                else{
+                                    print $query;
+                                }
+                            ?>
                         </tbody>
             </table>
-            <a class="btn btn-primary mb-5"  href="../pages-comprasindex.php" >Guardar factura</a>                   
+            <div class="col-6 mt-5">
+            <a class="btn btn-primary mb-5"  href="../pages-ventasindex.php" >Guardar factura</a>  
+            </div>                 
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

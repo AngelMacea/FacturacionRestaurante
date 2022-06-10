@@ -271,7 +271,7 @@ GO
 CREATE PROCEDURE Gnrl.UDP_tblClientes_Mostrar
 AS
 BEGIN
-	SELECT Clie_Id,
+	SELECT Clie_Id AS Identificacion,
 			Clie_Identificacion,
 			CONCAT(Clie_Nombres,' ',Clie_Apellidos) Nombre,
 			CASE Clie_Sexo
@@ -668,7 +668,7 @@ GO
 CREATE PROCEDURE Gnrl.UDP_tblMenus_Mostrar
 AS
 BEGIN
-	SELECT Menu_Id, Menu_Descripcion, Menu_Precio FROM Gnrl.tblMenus
+	SELECT Menu_Id AS ID, Menu_Descripcion AS Descripcion, Menu_Precio AS Precio FROM Gnrl.tblMenus
 	WHERE Menu_Estado = 1
 END
 GO
@@ -889,6 +889,11 @@ BEGIN
     VALUES (@Clie_Id, @Vent_Fecha, @Emp_Id, @Vent_NoOrden, @Vent_IVA, @Vent_Descuento, @Vent_Servicio, @Vent_Observaciones, @Vent_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO 
+
+EXEC Vent.UDP_tblVentas_Insert '3','2022-07-02','1','#34','43','2',' D','34221','1'
+select * from Vent.tblVentas
+SELECT * FROM Vent.tblVentaDetalles
+
 CREATE PROCEDURE Vent.UDP_tblVentas_Update
     @Vent_Id        INT,
     @Clie_Id	    INT,
@@ -952,6 +957,14 @@ GO
 
 --Tabla Venta Detalles
 --EN EL VENTAS DETALLES INSERT HAY QUE HACER LA VALIDACION DE QUE SI LOS INGREDIENTES ESTAN EN 0, NO DEJE HACER LA COMPRA
+CREATE PROCEDURE Vent.UDP_tblVentaDetalles_MostrarVentId
+@VentNoOrden NVARCHAR(6)
+AS
+BEGIN
+	SELECT Vent_Id ID FROM Vent.tblVentas WHERE Vent_NoOrden = @VentNoOrden
+END
+EXEC Vent.UDP_tblVentaDetalles_MostrarVentId '#6FlnW'
+
 CREATE PROCEDURE Vent.UDP_tblVentaDetalles_Insert
 	@Vent_Id			INT,
 	@Menu_Id			INT,
@@ -978,6 +991,7 @@ BEGIN
 
 	END
 END
+EXEC Vent.UDP_tblVentaDetalles_Insert
 
 
 GO
@@ -1017,6 +1031,8 @@ BEGIN
 	WHERE VentDe_Estado = 1
 END
 GO
+
+
 
 --Tabla Domicilio Detalles
 
