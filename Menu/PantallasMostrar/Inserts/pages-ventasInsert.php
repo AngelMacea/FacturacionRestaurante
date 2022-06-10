@@ -91,6 +91,7 @@
                             <label for="txtVent_NoOrden">Numero de Orden</label>
                             <input type="text"
                             class="form form-control"
+                            readonly="readonly"
                             name="txtVent_NoOrden" 
                             id="txtVent_NoOrden"
                             placeholder="Ingrese el numero de orden"
@@ -117,10 +118,12 @@
                 <div class="col-6">
                     <div class="form-group">
                             <label for="txtVent_Fecha">Fecha de venta</label>
-                            <input type="date"
+                            <input type="text"
+                            readonly="readonly"
                             class="form form-control"
                             name="txtVent_Fecha" 
                             id="txtVent_Fecha"
+                            
                             placeholder="Ingrese la fecha de la venta"
                             />
                     </div>
@@ -212,6 +215,7 @@
                     <div class="col-6">
                 <input type="submit" class="btn btn-primary mb-5" id="btnCrear" value="Crear" />
                 </div>
+                
             </form>             
         </div>
     </div>
@@ -240,6 +244,33 @@
     $("select.flexselect").flexselect();
   });
 </script>
+<script>
+      
+      $( document ).ready(function() {
+                $("#txtVent_NoOrden").attr("value",
+                function  id () 
+                {
+                    return Math.random().toString(36).substr(2).slice(0,5).toUpperCase();
+                }
+                );
+                $("#txtVent_Fecha").val(
+                    function fechaCompra(){
+                        Date.prototype.yyyymmdd = function() {
+                        var yyyy = this.getFullYear().toString();
+                        var mm = (this.getMonth()+1).toString(); 
+                        var dd  = this.getDate().toString();
+                        return  (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]) + "/" +  yyyy; 
+                        };
+                        
+                        var date = new Date();
+                        return date.yyyymmdd()
+
+                    }
+                    
+                );
+        }); 
+    </script>
+    
     <script src="../../../assets/iziToast-master/dist/js/iziToast.min.js" type="text/javascript"></script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"> </script>
      <script src="../../../assets/js/alertas.js"></script>

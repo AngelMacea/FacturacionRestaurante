@@ -7,12 +7,15 @@ $estadocon = $con->getCon();
 session_start();
 
   $cliente= $_POST['ddlClientes'];
-  $NumOrden= '#'.$_POST['txtVent_NoOrden'];
+  $NumOrden= "#".$_POST['txtVent_NoOrden']."";
   $FechaVenta = $_POST['txtVent_Fecha'];
   $Descuento = $_POST['txtVent_Descuento'];
   $Impuesto = $_POST['txtVent_IVA'];
   $Servicio = $_POST['ddlVent_Servicio'];
   $Observaciones = $_POST['txtVentObservaciones'];
+
+
+
 
   $Menu = $_POST['ddlMenu'];
   $Cantidad = $_POST['txtVeDe_Cantidad'];
