@@ -35,7 +35,9 @@
     </style>
 </head>
 <body>
-    <?php  include 'layout-insert.php';?>
+    <?php  include 'layout-insert.php';
+
+    ?>
     <div class="container">
 
     <div class="card mt-5">
@@ -61,17 +63,24 @@
                                         <label for="txtNombre">Número de orden</label>
                                         <input type="text" 
                                         class="form-control" 
+                                        value="<?=$_SESSION['NumOrden']?>"
                                         disabled
                                         id="txtComp_NoOrden"
                                         name="txtComp_NoOrden"
                                         placeholder="Ingrese el número de orden">
                                         
+                                        
+        
+        
+        
+
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="txtEmp_Id">Fecha de la compra</label>
                                     <input type="date"
+                                    value="<?=$_SESSION['FechaCompra'] ?>"
                                     class="form-control"
                                     disabled
                                     id="txtComp_Fecha"
@@ -86,6 +95,7 @@
                                         <label for="txtComp_IVA">Impuesto</label>
                                         <input type="number" 
                                         disabled
+                                        value="<?$_SESSION['Impuesto']?>"
                                         class="form-control" 
                                         id="txtComp_IVA"
                                         name="txtComp_IVA"
@@ -98,6 +108,7 @@
                                         <label for="txtComp_IVA">Proveedor</label>
                                         <input type="number" 
                                         class="form-control" 
+                                        value="<?=$_SESSION['Proveedor']?>"
                                         disabled
                                         id="txtComp_IVA"
                                         name="txtComp_IVA"

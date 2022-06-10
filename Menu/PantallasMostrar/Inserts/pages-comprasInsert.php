@@ -58,22 +58,23 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                        <label for="txtNombre">Número de orden</label>
+                                        <label for="txtNumOrden">Número de orden</label>
                                         <input type="text" 
-                                        class="form-control" 
-                                        id="txtComp_NoOrden"
-                                        name="txtComp_NoOrden"
+                                        class="form-control"
+                                        max="5" 
+                                        id="txtNumOrden"
+                                        name="txtNumOrden"
                                         placeholder="Ingrese el número de orden">
                                         
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="txtEmp_Id">Fecha de la compra</label>
+                                    <label for="txtFecha">Fecha de la compra</label>
                                     <input type="date"
                                     class="form-control"
-                                    id="txtComp_Fecha"
-                                    name="txtComp_Fecha"
+                                    id="txtFecha"
+                                    name="txtFecha"
                                     >
                                     
                                 </div>
@@ -81,23 +82,46 @@
                             
                             <div class="col-6">
                                 <div class="form-group">
-                                        <label for="txtComp_IVA">Impuesto</label>
+                                        <label for="txtIVA">Impuesto</label>
                                         <input type="number" 
                                         class="form-control" 
-                                        id="txtComp_IVA"
-                                        name="txtComp_IVA"
-                                        placeholder="Ingrese el valor"> 
+                                        id="txtIVA"
+                                        name="txtIVA"
+                                        placeholder="Ingrese el % de impuesto"> 
                                 </div>
                             </div>
                             
                             <div class="col-6">
                                 <div class="form-group">
-                                        <label for="txtComp_IVA">Proveedor</label>
-                                        <input type="number" 
-                                        class="form-control" 
-                                        id="txtComp_IVA"
-                                        name="txtComp_IVA"
-                                        placeholder="Seleccione el proveedor"> 
+                                <label for="ddlProveedores">Proveedores</label>
+                                <select class="form form-control flexselect" name="ddlProveedores" id="ddlProveedores" >
+                                <option value="" selected disabled></option>
+                                        <?php
+                                            include '../../../assets/conexion/ConexionDB.php';
+
+                                            $con = new conexion();
+                                            $estadocon = $con->getCon();
+                                        
+                                        $query = "EXEC Gnrl.UDP_tblProveedores_Mostrar";
+                                        $result = sqlsrv_query($estadocon,$query);
+                                        if($row = sqlsrv_fetch_array($result)){
+                    
+                                            do
+                                            {
+                                                    if($row['ProveedorId'] != ""){
+                                    
+                                                        echo "<option value=".$row['ProveedorId'].">".$row['Proveedor']."</option>";
+                                                    }
+                                            }
+                                            while($row = sqlsrv_fetch_array($result));
+                                    
+                                        } 
+                                        else
+                                        {
+                                            echo "<option value=''></option>";
+                                        }
+                                        ?>
+                                </select>   
                                 </div>
                             </div>
                             <div class="col-6">
@@ -106,10 +130,6 @@
                                 <select class="form form-control flexselect" name="ddlIngr_Id" id="ddlIngr_Id" >
                                 <option value="" selected disabled></option>
                                         <?php
-                                            include '../../../assets/conexion/ConexionDB.php';
-
-                                            $con = new conexion();
-                                            $estadocon = $con->getCon();
                                         
                                         $query = "EXEC Inv.UDP_tblIngredientes_Mostrar";
                                         $result = sqlsrv_query($estadocon,$query);

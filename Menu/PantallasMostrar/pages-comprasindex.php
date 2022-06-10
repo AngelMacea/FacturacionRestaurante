@@ -130,7 +130,8 @@
                                 <div class="form-group">
                                         <label for="txtNombre"># de orden</label>
                                         <input type="text" 
-                                        class="form-control" 
+                                        class="form-control"
+                                        max="5" 
                                         id="txtComp_NoOrden"
                                         name="txtComp_NoOrden"
                                         placeholder="Ingrese el # de orden">
