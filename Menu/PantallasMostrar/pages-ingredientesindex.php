@@ -47,7 +47,6 @@
                 <th>ID</th>
                 <th>Ingrediente</th>
                 <th>Cantidad</th>
-                <th>Proveedor</th>
                 <th>Fecha de Caducidad</th>
                 <th>Estatus</th>
                 <th>Almacen</th>
@@ -79,7 +78,6 @@
                                 print   '<td>' .$row['Ingr_Id'] .'</td>';
                                 print   '<td>' .$row['Ingr_Descripcion'] .'</td>';
                                 print   '<td>' .$row['Ingr_Stock'] .'</td>';
-                                print   '<td>' .$row['Prov_Descripcion'] .'</td>';
                                 print   '<td>' .$row['Ingr_FechaCaducidad'] .'</td>';
                                 print   '<td>' .$row['Ingr_Estatus'] .'</td>';
                                 print   '<td>' .$row['Almc_Descripcion'] .'</td>';
