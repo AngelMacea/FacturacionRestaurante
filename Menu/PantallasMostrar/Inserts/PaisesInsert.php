@@ -9,7 +9,7 @@
     $paisDescripcion = $_POST['txtPais'];
 
     
-    if($Pais_Descrip== ""){
+    if($paisDescripcion== ""){
         $_SESSION['Titulo'] = "Error";
         $_SESSION['Mensaje'] = "Rellene un campo";
         $_SESSION['ValidacionError'] = true;

@@ -66,15 +66,15 @@
                         
 
                         do{
-                            if($row['Prov_Id'] != "")
+                            if($row['ProveedorId'] != "")
                             {
                                 
                                 print   '<tr>';
-                                print   '<td>' .$row['Prov_Id'] .'</td>';
-                                print   '<td>' .$row['Prov_Descripcion'] .'</td>';
-                                print   '<td>' .$row['Prov_Tel'] .'</td>';
-                                print   '<td>' .$row['Ciud_Descripcion'] .'</td>';
-                                print   '<td>' .$row['Pais_Descripcion'] .'</td>';
+                                print   '<td>' .$row['ProveedorId'] .'</td>';
+                                print   '<td>' .$row['Proveedor'] .'</td>';
+                                print   '<td>' .$row['ProveedorTel'] .'</td>';
+                                print   '<td>' .$row['Ciudad'] .'</td>';
+                                print   '<td>' .$row['Pais'] .'</td>';
                                 print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
                                 print   '</tr>';
                                 
