@@ -5,6 +5,7 @@
     $estadocon = $con->getCon();
     $Orden = $_GET['NoOrden'];
 
+    
     $response = array();
     $query="EXEC Inv.UDP_tblCompraDetalles_MostrarRecibo '$Orden'";
     $result = sqlsrv_prepare($estadocon,$query);
