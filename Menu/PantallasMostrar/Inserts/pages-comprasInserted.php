@@ -54,14 +54,14 @@
             
         </div>
         <div class="card-body">
-        <form class="insertForm mb-5" method="POST" action="Inserts/ComprasInsertDet.php">
+        <form class="insertForm mb-5" method="POST" action="ComprasInsertDet.php">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                         <label for="txtNombre">Número de orden</label>
                                         <input type="text" 
                                         class="form-control" 
-                                        value="<?=$_SESSION['NumOrden']?>"
+                                        value="<?="#".$_SESSION['NumOrden']?>"
                                         disabled
                                         id="txtComp_NoOrden"
                                         name="txtComp_NoOrden"
@@ -84,10 +84,10 @@
                             
                             <div class="col-6">
                                 <div class="form-group">
-                                        <label for="txtComp_IVA">Impuesto</label>
-                                        <input type="number" 
+                                        <label for="txtComp_IVA">Impuesto %</label>
+                                        <input type="text" 
                                         disabled
-                                        value="<?=$_SESSION['Impuesto'] ?>"
+                                        value="<?=$_SESSION['Impuesto']?>"
                                         class="form-control" 
                                         id="txtComp_IVA"
                                         name="txtComp_IVA"
@@ -112,9 +112,9 @@
                     
                                             do
                                             {
-                                                    if($row['ProveedorId'] != ""){
+                                                    if($row['Prov_Id'] != ""){
                                     
-                                                        echo "<option selected disabled value=".$row['ProveedorId'].">".$row['Proveedor']."</option>";
+                                                        echo "<option selected disabled value=".$row['Prov_Id'].">".$row['Prov_Descripcion']."</option>";
                                                     }
                                             }
                                             while($row = sqlsrv_fetch_array($result));
@@ -196,16 +196,19 @@
                         <thead>
                         <tr>
                         <th>ID</th>
+                        <th># de orden</th>
                         <th>Ingrediente</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
+                        <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                             
                             
-                            $query = "EXEC Inv.UDP_tblCompraDetalles_MostrarDetalles '".$_SESSION['NumOrden']."'";
+                            $query = "EXEC Inv.UDP_tblCompraDetalles_MostrarDetalles '#".$_SESSION['NumOrden']."'";
+                            
                             $result = sqlsrv_query($estadocon,$query);
 
 
@@ -214,14 +217,15 @@
                                 $TotalCompra = 0;
                                 
                                 do{
-                                    if($row['ID'] != "")
+                                    if($row['CompDe_Id'] != "")
                                     {
                                         
                                         print   '<tr>';
-                                        print   '<td>' .$row['ID'] .'</td>';
-                                        print   '<td>' .$row['Ingrediente'] .'</td>';
-                                        print   '<td>' .$row['Precio'] .'</td>';
-                                        print   '<td>' .$row['Cantidad'] .'</td>';
+                                        print   '<td>' .$row['CompDe_Id'] .'</td>';
+                                        print   '<td>' .$row['Comp_NoOrden'] .'</td>';
+                                        print   '<td>' .$row['Ingr_Descripcion'] .'</td>';
+                                        print   '<td>' .$row['CompDe_PrecioCompra'] .'</td>';
+                                        print   '<td>' .$row['CompDe_Cantidad'] .'</td>';
                                         print   '<td><input type="button" href="#" title="Detalles" alt="Detalles" value="Detalles"/><input type="button" href="#" title="Editar" alt="Editar" value="Editar"/></td>';
                                         print   '</tr>';
 
