@@ -566,15 +566,14 @@ GO
 CREATE PROCEDURE Inv.UDP_tblIngredientes_Insert
     @Ingr_Descripcion   NVARCHAR(50),
     @Ingr_Stock         INT,
-    @Prov_Id            INT,
     @Ingr_FechaCaducidad DATE,
     @Ingr_Estatus       CHAR(1),
     @Almc_Id            INT,
     @Ingr_UsuarioCreacion INT
 AS 
 BEGIN
-    INSERT INTO Inv.tblIngredientes (Ingr_Descripcion, Ingr_Stock, Prov_Id, Ingr_FechaCaducidad, Ingr_Estatus, Almc_Id, Ingr_UsuarioCreacion, Ingr_FechaCreacion)
-    VALUES (@Ingr_Descripcion, @Ingr_Stock, @Prov_Id, @Ingr_FechaCaducidad, @Ingr_Estatus, @Almc_Id, @Ingr_UsuarioCreacion, CURRENT_TIMESTAMP)
+    INSERT INTO Inv.tblIngredientes (Ingr_Descripcion, Ingr_Stock, Ingr_FechaCaducidad, Ingr_Estatus, Almc_Id, Ingr_UsuarioCreacion, Ingr_FechaCreacion)
+    VALUES (@Ingr_Descripcion, @Ingr_Stock, @Ingr_FechaCaducidad, @Ingr_Estatus, @Almc_Id, @Ingr_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
 
@@ -593,7 +592,6 @@ BEGIN
     UPDATE Inv.tblIngredientes
     SET Ingr_Descripcion = @Ingr_Descripcion,
         Ingr_Stock = @Ingr_Stock,
-        Prov_Id = @Prov_Id,
         Ingr_FechaCaducidad = @Ingr_FechaCaducidad,
         Ingr_Estatus = @Ingr_Estatus,
         Almc_Id = @Almc_Id,
@@ -616,7 +614,7 @@ GO
 CREATE PROCEDURE Inv.UDP_tblIngredientes_Mostrar
 AS
 BEGIN
-	SELECT INGR.Ingr_Id, INGR.Ingr_Descripcion, INGR.Ingr_Stock, PROV.Prov_Descripcion, CAST(INGR.Ingr_FechaCaducidad AS varchar(20)) AS Ingr_FechaCaducidad, 
+	SELECT INGR.Ingr_Id, INGR.Ingr_Descripcion, INGR.Ingr_Stock, CAST(INGR.Ingr_FechaCaducidad AS varchar(20)) AS Ingr_FechaCaducidad, 
 			CASE
 				WHEN INGR.Ingr_Estatus = 'B' THEN 'BUENO'
 				WHEN INGR.Ingr_Estatus = 'V' THEN 'VENCIDO'
@@ -624,7 +622,6 @@ BEGIN
 			ALMC.Almc_Descripcion
 			
 	FROM Inv.tblIngredientes AS INGR
-	INNER JOIN Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = INGR.Prov_Id
 	INNER JOIN Inv.tblAlmacenes AS ALMC ON ALMC.Almc_Id = INGR.Almc_Id
 	WHERE Ingr_Estado = 1
 END
@@ -784,7 +781,7 @@ BEGIN
 	FROM Inv.tblCompras AS COMP 
 	INNER JOIN Inv.tblCompraDetalles AS CODE ON CODE.Comp_Id = COMP.Comp_Id
 	INNER JOIN Inv.tblIngredientes AS INGR ON INGR.Ingr_Id = CODE.Ingr_Id
-	INNER JOIN Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = INGR.Prov_Id
+	INNER JOIN Gnrl.tblProveedores AS PROV ON PROV.Prov_Id = COMP.Prov_Id
 	WHERE COMP.Comp_Estado = 1
 END
 GO

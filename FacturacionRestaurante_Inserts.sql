@@ -131,14 +131,6 @@ VALUES	('Refrigerador',1,GETDATE()),
 		('Despensa',1,GETDATE())
 
 
-		INSERT INTO  [Inv].[tblIngredientes]([Ingr_Descripcion], [Ingr_Stock], [Prov_Id], [Ingr_FechaCaducidad], [Ingr_Estatus], [Almc_Id], [Ingr_UsuarioCreacion], [Ingr_FechaCreacion])
-VALUES	('Pollo',50,2,'20230605','B',2,1,GETDATE()),
-		('Papas',20,3,'20220903','B',2,1,GETDATE()),
-		('Carne Molida',40,1,'20220611','B',1,1,GETDATE()),
-		('Arroz',10,3,'20221004','B',2,1,GETDATE()),
-		('Camaron',09,2,'20220723','B',2,1,GETDATE()),
-		('Pescado',09,2,'20220723','B',2,1,GETDATE())
-
 INSERT INTO [Gnrl].[tblMenuDetalles]([Menu_Id], [Ingr_Id], [MenuDe_Cantidad], [MenuDe_UsuarioCreacion], [MenuDe_FechaCreacion])
 VALUES	(1,1,2,1,GETDATE()),
 		(2,3,1,1,GETDATE()),
@@ -148,12 +140,6 @@ VALUES	(1,1,2,1,GETDATE()),
 
 
 
-INSERT INTO [Inv].[tblCompras]([Comp_Fecha], [Comp_NoOrden], [Comp_IVA], [Comp_UsuarioCreacion], [Comp_FechaCreacion])
-VALUES	('20220706','#3a46D',0,1,GETDATE()),
-		('20221026','#542z3',0,1,GETDATE()),
-		('20220613','#7a65l',5,1,GETDATE()),
-		('20220817','#8B46k',0,1,GETDATE()),
-		('20221127','#5C86j',0,1,GETDATE())
 
 --EL INSERT DE COMPRA DETALLES SE HARIA POR EL PROCEDIMIENTO ALMACENADO PARA QUE EL STOCK AUMENTE Y BAJE
 
