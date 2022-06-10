@@ -26,7 +26,7 @@ session_start();
     }else{
       $_SESSION['ValidacionError'] = false;
 
-        $_SESSION['NumOrden'] = $NumOrden;
+        $_SESSION['NumOrden'] = substr($NumOrden, 0, 5);
         $_SESSION['FechaCompra'] = $FechaCompra;
         $_SESSION['Impuesto'] = $Impuesto;
         $_SESSION['Proveedor'] = $Proveedor;
@@ -37,9 +37,11 @@ session_start();
       print $queryInsert;
       if(sqlsrv_execute($result))
       {
-        $query = "EXEC Inv.UDP_tblComprasDetalles_Recibo '".$_SESSION['NumOrden']."'";
+        $query = "EXEC Inv.UDP_tblComprasDetalles_Recibo '#".$_SESSION['NumOrden']."'";
+        PRINT $query;
         $resultado = sqlsrv_query($estadocon,$query);
         if($row = sqlsrv_fetch_array($resultado)){
+
           $_SESSION['CompraId'] = $row['ID'];
 
           $queryIngr = "EXEC Inv.UDP_tblCompraDetalles_Insert '{$_SESSION['CompraId']}',' $Ingrediente','$Precio','$Cantidad','{$_SESSION['Usua_Id']}'";

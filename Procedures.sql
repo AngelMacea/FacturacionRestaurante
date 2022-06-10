@@ -219,6 +219,13 @@ BEGIN
 	WHERE Prov.Prov_Estado = 1
 END
 GO
+CREATE PROCEDURE Gnrl.UDP_tblProveedores_MostrarId
+	@Prov_Id INT
+AS
+BEGIN
+	SELECT Prov_Id, Prov_Descripcion FROM Gnrl.tblProveedores WHERE Prov_Id = @Prov_Id
+END
+GO
 --Tabla Clientes 
 CREATE PROCEDURE Gnrl.UDP_tblClientes_Insert
     @Clie_Identidad     NVARCHAR(15),
@@ -736,13 +743,14 @@ GO
 
 CREATE PROCEDURE Inv.UDP_tblCompras_Insert
     @Comp_Fecha     DATE,
+	@Prov_Id		INT,
 	@Comp_NoOrden   NVARCHAR(6),
 	@Comp_IVA		INT,
 	@Comp_UsuarioCreacion	 INT
 AS 
 BEGIN
-    INSERT INTO Inv.tblCompras (Comp_Fecha, Comp_NoOrden, Comp_IVA, Comp_UsuarioCreacion, Comp_FechaCreacion)
-    VALUES (@Comp_Fecha, @Comp_NoOrden, @Comp_IVA, @Comp_UsuarioCreacion, CURRENT_TIMESTAMP)
+    INSERT INTO Inv.tblCompras (Comp_Fecha, Prov_Id,Comp_NoOrden, Comp_IVA, Comp_UsuarioCreacion, Comp_FechaCreacion)
+    VALUES (@Comp_Fecha, @Prov_Id,@Comp_NoOrden, @Comp_IVA, @Comp_UsuarioCreacion, CURRENT_TIMESTAMP)
 END
 GO
 CREATE PROCEDURE Inv.UDP_tblCompras_Update
@@ -844,6 +852,12 @@ BEGIN
 	WHERE CODE.CompDe_Estado = 1
 END
 GO
+CREATE PROCEDURE Inv.UDP_tblComprasDetalles_Recibo
+@CompNoOrden	NVARCHAR(6)
+AS
+BEGIN
+    SELECT Comp_Id AS ID FROM Inv.tblCompras WHERE Comp_NoOrden = @CompNoOrden
+END
 
 
 --Tabla Ventas
